@@ -1,15 +1,15 @@
 # Dự án: Website Cho Thuê Lễ Phục - Velixora
 
 ## 1. Thông tin nhóm
-- **Tên nhóm:** Nhóm 04_
+- **Tên nhóm:** Nhóm 04_Thuê lễ phục - Velixora
 - **Slogan:** "Khoác lên ánh hào quang"
 
 | Họ và Tên | MSSV | Vai trò |
 | :--- | :--- | :--- |
-| **Nguyễn Thị Kim Ngân** | 24126146 | Leader, Project Leader, UI/UX Designer, Frontend Developer (VS Code) |
-| **Lê Yến Ngân** | 24126144 | Figma, Frontend Developer (VS Code) |
-| **Nguyễn Thị Thanh Giang** | 24126049 | Frontend Developer  |
-| **Hà Kiều Khanh** | 24126095 | Frontend Developer |
+| **Nguyễn Thị Kim Ngân** | 24126146 | Leader, UI/UX Designer, Frontend Developer (VS Code) |
+| **Lê Yến Ngân** | 24126144 | Figma, UI/UX Designer, Frontend Developer |
+| **Nguyễn Thị Thanh Giang** | 24126049 | UI/UX Designer, Frontend Developer  |
+| **Hà Kiều Khanh** | 24126095 | UI/UX Designer, Frontend Developer |
 
 ## 2. Mô tả dự án
 - **Thương hiệu:** **Velixora**
