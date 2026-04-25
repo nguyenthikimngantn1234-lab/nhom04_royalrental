@@ -1,26 +1,126 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  button,
+  input,
+  select,
+  textarea {
+    appearance: none;
+    background-color: transparent;
+    border: 0;
+    outline: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
 }
+
+:root {
+  /* Colors */
+  --01-primitives-brand-50: rgba(245, 241, 255, 1);
+  --01-primitives-brand-100: rgba(236, 227, 255, 1);
+  --01-primitives-brand-200: rgba(217, 199, 255, 1);
+  --01-primitives-brand-300: rgba(195, 166, 255, 1);
+  --01-primitives-brand-400: rgba(169, 120, 255, 1);
+  --01-primitives-brand-500: rgba(142, 77, 255, 1);
+  --01-primitives-brand-600: rgba(122, 51, 242, 1);
+  --01-primitives-brand-700: rgba(102, 37, 204, 1);
+  --01-primitives-brand-800: rgba(79, 30, 153, 1);
+  --01-primitives-brand-900: rgba(55, 23, 102, 1);
+  --01-primitives-error-500: rgba(239, 68, 68, 1);
+  --01-primitives-info-500: rgba(59, 130, 246, 1);
+  --01-primitives-neutral-0: rgba(255, 255, 255, 1);
+  --01-primitives-neutral-50: rgba(248, 249, 252, 1);
+  --01-primitives-neutral-100: rgba(238, 240, 245, 1);
+  --01-primitives-neutral-200: rgba(221, 226, 235, 1);
+  --01-primitives-neutral-300: rgba(199, 207, 221, 1);
+  --01-primitives-neutral-400: rgba(170, 180, 197, 1);
+  --01-primitives-neutral-700: rgba(75, 85, 103, 1);
+  --01-primitives-neutral-800: rgba(39, 48, 67, 1);
+  --01-primitives-neutral-900: rgba(17, 24, 39, 1);
+  --01-primitives-success-500: rgba(22, 163, 74, 1);
+  --01-primitives-warning-500: rgba(245, 158, 11, 1);
+
+  /* Semantic Colors */
+  --02-semantic-color-action-ghost-hover: rgba(245, 241, 255, 1);
+  --02-semantic-color-action-primary: rgba(122, 51, 242, 1);
+  --02-semantic-color-action-primary-disabled: rgba(195, 166, 255, 1);
+  --02-semantic-color-action-primary-hover: rgba(102, 37, 204, 1);
+  --02-semantic-color-action-primary-press: rgba(79, 30, 153, 1);
+  --02-semantic-color-bg-base: rgba(255, 255, 255, 1);
+  --02-semantic-color-bg-overlay: rgba(0, 0, 0, 1);
+  --02-semantic-color-bg-subtle: rgba(248, 249, 252, 1);
+  --02-semantic-color-bg-surface: rgba(255, 255, 255, 1);
+  --02-semantic-color-border-default: rgba(221, 226, 235, 1);
+  --02-semantic-color-border-focus: rgba(142, 77, 255, 1);
+  --02-semantic-color-border-strong: rgba(199, 207, 221, 1);
+  --02-semantic-color-glass-bg: rgba(255, 255, 255, 1);
+  --02-semantic-color-glass-highlight: rgba(255, 255, 255, 1);
+  --02-semantic-color-glass-stroke: rgba(255, 255, 255, 1);
+  --02-semantic-color-state-error: rgba(239, 68, 68, 1);
+  --02-semantic-color-state-info: rgba(59, 130, 246, 1);
+  --02-semantic-color-state-success: rgba(22, 163, 74, 1);
+  --02-semantic-color-state-warning: rgba(245, 158, 11, 1);
+  --02-semantic-color-text-muted: rgba(107, 114, 128, 1);
+  --02-semantic-color-text-on-primary: rgba(255, 255, 255, 1);
+  --02-semantic-color-text-primary: rgba(17, 24, 39, 1);
+  --02-semantic-color-text-secondary: rgba(75, 85, 103, 1);
+
+  /* Component Colors */
+  --03-component-color-badge-error-bg: var(--02-semantic-color-state-error);
+  --03-component-color-badge-error-text: var(--02-semantic-color-text-on-primary);
+  --03-component-color-badge-success-bg: var(--02-semantic-color-state-success);
+  --03-component-color-badge-success-text: var(--02-semantic-color-text-primary);
+  --03-component-color-button-primary-bg: var(--02-semantic-color-action-primary);
+  --03-component-color-button-primary-bg-disabled: var(--02-semantic-color-action-primary-disabled);
+  --03-component-color-button-primary-bg-hover: var(--02-semantic-color-action-primary-hover);
+  --03-component-color-button-primary-bg-press: var(--02-semantic-color-action-primary-press);
+  --03-component-color-button-primary-text: var(--02-semantic-color-text-on-primary);
+  --03-component-color-button-secondary-bg: var(--02-semantic-color-bg-surface);
+  --03-component-color-button-secondary-border: var(--02-semantic-color-border-default);
+  --03-component-color-card-bg: var(--02-semantic-color-bg-surface);
+  --03-component-color-input-bg: var(--02-semantic-color-bg-surface);
+  --03-component-color-input-border: var(--02-semantic-color-border-default);
+  --03-component-color-input-placeholder: var(--02-semantic-color-text-muted);
+  --03-component-color-navbar-bg: var(--02-semantic-color-bg-surface);
+
+  /* Spacing & Radius */
+  --spacing-radius-radius-sm: 8px;
+  --spacing-radius-radius-md: 12px;
+  --spacing-radius-radius-lg: 16px;
+  --spacing-radius-radius-xl: 24px;
+  --spacing-radius-radius-xxl: 999px;
+  --spacing-radius-spacing-1: 4px;
+  --spacing-radius-spacing-2: 8px;
+  --spacing-radius-spacing-3: 12px;
+  --spacing-radius-spacing-4: 16px;
+  --spacing-radius-spacing-5: 20px;
+  --spacing-radius-spacing-6: 24px;
+  --spacing-radius-spacing-8: 32px;
+  --spacing-radius-spacing-10: 40px;
+  --spacing-radius-spacing-12: 48px;
+  --spacing-radius-spacing-16: 64px;
+  --spacing-radius-spacing-20: 80px;
+  --spacing-radius-spacing-24: 96px;
+
+  --animate-spin: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: none; }
+}
+
+.animate-fade-in { animation: fade-in 1s ease forwards; }
+.animate-fade-up { animation: fade-up 1s ease forwards; }
