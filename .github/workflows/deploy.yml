@@ -2,7 +2,7 @@ name: Deploy Next.js site to Pages
 
 on:
   push:
-    branches: ["main"] # Kiểm tra xem nhánh của em là main hay master để sửa nhé
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -23,11 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build with Next.js
-        run: npx next build
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./out # Đảm bảo thư mục này được tạo ra sau khi build
 
   deploy:
     environment:
