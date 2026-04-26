@@ -43,7 +43,7 @@ export default function RegisterPage() {
         <div className="w-full px-[120px] lg:px-[160px] flex flex-col gap-[16px] box-border">
 
           <div className="mb-[8px]">
-            <Image src="/images/logo.png" alt="Velixora Logo" width={120} height={75} className="object-contain" />
+            <Image src="/nhom04_royalrental/images/logo.png" alt="Velixora Logo" width={120} height={75} className="object-contain" />
           </div>
 
           <h1 className="text-[32px] font-black text-[#1e1535] uppercase m-0 leading-tight">
@@ -153,7 +153,7 @@ export default function RegisterPage() {
       </div>
 
       <div className="w-1/2 relative bg-[#F9F8FF]">
-        <Image src="/images/image-4.png" alt="Velixora Wedding Decor" fill className="object-cover" priority />
+        <Image src="/nhom04_royalrental/images/image-4.png" alt="Velixora Wedding Decor" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[#7a33f2]/10 backdrop-blur-[0.5px]"></div>
       </div>
 

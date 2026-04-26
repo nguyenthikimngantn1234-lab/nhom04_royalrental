@@ -58,7 +58,7 @@ export default function LoginPage() {
           {/* LOGO */}
           <div className="mb-[8px]">
             <Image
-              src="/images/logo.png"
+              src="/nhom04_royalrental/images/logo.png"
               alt="Velixora Logo"
               width={120}
               height={75}
@@ -163,7 +163,7 @@ export default function LoginPage() {
       {/* CỘT PHẢI (ẢNH) */}
       <div className="w-1/2 relative bg-[#F9F8FF] overflow-hidden">
         <Image
-          src="/images/image-4.png"
+          src="/nhom04_royalrental/images/image-4.png"
           alt="Wedding"
           fill
           className="object-cover"

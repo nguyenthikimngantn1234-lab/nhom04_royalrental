@@ -5,9 +5,9 @@ import Link from 'next/link'; // Bước 1: Import Link từ Next.js
 
 const categories = [
   // Bước 2: Thêm đường dẫn (slug) cho từng danh mục
-  { title: "Váy Cưới", img: "/images/Rectangle 1.png", link: "/danh-muc?cat=Váy%20Cưới" },
-  { title: "Lễ Phục Nữ", img: "/images/Rectangle 2.png", link: "/danh-muc?cat=Lễ%20Phục%20Nữ" },
-  { title: "Lễ Phục Nam", img: "/images/Rectangle 3.png", link: "/danh-muc?cat=Lễ%20Phục%20Nam" },
+  { title: "Váy Cưới", img: "/nhom04_royalrental/images/Rectangle 1.png", link: "/danh-muc?cat=Váy%20Cưới" },
+  { title: "Lễ Phục Nữ", img: "/nhom04_royalrental/images/Rectangle 2.png", link: "/danh-muc?cat=Lễ%20Phục%20Nữ" },
+  { title: "Lễ Phục Nam", img: "/nhom04_royalrental/images/Rectangle 3.png", link: "/danh-muc?cat=Lễ%20Phục%20Nam" },
 ];
 
 

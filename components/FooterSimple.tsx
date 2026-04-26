@@ -31,7 +31,7 @@ export const FooterSimple = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
           <Link href="/">
             <img
-              src="/images/logo.png"
+              src="/nhom04_royalrental/images/logo.png"
               alt="Velixora Logo"
               style={{
                 width: '180px',
@@ -110,9 +110,9 @@ export const FooterSimple = () => {
         }}>
           <p style={{ margin: 0 }}>© 2026 Velixora. All Rights Reserved</p>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <img src="/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
-            <img src="/images/Logo (2).png" alt="Napas" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
-            <img src="/images/Logo (3).png" alt="MoMo" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
+            <img src="/nhom04_royalrental/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
+            <img src="/nhom04_royalrental/images/Logo (2).png" alt="Napas" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
+            <img src="/nhom04_royalrental/images/Logo (3).png" alt="MoMo" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
           </div>
         </div>
       </div>

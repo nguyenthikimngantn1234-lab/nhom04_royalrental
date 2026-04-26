@@ -10,14 +10,14 @@ const products = [
     oldPrice: "2.000.000 đ",
     discount: "-20%",
     tag: "NEW",
-    img: "/images/ProductImages.png",
+    img: "/nhom04_royalrental/images/ProductImages.png",
   },
   {
     id: 2,
     name: "Váy Cưới Đuôi Cá",
     price: "2.400.000 đ",
     tag: "NEW",
-    img: "/images/ProductImages-1.png",
+    img: "/nhom04_royalrental/images/ProductImages-1.png",
   },
   {
     id: 17,
@@ -26,7 +26,7 @@ const products = [
     oldPrice: "2.000.000 đ",
     discount: "-20%",
     tag: "HOT",
-    img: "/images/ProductImages-2.png",
+    img: "/nhom04_royalrental/images/ProductImages-2.png",
   },
   {
     id: 18,
@@ -34,13 +34,13 @@ const products = [
     price: "850.000 đ",
     oldPrice: "1.000.000 đ",
     discount: "-15%",
-    img: "/images/ProductImages-3.png",
+    img: "/nhom04_royalrental/images/ProductImages-3.png",
   },
   {
     id: 10,
     name: "Áo Dài Tơ Tằm Be",
     price: "250.000 đ",
-    img: "/images/ProductImages-4.png",
+    img: "/nhom04_royalrental/images/ProductImages-4.png",
   },
   {
     id: 11,
@@ -49,7 +49,7 @@ const products = [
     oldPrice: "250.000 đ",
     discount: "-20%",
     tag: "NEW",
-    img: "/images/ProductImages-5.png",
+    img: "/nhom04_royalrental/images/ProductImages-5.png",
   },
   {
     id: 12,
@@ -57,7 +57,7 @@ const products = [
     price: "200.000 đ",
     oldPrice: "240.000 đ",
     discount: "-20%",
-    img: "/images/ProductImages-6.png",
+    img: "/nhom04_royalrental/images/ProductImages-6.png",
   },
   {
     id: 16,
@@ -66,7 +66,7 @@ const products = [
     oldPrice: "2.000.000 đ",
     discount: "-20%",
     tag: "HOT",
-    img: "/images/ProductImages-7.png",
+    img: "/nhom04_royalrental/images/ProductImages-7.png",
   }
 ];
 

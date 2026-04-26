@@ -15,7 +15,7 @@ const TeamMemberCard = ({ name, mssv, role, image }: { name: string, mssv: strin
     {/* Ô chứa ảnh đại diện 200x300 */}
     <div className="w-[200px] h-full bg-[#F9FAFB] flex-shrink-0 relative overflow-hidden">
        <img
-         src={`/images/${image}`}
+         src={`/nhom04_royalrental/images/${image}`}
          alt={name}
          className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-110"
        />
@@ -60,13 +60,13 @@ export default function AboutPage() {
 
           <div className="flex justify-center items-center gap-[48px] mb-[200px]">
              <div style={{ width: '160px', height: '214px' }} className="rounded-[24px] overflow-hidden translate-y-8 shadow-lg">
-                <img src="/images/image-3.png" className="w-full h-full object-cover" alt="Fashion 3" />
+                <img src="/nhom04_royalrental/images/image-3.png" className="w-full h-full object-cover" alt="Fashion 3" />
              </div>
              <div style={{ width: '240px', height: '321px' }} className="rounded-[32px] overflow-hidden z-10 shadow-2xl">
-                <img src="/images/image-1.png" className="w-full h-full object-cover" alt="Fashion 1" />
+                <img src="/nhom04_royalrental/images/image-1.png" className="w-full h-full object-cover" alt="Fashion 1" />
              </div>
              <div style={{ width: '160px', height: '214px' }} className="rounded-[24px] overflow-hidden translate-y-8 shadow-lg">
-                <img src="/images/image-2.png" className="w-full h-full object-cover" alt="Fashion 2" />
+                <img src="/nhom04_royalrental/images/image-2.png" className="w-full h-full object-cover" alt="Fashion 2" />
              </div>
           </div>
 

@@ -61,7 +61,7 @@ export default function NotFound() {
             <div className="relative w-[580px] h-[488px] flex items-center justify-center">
               {/* Ảnh lỗi404.png hiện trực tiếp không cần khung viền */}
               <img 
-                src="/images/404.png" 
+                src="/nhom04_royalrental/images/404.png" 
                 alt="Velixora 404" 
                 className="w-full h-auto object-contain relative z-20"
               />

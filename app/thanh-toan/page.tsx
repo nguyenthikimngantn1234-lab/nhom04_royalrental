@@ -237,7 +237,14 @@ export default function CheckoutPage() {
               <div className="space-y-8 mb-10">
                 {cartItems.map((item, idx) => (
                   <div key={idx} className="flex gap-[16px] items-start">
-                    <img src={item.image} style={{ width: '90px', height: '120px' }} className="object-cover rounded-[8px] border shadow-sm flex-shrink-0" alt="" />
+                    <img 
+                      src={item.image.startsWith('http') || item.image.startsWith('/nhom04_royalrental') 
+                        ? item.image 
+                        : `/nhom04_royalrental${item.image}`} 
+                      style={{ width: '90px', height: '120px' }} 
+                      className="object-cover rounded-[8px] border shadow-sm flex-shrink-0" 
+                      alt="" 
+                    />
                     <div className="flex-1 space-y-2 pt-1">
                       <p className="font-bold text-[17px] text-[#1e1535] leading-tight m-0">{item.title}</p>
                       <p className="text-[14px] text-gray-500 m-0">Size: {item.size} - {item.qty} bộ - {item.days || 3} ngày</p>

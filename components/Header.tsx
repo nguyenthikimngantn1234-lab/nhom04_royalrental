@@ -128,7 +128,7 @@ export const Header = () => {
               <img
                 style={{ height: '75px', width: 'auto', objectFit: 'contain', cursor: 'pointer', display: 'block' }}
                 alt="Velixora Logo"
-                src="/images/Logo.png"
+                src="/nhom04_royalrental/images/Logo.png"
               />
             </Link>
           </div>

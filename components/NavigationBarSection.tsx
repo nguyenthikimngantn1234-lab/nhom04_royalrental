@@ -32,7 +32,7 @@ export const NavigationBarSection = () => {
       }}>
         {/* Ảnh Background tràn viền */}
         <img
-          src="/images/Banner.png"  
+          src="/nhom04_royalrental/images/Banner.png"  
           alt="Hero Background"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />

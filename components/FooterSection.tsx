@@ -76,7 +76,7 @@ export const FooterSection = () => {
         {/* Cột 1: Logo & Mạng xã hội */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
           <Link href="/">
-            <img src="/images/Logo.png" alt="Velixora Logo" style={{ width: '180px', height: 'auto', cursor: 'pointer' }} />
+            <img src="/nhom04_royalrental/images/Logo.png" alt="Velixora Logo" style={{ width: '180px', height: 'auto', cursor: 'pointer' }} />
           </Link>
           <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: '1.8', margin: 0 }}>
             Velixora tự hào mang đến dịch vụ cho thuê lễ phục cao cấp, giúp bạn tỏa sáng trong mọi khoảnh khắc quan trọng nhất của cuộc đời.
@@ -136,9 +136,9 @@ export const FooterSection = () => {
           <p style={{ margin: 0 }}>© 2026 Velixora. All Rights Reserved</p>
          
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <img src="/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
-            <img src="/images/Logo (2).png" alt="Napas" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
-            <img src="/images/Logo (3).png" alt="MoMo" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
+            <img src="/nhom04_royalrental/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
+            <img src="/nhom04_royalrental/images/Logo (2).png" alt="Napas" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
+            <img src="/nhom04_royalrental/images/Logo (3).png" alt="MoMo" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
           </div>
         </div>
       </div>

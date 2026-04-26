@@ -15,7 +15,7 @@ export const BridalTrendPromoSection = () => {
         {/* 2. KHUNG ẢNH BÊN TRÁI */}
         <div className="w-[680px] h-[680px] flex-shrink-0 rounded-[16px] overflow-hidden shadow-sm transition-transform duration-700 hover:scale-[1.01]">
           <img
-            src="/images/anhsao.png"
+            src="/nhom04_royalrental/images/anhsao.png"
             className="w-full h-full object-cover"
             alt="BST Vũ Điệu Ánh Sao"
           />
