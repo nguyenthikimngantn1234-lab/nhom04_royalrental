@@ -1,0 +1,337 @@
+"use client";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Heart, ShoppingBag, X, Home } from 'lucide-react';
+import { FooterSimple } from "@/components/FooterSimple";
+
+
+// DỮ LIỆU TÌM KIẾM ĐÃ ĐƯỢC GẮN ID ĐỂ TRUY CẬP THẲNG TRANG SẢN PHẨM
+const searchProducts = [
+  { id: 1, name: "Váy Cưới Xòe Cúp Ngực" },
+  { id: 2, name: "Váy Cưới Đuôi Cá" },
+  { id: 3, name: "Váy Cưới Phom Ngắn" },
+  { id: 4, name: "Váy Cưới Cổ Yếm" },
+  { id: 5, name: "Váy Cưới Công Chúa" },
+  { id: 10, name: "Áo Dài Tơ Tằm Be" },
+  { id: 11, name: "Áo Dài Tơ Tằm Tím" },
+  { id: 12, name: "Áo Tú Xuân Tím" },
+  { id: 16, name: "Tuxedo Đen" },
+  { id: 17, name: "Vest Nâu Cafe Kẻ Sọc" },
+  { id: 18, name: "Creamy White Suit" },
+  { id: 19, name: "Navy Business Suit" },
+  { id: 22, name: "Cà vạt Silk Cao Cấp" },
+  { id: 28, name: "Bộ Trang Sức Eternal" },
+];
+
+
+// Hàm bôi vàng từ khóa trùng khớp
+const highlightText = (text: string, highlight: string) => {
+  if (!highlight.trim()) return <span style={{ color: "#1e1535" }}>{text}</span>;
+  const regex = new RegExp(`(${highlight})`, "gi");
+  const parts = text.split(regex);
+  return (
+    <span>
+      {parts.map((part, i) =>
+        regex.test(part) ? (
+          <span key={i} style={{ backgroundColor: "#fef08a", color: "#1e1535", fontWeight: "bold", padding: "2px 4px", borderRadius: "4px" }}>
+            {part}
+          </span>
+        ) : (
+          <span key={i} style={{ color: "#1e1535" }}>{part}</span>
+        )
+      )}
+    </span>
+  );
+};
+
+
+export const Header = () => {
+  const router = useRouter();
+  const [cartCount, setCartCount] = useState(0);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+
+  useEffect(() => {
+    const updateCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      setCartCount(cart.length);
+    };
+
+
+    updateCount();
+    window.addEventListener('storage', updateCount);
+    return () => window.removeEventListener('storage', updateCount);
+  }, []);
+
+
+  const handleProductClick = (productId: number) => {
+    router.push(`/san-pham/${productId}`);
+    setIsSearchOpen(false);
+    setSearchQuery("");
+  };
+
+
+  const handleSearch = (query: string) => {
+    const finalQuery = query || searchQuery;
+    if (finalQuery.trim()) {
+      router.push(`/danh-muc?search=${encodeURIComponent(finalQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
+
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+      setSearchQuery("");
+    }
+  }, [isSearchOpen]);
+
+
+  const filteredProducts = searchQuery.trim()
+    ? searchProducts.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    : [];
+
+
+  return (
+    <>
+      <header style={{
+        width: '100%',
+        height: '107px',
+        backgroundColor: 'white',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 1000,
+        borderBottom: '1px solid #f0f0f0',
+        fontFamily: "'Inter', sans-serif"
+      }}>
+        <div style={{
+          maxWidth: '1440px',
+          height: '100%',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 80px',
+          boxSizing: 'border-box',
+        }}>
+         
+          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+            <Link href="/">
+              <img
+                style={{ height: '75px', width: 'auto', objectFit: 'contain', cursor: 'pointer', display: 'block' }}
+                alt="Velixora Logo"
+                src="/images/Logo.png"
+              />
+            </Link>
+          </div>
+
+
+          <nav>
+            <ul style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', listStyle: 'none', margin: 0, padding: 0 }}>
+              <li><Link href="/danh-muc?cat=Váy Cưới" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Váy Cưới</Link></li>
+              <li><Link href="/danh-muc?cat=Lễ Phục Nữ" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Lễ Phục Nữ</Link></li>
+              <li><Link href="/danh-muc?cat=Lễ Phục Nam" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Lễ Phục Nam</Link></li>
+              <li><Link href="/danh-muc?cat=Phụ Kiện" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Phụ Kiện</Link></li>
+              <li><Link href="/lien-he" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Liên Hệ</Link></li>
+            </ul>
+          </nav>
+
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', color: '#1e1535' }}>
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                style={{ color: '#7a33f2' }}
+                className="hover:scale-110 transition-all cursor-pointer bg-transparent border-none p-0"
+              >
+                <Search size={24} strokeWidth={2.5} />
+              </button>
+             
+              <button className="hover:text-[#7a33f2] transition-all cursor-pointer bg-transparent border-none p-0">
+                <Heart size={24} />
+              </button>
+
+
+              <Link href="/gio-hang" className="relative hover:text-[#7a33f2] transition-all cursor-pointer text-inherit no-underline">
+                <ShoppingBag size={24} />
+                {cartCount > 0 && (
+                  <span style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: '#7a33f2', color: 'white', fontSize: '10px', fontWeight: 'bold', width: '18px', height: '18px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+
+
+            <Link href="/dang-nhap" style={{ textDecoration: 'none' }}>
+              <button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '16px 35px', borderRadius: '12px', border: 'none', fontWeight: 'bold', fontSize: '16px', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 4px 15px rgba(122, 51, 242, 0.2)' }}>
+                Đăng Nhập
+              </button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+
+      {/* GIAO DIỆN TÌM KIẾM OVERLAY VỚI BỐ CỤC MỚI */}
+      <AnimatePresence>
+        {isSearchOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            style={{
+              position: 'fixed', inset: 0, backgroundColor: '#ffffff', zIndex: 2000,
+              display: 'flex', flexDirection: 'column',
+              fontFamily: "'Times New Roman', Times, serif",
+              overflowY: 'auto'
+            }}
+          >
+            <div style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 80px 80px', position: 'relative' }}>
+             
+              <div style={{ width: '100%', maxWidth: '1440px', display: 'flex', alignItems: 'center', gap: '8px', color: '#1e1535', fontSize: '14px', fontFamily: "'Inter', sans-serif", textTransform: 'uppercase' }}>
+                <Home size={18} strokeWidth={2} /> <span style={{ fontSize: '12px' }}>&gt;</span> <span style={{ fontWeight: '500' }}>TÌM KIẾM</span>
+              </div>
+
+
+              <button
+                onClick={() => setIsSearchOpen(false)}
+                style={{ position: 'absolute', top: '40px', right: '80px', cursor: 'pointer', background: 'none', border: 'none' }}
+                className="hover:scale-110 transition-transform"
+              >
+                <X size={40} color="#9ca3af" />
+              </button>
+
+
+              <div style={{ width: '100%', maxWidth: '850px', textAlign: 'center', marginTop: '20px' }}>
+               
+                <h2 style={{ fontSize: '40px', fontWeight: 900, textTransform: 'uppercase', color: '#7a33f2', margin: '0 0 8px 0' }}>
+                  TÌM KIẾM BỘ SƯU TẬP
+                </h2>
+                <p style={{ fontSize: '18px', color: '#6b7280', marginBottom: '40px' }}>Tìm trang phục hoàn hảo cho dịp đặc biệt của bạn</p>
+
+
+                <div style={{ position: 'relative', width: '100%', maxWidth: '750px', margin: '0 auto', marginBottom: '40px' }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center',
+                    backgroundColor: '#FBFBFF', border: '1px solid #EEEEFF',
+                    borderRadius: '12px', padding: '16px 24px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}>
+                    <Search size={24} color="#7a33f2" style={{ flexShrink: 0, cursor: 'pointer' }} onClick={() => handleSearch(searchQuery)} />
+                    <input
+                      autoFocus
+                      type="text"
+                      placeholder="Tìm kiếm váy cưới, áo dài..."
+                      style={{ width: '100%', fontSize: '18px', border: 'none', outline: 'none', background: 'transparent', color: '#1e1535', marginLeft: '16px', fontFamily: "'Times New Roman', Times, serif" }}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleSearch(searchQuery);
+                      }}
+                    />
+                  </div>
+
+
+                  {searchQuery && filteredProducts.length > 0 && (
+                    <div style={{
+                      position: 'absolute', top: '110%', left: 0, width: '100%',
+                      backgroundColor: '#ffffff',
+                      borderRadius: '12px', border: '1px solid #EEEEFF',
+                      boxShadow: '0 20px 50px rgba(0,0,0,0.15)',
+                      padding: '8px 0', zIndex: 9999, textAlign: 'left', overflow: 'hidden'
+                    }}>
+                      {filteredProducts.map((p, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => handleProductClick(p.id)}
+                          style={{ padding: '16px 24px', cursor: 'pointer', borderBottom: '1px solid #f9fafb', fontSize: '18px' }}
+                          className="hover:bg-[#F9F8FF] transition-colors"
+                        >
+                          {highlightText(p.name, searchQuery)}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+
+                <div style={{ marginTop: '80px' }}>
+                  <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e1535', marginBottom: '16px' }}>Tìm kiếm nhiều nhất:</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px', marginBottom: '48px' }}>
+                   
+                    {/* ĐÃ FIX: GÁN ID TỪNG SẢN PHẨM VÀ GỌI HÀM handleProductClick ĐỂ BAY THẲNG VÀO TRANG SẢN PHẨM */}
+                    {[
+                      { id: 2, name: "Váy Cưới Đuôi Cá" },
+                      { id: 11, name: "Áo Dài Tơ Tằm Tím" },
+                      { id: 16, name: "Tuxedo Đen" },
+                      { id: 22, name: "Cà vạt Silk Cao Cấp" },
+                      { id: 28, name: "Bộ Trang Sức Eternal" }
+                    ].map((tag) => (
+                      <button
+                        key={tag.id}
+                        onClick={() => handleProductClick(tag.id)}
+                        style={{
+                          padding: '10px 20px', backgroundColor: 'white',
+                          border: '1px solid #1e1535', color: '#1e1535',
+                          borderRadius: '8px',
+                          fontWeight: 'bold', fontSize: '16px', cursor: 'pointer',
+                          transition: 'all 0.2s', fontFamily: "'Times New Roman', Times, serif"
+                        }}
+                        className="hover:border-[#7a33f2] hover:text-[#7a33f2] shadow-sm"
+                      >
+                        {tag.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+
+                <p style={{ fontSize: '20px', fontWeight: 'bold', color: '#1e1535', marginBottom: '24px' }}>Hoặc duyệt theo danh mục</p>
+                <div style={{ display: 'flex', gap: '16px', width: '100%', justifyContent: 'center' }}>
+                  {["Lễ Phục Nam", "Lễ Phục Nữ", "Váy Cưới", "Phụ Kiện"].map((cat) => (
+                    <div
+                      key={cat}
+                      onClick={() => {
+                        router.push(`/danh-muc?cat=${encodeURIComponent(cat)}`);
+                        setIsSearchOpen(false);
+                      }}
+                      style={{
+                        flex: 1, padding: '20px 10px', backgroundColor: 'white',
+                        border: '1px solid #1e1535', color: '#1e1535',
+                        borderRadius: '8px',
+                        fontWeight: 'bold', fontSize: '18px', cursor: 'pointer',
+                        textAlign: 'center', transition: 'all 0.2s'
+                      }}
+                      className="hover:border-[#7a33f2] hover:text-[#7a33f2] hover:-translate-y-1 shadow-sm"
+                    >
+                      {cat}
+                    </div>
+                  ))}
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div style={{ width: '100%', flexShrink: 0 }}>
+              <FooterSimple />
+            </div>
+
+
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
