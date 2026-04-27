@@ -6,16 +6,17 @@ import { FooterSimple } from "@/components/FooterSimple";
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
+
 // --- Component phụ giữ nguyên 100% logic của Ngân ---
 const ContactInput = ({ label, placeholder, name, type = "text", required = false }: any) => (
   <div className="flex flex-col w-full" style={{ marginBottom: '32px' }}>
     <label className="text-[22px] font-bold text-[#1e1535]" style={{ marginBottom: "12px", display: "block" }}>
       {label} {required && <span className="text-[#FF4D4D] font-bold">*</span>}
     </label>
-    <input 
+    <input
       name={name}
-      type={type} 
-      placeholder={placeholder} 
+      type={type}
+      placeholder={placeholder}
       className="bg-[#FBFBFF] border border-[#EEEEFF] rounded-[8px] px-4 text-[16px] text-[#6B7280] outline-none focus:border-[#7a33f2] focus:ring-1 focus:ring-[#7a33f2]/20 transition-all shadow-sm"
       style={{ width: '100%', height: '56px' , padding: '0 16px'}}
       required={required}
@@ -23,17 +24,18 @@ const ContactInput = ({ label, placeholder, name, type = "text", required = fals
   </div>
 );
 
+
 const ContactTextarea = ({ label, placeholder, name, required = false }: any) => (
   <div className="flex flex-col w-full" style={{ marginBottom: '12px' }}>
     <label className="text-[22px] font-bold text-[#1e1535]" style={{ marginBottom: "12px", display: "block" }}>
       {label} {required && <span className="text-[#FF4D4D] font-bold">*</span>}
     </label>
-    <textarea 
+    <textarea
       name={name}
-      placeholder={placeholder} 
+      placeholder={placeholder}
       className="bg-[#FBFBFF] border border-[#EEEEFF] rounded-[8px] px-4 py-4 text-[16px] text-[#6B7280] placeholder:text-[#6B7280] placeholder:text-[16px] outline-none focus:border-[#7a33f2] focus:ring-1 focus:ring-[#7a33f2]/20 transition-all resize-none shadow-sm"
-      style={{ 
-        width: '100%', 
+      style={{
+        width: '100%',
         height: '120px',
         padding: '16px',
         fontFamily: "'Be Vietnam Pro', sans-serif"
@@ -42,6 +44,7 @@ const ContactTextarea = ({ label, placeholder, name, required = false }: any) =>
     />
   </div>
 );
+
 
 const InfoCard = ({ title, detail }: { title: string; detail: React.ReactNode }) => (
   <div className="flex flex-col gap-4 contact-info-card">
@@ -52,8 +55,10 @@ const InfoCard = ({ title, detail }: { title: string; detail: React.ReactNode })
   </div>
 );
 
+
 export default function ContactPage() {
   const router = useRouter();
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,15 +77,17 @@ export default function ContactPage() {
     (e.target as HTMLFormElement).reset();
   };
 
+
   return (
     <>
       <Header />
-      
+     
       {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG SỬA LOGIC CỦA NGÂN */}
       <style jsx global>{`
         .contact-container-px { padding-left: 80px; padding-right: 80px; }
         .contact-info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
         .contact-form-flex { display: flex; justify-content: space-between; align-items: start; gap: 48px; }
+
 
         /* Mobile */
         @media (max-width: 767px) {
@@ -95,6 +102,7 @@ export default function ContactPage() {
           .contact-info-card div { font-size: 16px !important; }
         }
 
+
         /* Tablet */
         @media (min-width: 768px) and (max-width: 1279px) {
           .contact-container-px { padding-left: 40px !important; padding-right: 40px !important; }
@@ -106,8 +114,9 @@ export default function ContactPage() {
         }
       `}</style>
 
+
       <main className="w-full bg-white font-['Be_Vietnam_Pro'] overflow-x-hidden mt-[107px]">
-        
+       
         {/* SECTION 1: BREADCRUMB */}
         <div className="w-full bg-[#F5F3FF] h-[56px] flex items-center border-b border-[#E5E0FF]">
           <div className="max-w-[1440px] w-full mx-auto contact-container-px">
@@ -121,18 +130,20 @@ export default function ContactPage() {
           </div>
         </div>
 
+
         {/* SECTION 2: TIÊU ĐỀ */}
         <div className="w-full bg-white contact-section-height h-[205px] flex items-center">
           <div className="max-w-[1440px] w-full mx-auto contact-container-px">
             <div className="max-w-[800px]">
               <h1 className="contact-title-h1 text-[54px] font-black text-[#1e1535] leading-none mb-5 uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>LIÊN HỆ</h1>
               <p className="text-[20px] text-[#6B7280] leading-relaxed">
-                Bạn có câu hỏi về dịch vụ cho thuê của chúng tôi? Chúng tôi rất muốn nghe từ bạn. 
+                Bạn có câu hỏi về dịch vụ cho thuê của chúng tôi? Chúng tôi rất muốn nghe từ bạn.
                 Hãy liên hệ và cùng chúng tôi tạo nên dịp đặc biệt khó quên.
               </p>
             </div>
           </div>
         </div>
+
 
         {/* SECTION 3: THÔNG TIN ĐỊA CHỈ */}
         <div className="w-full bg-[#F5F3FF] contact-section-height h-[205px] flex items-center border-y border-[#E5E0FF]">
@@ -149,16 +160,17 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* SECTION 4: FORM & ẢNH */}
+
+        {/* SECTION 4: FORM & GOOGLE MAP */}
         <div className="w-full bg-white py-28">
           <div className="max-w-[1440px] mx-auto contact-container-px contact-form-flex">
-            
+           
             <div style={{ width: '584px' }} className="flex flex-col contact-form-col">
-              <h2 className="text-[48px] font-black text-[#1e1535] mb-12 leading-tight uppercase" 
+              <h2 className="text-[48px] font-black text-[#1e1535] mb-12 leading-tight uppercase"
               style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                 Gửi liên hệ
                 </h2>
-              
+             
               <form onSubmit={handleSubmit} className="flex flex-col w-full">
                 <div className="flex flex-col">
                   <ContactInput label="Họ và tên" placeholder="Nhập họ và tên" name="name" required={true} />
@@ -167,11 +179,11 @@ export default function ContactPage() {
                   <ContactInput label="Chủ đề" placeholder="Bộ sưu tập bạn đang quan tâm?" name="subject" required={true} />
                   <ContactTextarea label="Nội dung" placeholder="Cho chúng tôi biết thêm về yêu cầu của bạn" name="message" required={true} />
                 </div>
-                
-                <button 
-                  type="submit" 
-                  style={{ 
-                    background: '#7a33f2', 
+               
+                <button
+                  type="submit"
+                  style={{
+                    background: '#7a33f2',
                     height: '60px',
                     borderRadius: '8px',
                     boxShadow: '0 8px 20px rgba(122, 51, 242, 0.25)',
@@ -189,22 +201,32 @@ export default function ContactPage() {
               </form>
             </div>
 
-            <div 
-              style={{ width: '580px', height: '740px' }} 
+
+            {/* --- ĐÂY LÀ PHẦN ĐÃ THAY BẰNG GOOGLE MAPS --- */}
+            <div
+              style={{ width: '580px', height: '740px' }}
               className="contact-image-col rounded-[24px] overflow-hidden shadow-2xl border border-[#F5F3FF] mt-[14px]"
             >
-              <img 
-                src="/nhom04_royalrental/images/lienhe.png" 
-                alt="Velixora Contact" 
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
-              />
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.279093863485!2d106.69677027581691!3d10.782245389366405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f3692af023d%3A0x44bf485e135be368!2sNotre%20Dame%20Cathedral%20of%20Saigon!5e0!3m2!1sen!2s!4v1690000000000!5m2!1sen!2s"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
+           
           </div>
         </div>
 
+
       </main>
+
 
       <FooterSimple />
     </>
   );
 }
+
