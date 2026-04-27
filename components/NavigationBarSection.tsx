@@ -19,7 +19,7 @@ export const NavigationBarSection = () => {
       {/* 1. GỌI HEADER VÀO ĐÂY */}
       <Header />
 
-      {/* --- PHẦN ĐIỀU KHIỂN HIỂN THỊ (QUYẾT ĐỊNH SỐNG CHẾT ĐÂY NGÂN ƠI) --- */}
+      {/* --- PHẦN ĐIỀU KHIỂN HIỂN THỊ --- */}
       <style jsx global>{`
         /* Đảm bảo tất cả nội dung trong Section này dùng font Montserrat */
         .navigation-section-container * {
@@ -47,7 +47,7 @@ export const NavigationBarSection = () => {
       `}</style>
 
       {/* ------------------------------------------------------------
-          BLOCK 1: MOBILE (Dưới 768px) - THÊM MỚI
+          BLOCK 1: MOBILE (Dưới 768px)
       ------------------------------------------------------------ */}
       <section className="section-mobile navigation-section-container" style={{
         display: 'none', width: '100%', height: '550px', position: 'relative',
@@ -57,7 +57,10 @@ export const NavigationBarSection = () => {
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.3)' }}></div>
         <div style={{ position: 'relative', zIndex: 10, color: 'white', textAlign: 'center' }}>
           <p style={{ fontSize: '13px', letterSpacing: '0.1em', marginBottom: '10px', textTransform: 'uppercase' }}>Dịch vụ lễ phục cao cấp</p>
-          <h1 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '20px', lineHeight: '1.2' }}>Tỏa Sáng<br />Từng Khoảnh Khắc</h1>
+          {/* ĐÃ CỐ ĐỊNH DÒNG CHO MOBILE */}
+          <h1 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '20px', lineHeight: '1.2', color: 'white' }}>
+            Tỏa Sáng<br />Từng Khoảnh Khắc
+          </h1>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
             <Link href="#best-seller" style={{ width: '100%', maxWidth: '200px' }}><button style={{ backgroundColor: '#7a33f2', color: 'white', width: '100%', padding: '12px', borderRadius: '8px', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>KHÁM PHÁ →</button></Link>
           </div>
@@ -65,7 +68,7 @@ export const NavigationBarSection = () => {
       </section>
 
       {/* ------------------------------------------------------------
-          BLOCK 2: TABLET (768px - 1023px) - THÊM MỚI
+          BLOCK 2: TABLET (768px - 1023px)
       ------------------------------------------------------------ */}
       <section className="section-tablet navigation-section-container" style={{
         display: 'none', width: '100%', height: '650px', position: 'relative',
@@ -75,7 +78,10 @@ export const NavigationBarSection = () => {
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.25)' }}></div>
         <div style={{ position: 'relative', zIndex: 10, color: 'white', textAlign: 'left', maxWidth: '600px' }}>
           <p style={{ fontSize: '16px', letterSpacing: '0.15em', marginBottom: '14px', textTransform: 'uppercase' }}>Dịch vụ cho thuê lễ phục cao cấp</p>
-          <h1 style={{ fontSize: '60px', fontWeight: 'bold', marginBottom: '24px', lineHeight: '1.1' }}>Tỏa Sáng<br />Từng Khoảnh Khắc</h1>
+          {/* ĐÃ CỐ ĐỊNH DÒNG CHO TABLET */}
+          <h1 style={{ fontSize: '60px', fontWeight: 'bold', marginBottom: '24px', lineHeight: '1.1', color: 'white' }}>
+            Tỏa Sáng<br />Từng Khoảnh Khắc
+          </h1>
           <div style={{ display: 'flex', gap: '20px' }}>
             <Link href="#best-seller"><button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '15px 35px', borderRadius: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>KHÁM PHÁ →</button></Link>
           </div>
@@ -101,7 +107,7 @@ export const NavigationBarSection = () => {
         />
         
         {/* Lớp phủ tối nhẹ */}
-        <div className="absolute inset-0 bg-black/20" style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.2)' }}></div>
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.2)' }}></div>
 
 
         {/* Khung chứa nội dung */}
@@ -117,12 +123,13 @@ export const NavigationBarSection = () => {
           alignItems: 'center'
         }}>
           
-          <div style={{ maxWidth: '750px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', color: 'white' }}>
+          <div style={{ maxWidth: '850px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', color: 'white' }}>
             <p style={{ fontSize: '18px', fontWeight: 500, marginBottom: '16px', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.9 }}>
               Dịch vụ cho thuê lễ phục cao cấp
             </p>
-            <h1 style={{ fontSize: '80px', fontWeight: 'bold', marginBottom: '24px', lineHeight: '1.1', textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>
-              Tỏa Sáng<br />Từng Khoảnh Khắc
+            {/* ĐÃ SỬA: Chữ Khắc đã lên cùng hàng với Từng Khoảnh và tăng maxWidth khung chứa */}
+            <h1 style={{ fontSize: '80px', fontWeight: 'bold', marginBottom: '24px', lineHeight: '1.1', textShadow: '0 2px 10px rgba(0,0,0,0.2)', color: 'white', whiteSpace: 'nowrap' }}>
+              Tỏa Sáng<br /><span style={{ whiteSpace: 'normal' }}>Từng Khoảnh Khắc</span>
             </h1>
             <p style={{ fontSize: '22px', marginBottom: '44px', lineHeight: '1.6', fontWeight: 300, maxWidth: '550px', opacity: 0.95 }}>
               Khám phá bộ sưu tập váy cưới, vest, đầm dạ hội và áo dài tuyệt đẹp của chúng tôi.

@@ -39,8 +39,9 @@ export const BridalTrendPromoSection = () => {
         @media (min-width: 1280px) {
           .promo-section { flex-direction: row; gap: 80px; padding: 80px; }
           .promo-image-box { width: 680px; height: 680px; }
-          .promo-content-box { width: 552px; height: 250px; }
-          .promo-title { font-size: 68px; }
+          /* ĐÃ SỬA: Tăng chiều rộng content box để chữ Sao không bị nhảy dòng */
+          .promo-content-box { width: 700px; height: 250px; }
+          .promo-title { font-size: 68px; white-space: nowrap; }
         }
       `}</style>
 
@@ -67,6 +68,7 @@ export const BridalTrendPromoSection = () => {
               <span className="text-[#7a33f2] font-semibold tracking-[0.4em] text-[14px] uppercase leading-none">
                 BST
               </span>
+              {/* ĐÃ ĐẢM BẢO HIỂN THỊ TRÊN 1 DÒNG */}
               <h2 className="promo-title font-extrabold text-[#1e1535] leading-[1] tracking-tight">
                 Vũ Điệu <span className="text-[#8b5cf6]">Ánh Sao</span>
               </h2>
@@ -88,7 +90,6 @@ export const BridalTrendPromoSection = () => {
                   border: 'none',
                   fontWeight: 'bold',
                   fontSize: '16px',
-                  /* ĐÃ CẬP NHẬT: Đảm bảo nút bấm dùng đúng font của nhóm */
                   fontFamily: "var(--font-montserrat), sans-serif",
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
