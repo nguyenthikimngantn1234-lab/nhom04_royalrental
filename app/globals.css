@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  /* 1. ÉP TẤT CẢ MỌI THỨ DÙNG FONT MONTSERRAT ĐỒNG NHẤT */
+  *, html, body, button, input, select, textarea {
+    font-family: var(--font-montserrat), sans-serif !important;
+  }
+
   button,
   input,
   select,
@@ -11,6 +16,13 @@
     background-color: transparent;
     border: 0;
     outline: none;
+  }
+
+  /* 2. ĐỊNH NGHĨA TIÊU ĐỀ SANG TRỌNG */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--02-semantic-color-text-primary);
   }
 }
 
@@ -21,7 +33,7 @@
 }
 
 :root {
-  /* Colors */
+  /* HỆ THỐNG MÀU PRIMITIVES (MÀU GỐC) */
   --01-primitives-brand-50: rgba(245, 241, 255, 1);
   --01-primitives-brand-100: rgba(236, 227, 255, 1);
   --01-primitives-brand-200: rgba(217, 199, 255, 1);
@@ -46,36 +58,36 @@
   --01-primitives-success-500: rgba(22, 163, 74, 1);
   --01-primitives-warning-500: rgba(245, 158, 11, 1);
 
-  /* Semantic Colors */
-  --02-semantic-color-action-ghost-hover: rgba(245, 241, 255, 1);
-  --02-semantic-color-action-primary: rgba(122, 51, 242, 1);
-  --02-semantic-color-action-primary-disabled: rgba(195, 166, 255, 1);
-  --02-semantic-color-action-primary-hover: rgba(102, 37, 204, 1);
-  --02-semantic-color-action-primary-press: rgba(79, 30, 153, 1);
-  --02-semantic-color-bg-base: rgba(255, 255, 255, 1);
-  --02-semantic-color-bg-overlay: rgba(0, 0, 0, 1);
-  --02-semantic-color-bg-subtle: rgba(248, 249, 252, 1);
-  --02-semantic-color-bg-surface: rgba(255, 255, 255, 1);
-  --02-semantic-color-border-default: rgba(221, 226, 235, 1);
-  --02-semantic-color-border-focus: rgba(142, 77, 255, 1);
-  --02-semantic-color-border-strong: rgba(199, 207, 221, 1);
-  --02-semantic-color-glass-bg: rgba(255, 255, 255, 1);
-  --02-semantic-color-glass-highlight: rgba(255, 255, 255, 1);
-  --02-semantic-color-glass-stroke: rgba(255, 255, 255, 1);
-  --02-semantic-color-state-error: rgba(239, 68, 68, 1);
-  --02-semantic-color-state-info: rgba(59, 130, 246, 1);
-  --02-semantic-color-state-success: rgba(22, 163, 74, 1);
-  --02-semantic-color-state-warning: rgba(245, 158, 11, 1);
-  --02-semantic-color-text-muted: rgba(107, 114, 128, 1);
-  --02-semantic-color-text-on-primary: rgba(255, 255, 255, 1);
-  --02-semantic-color-text-primary: rgba(17, 24, 39, 1);
-  --02-semantic-color-text-secondary: rgba(75, 85, 103, 1);
+  /* HỆ THỐNG MÀU SEMANTIC (Ý NGHĨA) */
+  --02-semantic-color-action-ghost-hover: var(--01-primitives-brand-50);
+  --02-semantic-color-action-primary: var(--01-primitives-brand-600);
+  --02-semantic-color-action-primary-disabled: var(--01-primitives-brand-300);
+  --02-semantic-color-action-primary-hover: var(--01-primitives-brand-700);
+  --02-semantic-color-action-primary-press: var(--01-primitives-brand-800);
+  --02-semantic-color-bg-base: var(--01-primitives-neutral-0);
+  --02-semantic-color-bg-overlay: rgba(0, 0, 0, 0.4);
+  --02-semantic-color-bg-subtle: var(--01-primitives-neutral-50);
+  --02-semantic-color-bg-surface: var(--01-primitives-neutral-0);
+  --02-semantic-color-border-default: var(--01-primitives-neutral-200);
+  --02-semantic-color-border-focus: var(--01-primitives-brand-500);
+  --02-semantic-color-border-strong: var(--01-primitives-neutral-300);
+  --02-semantic-color-glass-bg: rgba(255, 255, 255, 0.8);
+  --02-semantic-color-glass-highlight: rgba(255, 255, 255, 0.5);
+  --02-semantic-color-glass-stroke: rgba(255, 255, 255, 0.5);
+  --02-semantic-color-state-error: var(--01-primitives-error-500);
+  --02-semantic-color-state-info: var(--01-primitives-info-500);
+  --02-semantic-color-state-success: var(--01-primitives-success-500);
+  --02-semantic-color-state-warning: var(--01-primitives-warning-500);
+  --02-semantic-color-text-muted: var(--01-primitives-neutral-400);
+  --02-semantic-color-text-on-primary: var(--01-primitives-neutral-0);
+  --02-semantic-color-text-primary: var(--01-primitives-neutral-900);
+  --02-semantic-color-text-secondary: var(--01-primitives-neutral-700);
 
-  /* Component Colors */
+  /* COMPONENT COLORS */
   --03-component-color-badge-error-bg: var(--02-semantic-color-state-error);
   --03-component-color-badge-error-text: var(--02-semantic-color-text-on-primary);
   --03-component-color-badge-success-bg: var(--02-semantic-color-state-success);
-  --03-component-color-badge-success-text: var(--02-semantic-color-text-primary);
+  --03-component-color-badge-success-text: var(--01-primitives-neutral-0);
   --03-component-color-button-primary-bg: var(--02-semantic-color-action-primary);
   --03-component-color-button-primary-bg-disabled: var(--02-semantic-color-action-primary-disabled);
   --03-component-color-button-primary-bg-hover: var(--02-semantic-color-action-primary-hover);
@@ -89,7 +101,7 @@
   --03-component-color-input-placeholder: var(--02-semantic-color-text-muted);
   --03-component-color-navbar-bg: var(--02-semantic-color-bg-surface);
 
-  /* Spacing & Radius */
+  /* SPACING & RADIUS */
   --spacing-radius-radius-sm: 8px;
   --spacing-radius-radius-md: 12px;
   --spacing-radius-radius-lg: 16px;
@@ -111,7 +123,7 @@
   --animate-spin: spin 1s linear infinite;
 }
 
-/* Animations */
+/* --- ANIMATIONS --- */
 @keyframes fade-in {
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: none; }

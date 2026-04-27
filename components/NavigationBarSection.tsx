@@ -13,7 +13,7 @@ export const NavigationBarSection = () => {
       alignItems: 'center',
       backgroundColor: 'white',
       overflowX: 'hidden',
-      fontFamily: "'Be Vietnam Pro', sans-serif"
+      fontFamily: "var(--font-montserrat), sans-serif" 
     }}>
       
       {/* 1. GỌI HEADER VÀO ĐÂY */}
@@ -21,6 +21,11 @@ export const NavigationBarSection = () => {
 
       {/* --- PHẦN ĐIỀU KHIỂN HIỂN THỊ (QUYẾT ĐỊNH SỐNG CHẾT ĐÂY NGÂN ƠI) --- */}
       <style jsx global>{`
+        /* Đảm bảo tất cả nội dung trong Section này dùng font Montserrat */
+        .navigation-section-container * {
+          font-family: var(--font-montserrat), sans-serif !important;
+        }
+
         /* Mobile: dưới 768px */
         @media (max-width: 767px) {
           .section-desktop { display: none !important; }
@@ -44,7 +49,7 @@ export const NavigationBarSection = () => {
       {/* ------------------------------------------------------------
           BLOCK 1: MOBILE (Dưới 768px) - THÊM MỚI
       ------------------------------------------------------------ */}
-      <section className="section-mobile" style={{
+      <section className="section-mobile navigation-section-container" style={{
         display: 'none', width: '100%', height: '550px', position: 'relative',
         marginTop: '70px', flexDirection: 'column', justifyContent: 'center', padding: '0 20px'
       }}>
@@ -54,7 +59,7 @@ export const NavigationBarSection = () => {
           <p style={{ fontSize: '13px', letterSpacing: '0.1em', marginBottom: '10px', textTransform: 'uppercase' }}>Dịch vụ lễ phục cao cấp</p>
           <h1 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '20px', lineHeight: '1.2' }}>Tỏa Sáng<br />Từng Khoảnh Khắc</h1>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-            <Link href="#best-seller" style={{ width: '100%', maxWidth: '200px' }}><button style={{ backgroundColor: '#7a33f2', color: 'white', width: '100%', padding: '12px', borderRadius: '8px', fontWeight: 'bold', border: 'none' }}>KHÁM PHÁ →</button></Link>
+            <Link href="#best-seller" style={{ width: '100%', maxWidth: '200px' }}><button style={{ backgroundColor: '#7a33f2', color: 'white', width: '100%', padding: '12px', borderRadius: '8px', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>KHÁM PHÁ →</button></Link>
           </div>
         </div>
       </section>
@@ -62,7 +67,7 @@ export const NavigationBarSection = () => {
       {/* ------------------------------------------------------------
           BLOCK 2: TABLET (768px - 1023px) - THÊM MỚI
       ------------------------------------------------------------ */}
-      <section className="section-tablet" style={{
+      <section className="section-tablet navigation-section-container" style={{
         display: 'none', width: '100%', height: '650px', position: 'relative',
         marginTop: '70px', flexDirection: 'column', justifyContent: 'center', padding: '0 50px'
       }}>
@@ -72,16 +77,16 @@ export const NavigationBarSection = () => {
           <p style={{ fontSize: '16px', letterSpacing: '0.15em', marginBottom: '14px', textTransform: 'uppercase' }}>Dịch vụ cho thuê lễ phục cao cấp</p>
           <h1 style={{ fontSize: '60px', fontWeight: 'bold', marginBottom: '24px', lineHeight: '1.1' }}>Tỏa Sáng<br />Từng Khoảnh Khắc</h1>
           <div style={{ display: 'flex', gap: '20px' }}>
-            <Link href="#best-seller"><button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '15px 35px', borderRadius: '12px', fontWeight: 'bold', border: 'none' }}>KHÁM PHÁ →</button></Link>
+            <Link href="#best-seller"><button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '15px 35px', borderRadius: '12px', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>KHÁM PHÁ →</button></Link>
           </div>
         </div>
       </section>
 
 
       {/* ------------------------------------------------------------
-          BLOCK 3: DESKTOP (BÊ NGUYÊN SI CODE CỦA NGÂN - KHÔNG SỬA 1 CHỮ)
+          BLOCK 3: DESKTOP 
       ------------------------------------------------------------ */}
-      <section className="section-desktop" style={{
+      <section className="section-desktop navigation-section-container" style={{
         width: '100%',
         height: '750px',
         position: 'relative',
@@ -126,7 +131,7 @@ export const NavigationBarSection = () => {
             <div style={{ display: 'flex', gap: '24px' }}>
               <Link href="#best-seller">
                 <button
-                  style={{ backgroundColor: '#7a33f2', color: 'white', padding: '18px 45px', borderRadius: '14px', fontWeight: 'bold', border: 'none', cursor: 'pointer', fontSize: '16px' }}
+                  style={{ backgroundColor: '#7a33f2', color: 'white', padding: '18px 45px', borderRadius: '14px', fontWeight: 'bold', border: 'none', cursor: 'pointer', fontSize: '16px', fontFamily: "var(--font-montserrat), sans-serif" }}
                   className="hover:bg-[#6625cc] transition-all shadow-lg shadow-[#7a33f2]/30 active:scale-95"
                 >
                   KHÁM PHÁ →
@@ -136,7 +141,7 @@ export const NavigationBarSection = () => {
 
               <Link href="/danh-muc">
                 <button
-                  style={{ backgroundColor: 'white', color: '#1e1535', padding: '18px 45px', borderRadius: '14px', fontWeight: 'bold', border: 'none', cursor: 'pointer', fontSize: '16px' }}
+                  style={{ backgroundColor: 'white', color: '#1e1535', padding: '18px 45px', borderRadius: '14px', fontWeight: 'bold', border: 'none', cursor: 'pointer', fontSize: '16px', fontFamily: "var(--font-montserrat), sans-serif" }}
                   className="hover:bg-gray-100 transition-all active:scale-95"
                 >
                   XEM THÊM

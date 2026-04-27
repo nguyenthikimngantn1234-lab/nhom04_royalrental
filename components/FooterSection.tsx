@@ -4,9 +4,17 @@ import Link from 'next/link';
 
 export const FooterSection = () => {
   return (
-    <footer style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+    <footer style={{ 
+      width: '100%', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      backgroundColor: 'white', 
+      /* ĐÃ CẬP NHẬT: Sử dụng Montserrat cho toàn bộ Footer */
+      fontFamily: "var(--font-montserrat), sans-serif" 
+    }}>
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE (KHÔNG ĐỤNG VÀO CODE CỦA EM) */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE */}
       <style jsx>{`
         .footer-newsletter-box {
           width: 100%;
@@ -54,13 +62,13 @@ export const FooterSection = () => {
         }
       `}</style>
       
-      {/* 1. KHỐI NEWSLETTER TÍM NHẠT - GIỮ NGUYÊN STYLE NGÂN */}
+      {/* 1. KHỐI NEWSLETTER TÍM NHẠT */}
       <div className="footer-newsletter-box">
         <div className="newsletter-inner" style={{ backgroundColor: '#f3edff', borderRadius: '40px', padding: '80px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <h2 className="newsletter-title" style={{ color: '#1e1535', fontSize: '48px', fontWeight: 'bold', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          <h2 className="newsletter-title" style={{ color: '#1e1535', fontSize: '48px', fontWeight: 900, margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Những xu hướng lễ phục mới
           </h2>
-          <p style={{ color: '#5d4f7a', fontSize: '20px', maxWidth: '700px', margin: '0 0 45px 0', lineHeight: '1.6', opacity: 0.8 }}>
+          <p style={{ color: '#5d4f7a', fontSize: '20px', maxWidth: '700px', margin: '0 0 45px 0', lineHeight: '1.6', fontWeight: 500 }}>
             Nhận thông tin về bộ sưu tập độc quyền, ưu đãi đặc biệt <br className="hidden lg:block" /> và mẹo phối đồ tinh tế ngay trong hộp thư của bạn.
           </p>
           
@@ -68,10 +76,18 @@ export const FooterSection = () => {
             <input
               type="email"
               placeholder="Nhập email của bạn"
-              style={{ flex: 1, padding: '16px 25px', borderRadius: '12px', border: 'none', fontSize: '16px', outline: 'none', backgroundColor: 'white', color: '#1e1535', boxShadow: '0 4px 10px rgba(0,0,0,0.03)', width: '100%' }}
+              style={{ 
+                flex: 1, padding: '16px 25px', borderRadius: '12px', border: 'none', fontSize: '16px', outline: 'none', 
+                backgroundColor: 'white', color: '#1e1535', boxShadow: '0 4px 10px rgba(0,0,0,0.03)', width: '100%',
+                fontFamily: "var(--font-montserrat), sans-serif" 
+              }}
             />
             <Link href="/dang-ky" style={{ textDecoration: 'none', width: '100%', maxWidth: '200px' }}>
-              <button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '16px 35px', borderRadius: '12px', border: 'none', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.3s', width: '100%' }}>
+              <button style={{ 
+                backgroundColor: '#7a33f2', color: 'white', padding: '16px 35px', borderRadius: '12px', border: 'none', 
+                fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.3s', 
+                width: '100%', fontFamily: "var(--font-montserrat), sans-serif" 
+              }}>
                 ĐĂNG KÝ
               </button>
             </Link>
@@ -80,7 +96,7 @@ export const FooterSection = () => {
       </div>
 
 
-      {/* 2. NỘI DUNG FOOTER CHÍNH - BÊ NGUYÊN SI STYLE CỦA EM */}
+      {/* 2. NỘI DUNG FOOTER CHÍNH */}
       <div className="footer-main-content">
         
         {/* Cột 1: Logo & Mạng xã hội */}
@@ -88,7 +104,7 @@ export const FooterSection = () => {
           <Link href="/">
             <img src="/nhom04_royalrental/images/Logo.png" alt="Velixora Logo" style={{ width: '180px', height: 'auto', cursor: 'pointer' }} />
           </Link>
-          <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: '1.8', margin: 0 }}>
+          <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: '1.8', margin: 0, fontWeight: 500 }}>
             Velixora tự hào mang đến dịch vụ cho thuê lễ phục cao cấp, giúp bạn tỏa sáng trong mọi khoảnh khắc quan trọng nhất của cuộc đời.
           </p>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
@@ -107,31 +123,31 @@ export const FooterSection = () => {
 
         {/* Cột 2: Hỗ Trợ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>HỖ TRỢ</h3>
+          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 800, margin: 0 }}>HỖ TRỢ</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <Link href="/lien-he" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Liên Hệ</Link>
-            <Link href="/ve-chung-toi" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Về Chúng Tôi</Link>
-            <Link href="/tai-khoan" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Tài Khoản</Link>
-            <Link href="/huong-dan-size" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Hướng dẫn chọn size</Link>
+            <Link href="/lien-he" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Liên Hệ</Link>
+            <Link href="/ve-chung-toi" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Về Chúng Tôi</Link>
+            <Link href="/tai-khoan" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Tài Khoản</Link>
+            <Link href="/huong-dan-size" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Hướng dẫn chọn size</Link>
           </div>
         </div>
 
 
         {/* Cột 3: Chính Sách */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>CHÍNH SÁCH</h3>
+          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 800, margin: 0 }}>CHÍNH SÁCH</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Điều Khoản & Điều Kiện</Link>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Chính Sách Bảo Mật</Link>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Chính Sách Cho Thuê</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Điều Khoản & Điều Kiện</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Chính Sách Bảo Mật</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Chính Sách Cho Thuê</Link>
           </div>
         </div>
 
 
         {/* Cột 4: Liên Hệ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>LIÊN HỆ</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', color: '#6b7280', fontSize: '15px' }}>
+          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 800, margin: 0 }}>LIÊN HỆ</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', color: '#6b7280', fontSize: '15px', fontWeight: 500 }}>
             <span>Số 1 Võ Văn Ngân, Thủ Đức, TP. HCM</span>
             <span>+84 909 909 909</span>
             <span>support@velixora.com</span>
@@ -142,7 +158,7 @@ export const FooterSection = () => {
 
       {/* 3. BOTTOM BAR TÍM ĐẬM */}
       <div style={{ width: '100%', backgroundColor: '#1e1535', padding: '20px 0' }}>
-        <div className="footer-bottom-container" style={{ color: 'white', fontSize: '14px' }}>
+        <div className="footer-bottom-container" style={{ color: 'white', fontSize: '14px', fontWeight: 500 }}>
           <p style={{ margin: 0 }}>© 2026 Velixora. All Rights Reserved</p>
           
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>

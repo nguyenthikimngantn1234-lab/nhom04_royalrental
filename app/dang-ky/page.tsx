@@ -30,10 +30,16 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="w-full min-h-screen flex bg-white font-['Be_Vietnam_Pro']">
+    /* ĐÃ CẬP NHẬT: Thay đổi font-family sang Montserrat */
+    <main className="w-full min-h-screen flex bg-white" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG ĐỤNG VÀO LOGIC CỦA NGÂN */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - GIỮ NGUYÊN LOGIC CỦA EM */}
       <style jsx global>{`
+        /* Ép tất cả thành phần con trong trang này dùng Montserrat */
+        .auth-form-container * {
+          font-family: var(--font-montserrat), sans-serif !important;
+        }
+
         /* Mobile */
         @media (max-width: 767px) {
           .auth-side-image { display: none !important; }
@@ -50,7 +56,7 @@ export default function RegisterPage() {
         }
       `}</style>
       
-      {/* CỘT TRÁI: FORM ĐĂNG KÝ - GIỮ NGUYÊN STYLE NGÂN */}
+      {/* CỘT TRÁI: FORM ĐĂNG KÝ */}
       <div className="auth-form-container w-1/2 flex flex-col justify-center items-center py-12">
         <div className="auth-form-inner w-full px-[120px] lg:px-[160px] flex flex-col gap-[16px] box-border">
 
@@ -69,6 +75,7 @@ export default function RegisterPage() {
               required
               placeholder="Họ và tên"
               className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2]/20 transition-all"
+              style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             />
 
             <input
@@ -77,6 +84,7 @@ export default function RegisterPage() {
               required
               placeholder="Email/ Username"
               className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2]/20 transition-all"
+              style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             />
 
             <div className="relative w-full">
@@ -84,6 +92,7 @@ export default function RegisterPage() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Mật khẩu"
                 className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 text-[15px] outline-none"
+                style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
               />
               <button
                 type="button"
@@ -99,6 +108,7 @@ export default function RegisterPage() {
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Nhập lại mật khẩu"
                 className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 text-[15px] outline-none"
+                style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
               />
               <button
                 type="button"
@@ -126,6 +136,7 @@ export default function RegisterPage() {
             <button 
               type="submit"
               className="h-[56px] w-full bg-[#7a33f2] text-white rounded-[12px] font-bold text-[16px] uppercase tracking-widest hover:bg-[#6625cc] transition-all shadow-lg shadow-purple-100 border-none cursor-pointer active:scale-[0.98]"
+              style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             >
               Đăng Ký
             </button>
@@ -158,7 +169,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* CỘT PHẢI: ẢNH TRANG TRÍ - GIỮ NGUYÊN ẢNH CỦA NGÂN */}
+      {/* CỘT PHẢI: ẢNH TRANG TRÍ */}
       <div className="auth-side-image w-1/2 relative bg-[#F9F8FF]">
         <Image src="/nhom04_royalrental/images/image-4.png" alt="Velixora Wedding Decor" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[#7a33f2]/10 backdrop-blur-[0.5px]"></div>

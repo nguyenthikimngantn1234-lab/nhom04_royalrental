@@ -120,7 +120,8 @@ export const Header = () => {
       <header className="velixora-mobile" style={{
         display: 'none', width: '100%', height: '70px', backgroundColor: 'white',
         position: 'fixed', top: 0, left: 0, zIndex: 1000, borderBottom: '1px solid #f0f0f0',
-        alignItems: 'center', justifyContent: 'space-between', padding: '0 20px'
+        alignItems: 'center', justifyContent: 'space-between', padding: '0 20px',
+        fontFamily: "var(--font-montserrat), sans-serif"
       }}>
         <button onClick={() => setIsMenuOpen(true)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Menu size={28} color="#1e1535" /></button>
         <Link href="/"><img style={{ height: '45px', width: 'auto' }} alt="Logo" src="/nhom04_royalrental/images/Logo.png" /></Link>
@@ -144,7 +145,7 @@ export const Header = () => {
         left: 0,
         zIndex: 1000,
         borderBottom: '1px solid #f0f0f0',
-        fontFamily: "'Inter', sans-serif"
+        fontFamily: "var(--font-montserrat), sans-serif"
       }}>
         <div style={{
           maxWidth: '1440px',
@@ -169,7 +170,8 @@ export const Header = () => {
 
 
           <nav>
-            <ul style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', listStyle: 'none', margin: 0, padding: 0 }}>
+            {/* THÊM var(--font-montserrat) VÀO ĐÂY ĐỂ ĐỒNG NHẤT MENU */}
+            <ul style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', listStyle: 'none', margin: 0, padding: 0, fontFamily: "var(--font-montserrat), sans-serif" }}>
               <li><Link href="/danh-muc?cat=Váy Cưới" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Váy Cưới</Link></li>
               <li><Link href="/danh-muc?cat=Lễ Phục Nữ" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Lễ Phục Nữ</Link></li>
               <li><Link href="/danh-muc?cat=Lễ Phục Nam" style={{ color: 'black', textDecoration: 'none', fontWeight: 500, fontSize: '17px' }}>Lễ Phục Nam</Link></li>
@@ -206,7 +208,7 @@ export const Header = () => {
 
 
             <Link href="/dang-nhap" style={{ textDecoration: 'none' }}>
-              <button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '16px 35px', borderRadius: '12px', border: 'none', fontWeight: 'bold', fontSize: '16px', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 4px 15px rgba(122, 51, 242, 0.2)' }}>
+              <button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '16px 35px', borderRadius: '12px', border: 'none', fontWeight: 'bold', fontSize: '16px', textTransform: 'uppercase', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 4px 15px rgba(122, 51, 242, 0.2)', fontFamily: "var(--font-montserrat), sans-serif" }}>
                 Đăng Nhập
               </button>
             </Link>
@@ -220,7 +222,7 @@ export const Header = () => {
         {isMenuOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsMenuOpen(false)} style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 2001 }} />
-            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} style={{ position: 'fixed', top: 0, left: 0, width: '280px', height: '100%', backgroundColor: 'white', zIndex: 2002, padding: '24px', boxShadow: '2px 0 10px rgba(0,0,0,0.1)' }}>
+            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} style={{ position: 'fixed', top: 0, left: 0, width: '280px', height: '100%', backgroundColor: 'white', zIndex: 2002, padding: '24px', boxShadow: '2px 0 10px rgba(0,0,0,0.1)', fontFamily: "var(--font-montserrat), sans-serif" }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}><span style={{ fontWeight: 'bold', fontSize: '20px', color: '#7a33f2' }}>VELIXORA</span><X size={28} onClick={() => setIsMenuOpen(false)} style={{ cursor: 'pointer' }} /></div>
               <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <li><Link href="/danh-muc?cat=Váy Cưới" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: 'none', color: '#1e1535', fontWeight: 'bold' }}>Váy Cưới</Link></li>
@@ -228,7 +230,24 @@ export const Header = () => {
                 <li><Link href="/danh-muc?cat=Lễ Phục Nam" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: 'none', color: '#1e1535', fontWeight: 'bold' }}>Lễ Phục Nam</Link></li>
                 <li><Link href="/danh-muc?cat=Phụ Kiện" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: 'none', color: '#1e1535', fontWeight: 'bold' }}>Phụ Kiện</Link></li>
                 <li><Link href="/lien-he" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: 'none', color: '#1e1535', fontWeight: 'bold' }}>Liên Hệ</Link></li>
-                <li style={{ marginTop: '10px' }}><Link href="/dang-nhap"><button style={{ width: '100%', backgroundColor: '#7a33f2', color: 'white', padding: '15px', border: 'none', borderRadius: '10px', fontWeight: 'bold', textTransform: 'uppercase' }}>Đăng Nhập</button></Link></li>
+                
+                <li style={{ marginTop: '10px' }}>
+                    <Link href="/dang-nhap">
+                      <button style={{ 
+                        width: '100%', 
+                        backgroundColor: '#7a33f2', 
+                        color: 'white', 
+                        padding: '15px', 
+                        border: 'none', 
+                        borderRadius: '10px', 
+                        fontWeight: 'bold', 
+                        textTransform: 'uppercase',
+                        fontFamily: 'var(--font-montserrat), sans-serif' 
+                      }}>
+                        Đăng Nhập
+                      </button>
+                    </Link>
+                  </li>
               </ul>
             </motion.div>
           </>
@@ -246,13 +265,13 @@ export const Header = () => {
             style={{
               position: 'fixed', inset: 0, backgroundColor: '#ffffff', zIndex: 2000,
               display: 'flex', flexDirection: 'column',
-              fontFamily: "'Times New Roman', Times, serif",
+              fontFamily: "var(--font-montserrat), sans-serif",
               overflowY: 'auto'
             }}
           >
             <div style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 80px 80px', position: 'relative' }}>
               
-              <div style={{ width: '100%', maxWidth: '1440px', display: 'flex', alignItems: 'center', gap: '8px', color: '#1e1535', fontSize: '14px', fontFamily: "'Inter', sans-serif", textTransform: 'uppercase' }}>
+              <div style={{ width: '100%', maxWidth: '1440px', display: 'flex', alignItems: 'center', gap: '8px', color: '#1e1535', fontSize: '14px', fontFamily: "var(--font-montserrat), sans-serif", textTransform: 'uppercase' }}>
                 <Home size={18} strokeWidth={2} /> <span style={{ fontSize: '12px' }}>&gt;</span> <span style={{ fontWeight: '500' }}>TÌM KIẾM</span>
               </div>
 
@@ -279,6 +298,7 @@ export const Header = () => {
                     display: 'flex', alignItems: 'center',
                     backgroundColor: '#FBFBFF', border: '1px solid #EEEEFF',
                     borderRadius: '12px', padding: '16px 24px',
+                    boxSizing: 'border-box',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
                     <Search size={24} color="#7a33f2" style={{ flexShrink: 0, cursor: 'pointer' }} onClick={() => handleSearch(searchQuery)} />
@@ -286,7 +306,7 @@ export const Header = () => {
                       autoFocus
                       type="text"
                       placeholder="Tìm kiếm váy cưới, áo dài..."
-                      style={{ width: '100%', fontSize: '18px', border: 'none', outline: 'none', background: 'transparent', color: '#1e1535', marginLeft: '16px', fontFamily: "'Times New Roman', Times, serif" }}
+                      style={{ width: '100%', fontSize: '18px', border: 'none', outline: 'none', background: 'transparent', color: '#1e1535', marginLeft: '16px', fontFamily: "var(--font-montserrat), sans-serif" }}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyDown={(e) => {
@@ -337,7 +357,7 @@ export const Header = () => {
                           border: '1px solid #1e1535', color: '#1e1535',
                           borderRadius: '8px',
                           fontWeight: 'bold', fontSize: '16px', cursor: 'pointer',
-                          transition: 'all 0.2s', fontFamily: "'Times New Roman', Times, serif"
+                          transition: 'all 0.2s', fontFamily: "var(--font-montserrat), sans-serif"
                         }}
                         className="hover:border-[#7a33f2] hover:text-[#7a33f2] shadow-sm"
                       >

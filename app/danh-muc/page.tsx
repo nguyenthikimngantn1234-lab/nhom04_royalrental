@@ -73,7 +73,7 @@ const CatalogContent = () => {
     { id: 29, title: "Dây Chuyền Đá Ánh Trăng", price: "1.400.000 đ", image: "/nhom04_royalrental/images/TS2.png", category: "Trang Sức" },
     { id: 30, title: "Bông Tai Ruby Đỏ", price: "950.000 đ", image: "/nhom04_royalrental/images/TS3.png", category: "Trang Sức", tag: "NEW" },
     { id: 31, title: "Vòng Tay Kim Tiền", price: "1.600.000 đ", image: "/nhom04_royalrental/images/TS4.png", category: "Trang Sức" },
-    { id: 32, title: "Lắc Tay Ngọc Cẩm Thạch", price: "1.200.000 đ", image: "/nhom04_royalrental/nhom04_royalrental/images/TS5.png", category: "Trang Sức" },
+    { id: 32, title: "Lắc Tay Ngọc Cẩm Thạch", price: "1.200.000 đ", image: "/nhom04_royalrental/images/TS5.png", category: "Trang Sức" },
     { id: 33, title: "Trâm Cài Tóc Phượng", price: "600.000 đ", image: "/nhom04_royalrental/images/TS6.png", category: "Trang Sức" },
   ];
 
@@ -110,7 +110,6 @@ const CatalogContent = () => {
   return (
     <>
       <Header />
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - FIXED LỖI KHÔNG HIỆN SẢN PHẨM */}
       <style jsx>{`
         .main-catalog-layout {
           display: flex;
@@ -118,14 +117,15 @@ const CatalogContent = () => {
           max-width: 1440px;
           margin: 80px auto 0;
           padding-bottom: 96px;
+          /* Đảm bảo font được kế thừa từ cha */
+          font-family: var(--font-montserrat), sans-serif;
         }
 
-        /* Mobile */
         @media (max-width: 767px) {
           .banner-container { height: 280px !important; padding-top: 70px !important; }
           .banner-title { font-size: 32px !important; }
           .main-catalog-layout { 
-            flex-direction: column !important; /* Quan trọng: Xếp dọc để hiện sản phẩm bên dưới */
+            flex-direction: column !important; 
             padding: 0 15px !important; 
           }
           .sidebar-filter { 
@@ -144,7 +144,6 @@ const CatalogContent = () => {
           .product-image-box { height: 400px !important; }
         }
 
-        /* Tablet */
         @media (min-width: 768px) and (max-width: 1023px) {
           .main-catalog-layout { flex-direction: column; padding: 0 40px; }
           .sidebar-filter { width: 100% !important; margin-bottom: 40px; }
@@ -152,7 +151,6 @@ const CatalogContent = () => {
           .grid-display { grid-template-columns: repeat(2, 1fr) !important; }
         }
 
-        /* Desktop chuẩn của Ngân (Giữ nguyên 100%) */
         @media (min-width: 1024px) {
           .main-catalog-layout { padding: 0 80px; gap: 0; }
           .sidebar-filter { width: 300px; }
@@ -161,7 +159,8 @@ const CatalogContent = () => {
         }
       `}</style>
 
-      <div className="w-full flex flex-col items-center bg-white font-['Be_Vietnam_Pro'] overflow-x-hidden">
+      {/* ĐÃ CẬP NHẬT: Thay đổi font-family sang Montserrat */}
+      <div className="w-full flex flex-col items-center bg-white overflow-x-hidden" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
         
         <div className="banner-container relative w-full h-[450px] flex items-center overflow-hidden pt-[107px]">
           <img src={categoryBanners[activeCategory] || "/nhom04_royalrental/images/ShopBanner.png"} className="absolute inset-0 w-full h-full object-cover" alt="Banner" />
@@ -184,7 +183,8 @@ const CatalogContent = () => {
               <div className="flex flex-col gap-2">
                 {categoriesList.map((cat) => (
                   <button key={cat} onClick={() => setActiveCategory(cat)}
-                    className={`flex justify-between items-center py-3.5 px-4 rounded-2xl transition-all duration-300 cursor-pointer border-none ${activeCategory === cat ? "text-[#7a33f2] font-bold bg-[#F5F3FF]" : "text-[#6B7280] hover:bg-gray-50 bg-transparent"}`}>
+                    className={`flex justify-between items-center py-3.5 px-4 rounded-2xl transition-all duration-300 cursor-pointer border-none ${activeCategory === cat ? "text-[#7a33f2] font-bold bg-[#F5F3FF]" : "text-[#6B7280] hover:bg-gray-50 bg-transparent"}`}
+                    style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
                     <span className="text-[16px]">{cat}</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                   </button>
@@ -207,7 +207,7 @@ const CatalogContent = () => {
                 <div className="flex flex-wrap gap-3">
                   {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
                     <button key={size} onClick={() => setSelectedSize(size)}
-                      style={{ width: '36px', height: '24px' }}
+                      style={{ width: '36px', height: '24px', fontFamily: 'var(--font-montserrat), sans-serif' }}
                       className={`text-[12px] font-bold text-center rounded-[4px] border cursor-pointer transition-all flex items-center justify-center ${selectedSize === size ? "bg-[#F5F3FF] border-[#7a33f2] text-[#7a33f2]" : "bg-white border-gray-100 text-[#6B7280]"}`}>{size}</button>
                   ))}
                 </div>
@@ -237,8 +237,9 @@ const CatalogContent = () => {
                     </div>
                   </Link>
                   <div className="flex gap-[8px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20" style={{ position: 'absolute', bottom: '6px', left: '0px', width: '100%', padding: '0 4px' }}>
-                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, false); }} style={{ borderRadius: '8px', flex: 1, height: '42px', fontFamily: "'Times New Roman', Times, serif" }} className="border border-[#7a33f2] bg-white text-[#7a33f2] text-[12px] font-bold uppercase hover:bg-[#f9f8ff] cursor-pointer">GIỎ HÀNG</button>
-                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, true); }} style={{ borderRadius: '8px', flex: 1, height: '42px' , fontFamily: "'Times New Roman', Times, serif"}} className="border-none bg-[#7a33f2] text-white text-[12px] font-bold uppercase hover:bg-[#6625cc] cursor-pointer">THUÊ NGAY</button>
+                    {/* ĐÃ CẬP NHẬT: Xóa font có chân cho các nút bấm */}
+                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, false); }} style={{ borderRadius: '8px', flex: 1, height: '42px', fontFamily: "var(--font-montserrat), sans-serif" }} className="border border-[#7a33f2] bg-white text-[#7a33f2] text-[12px] font-bold uppercase hover:bg-[#f9f8ff] cursor-pointer">GIỎ HÀNG</button>
+                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, true); }} style={{ borderRadius: '8px', flex: 1, height: '42px' , fontFamily: "var(--font-montserrat), sans-serif"}} className="border-none bg-[#7a33f2] text-white text-[12px] font-bold uppercase hover:bg-[#6625cc] cursor-pointer">THUÊ NGAY</button>
                   </div>
                 </div>
               ))}
@@ -255,7 +256,7 @@ const CatalogContent = () => {
 
 export default function BridalProductCatalogPage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center text-[#7a33f2]">Đang tải Velixora...</div>}>
+    <Suspense fallback={<div className="p-20 text-center text-[#7a33f2]" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>Đang tải Velixora...</div>}>
       <CatalogContent />
     </Suspense>
   );

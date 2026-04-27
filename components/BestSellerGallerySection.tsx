@@ -73,12 +73,14 @@ export const BestSellerGallerySection = () => {
   return (
     <section id="best-seller" className="py-20 bg-white flex flex-col items-center px-4 md:px-0">
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG ĐỤNG VÀO CODE CỦA NGÂN */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - ĐÃ CẬP NHẬT FONT MONTSERRAT */}
       <style jsx>{`
         .gallery-container {
           width: 100%;
-          max-width: 1272px; /* GIỮ CHUẨN CỦA NGÂN */
+          max-width: 1272px;
           margin: 0 auto;
+          /* SỬA TẠI ĐÂY: Đảm bảo container dùng đúng font của nhóm */
+          font-family: var(--font-montserrat), sans-serif;
         }
         .gallery-grid {
           display: grid;
@@ -99,7 +101,7 @@ export const BestSellerGallerySection = () => {
           .product-image-box { width: 100% !important; height: 420px !important; }
         }
 
-        /* Desktop chuẩn của Ngân */
+        /* Desktop chuẩn */
         @media (min-width: 1272px) {
           .gallery-grid { grid-template-columns: repeat(4, 1fr); }
           .product-card { width: 300px; }
@@ -108,10 +110,10 @@ export const BestSellerGallerySection = () => {
       `}</style>
 
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-[#1e1535] uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+        <h2 className="text-3xl font-bold text-[#1e1535] uppercase tracking-tight" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
           SẢN PHẨM NỔI BẬT
         </h2>
-        <p className="text-gray-500 text-sm mt-1 font-['Be_Vietnam_Pro']">
+        <p className="text-gray-500 text-sm mt-1" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
           Những mẫu nổi bật nhất mùa này
         </p>
       </div>
@@ -126,8 +128,8 @@ export const BestSellerGallerySection = () => {
               <Link href={`/san-pham/${p.id}`} className="no-underline">
                 <div className="product-image-box relative rounded-[18px] overflow-hidden bg-gray-100 cursor-pointer shadow-sm">
                   
-                  {/* TAGS GIỮ NGUYÊN STYLE */}
-                  <div className="absolute top-[10px] left-[10px] z-10 flex gap-[6px]">
+                  {/* TAGS SỬ DỤNG MONTSERRAT CHO HIỆN ĐẠI */}
+                  <div className="absolute top-[10px] left-[10px] z-10 flex gap-[6px]" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
                     {p.tag === 'NEW' && (
                       <span style={{ backgroundColor: "#7a33f2", color: "white", fontSize: "11px", fontWeight: "bold", padding: "4px 8px", borderRadius: "6px", lineHeight: "1" }}>
                         {p.tag}
@@ -155,8 +157,8 @@ export const BestSellerGallerySection = () => {
                 </div>
               </Link>
 
-              {/* THÔNG TIN GIỮ NGUYÊN FONT TIMES NEW ROMAN CỦA NGÂN */}
-              <div className="mt-4 px-1" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+              {/* THÔNG TIN SẢN PHẨM - ĐÃ CHUYỂN TOÀN BỘ SANG MONTSERRAT */}
+              <div className="mt-4 px-1" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
                 <Link href={`/san-pham/${p.id}`} className="no-underline hover:text-[#7a33f2] transition-colors">
                   <h3 className="text-[17px] font-bold text-[#1e1535] leading-snug">
                     {p.name}

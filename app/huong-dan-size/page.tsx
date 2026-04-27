@@ -32,12 +32,17 @@ export default function SizeGuidePage() {
     <>
       <Header />
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG SỬA LOGIC CỦA NGÂN */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE */}
       <style jsx global>{`
         .size-main-wrapper { padding-top: 180px; }
         .size-title-h1 { font-size: 64px; }
         .tab-buttons-container { display: flex; justify-content: center; gap: 40px; margin-bottom: 80px; }
         .table-responsive-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+        /* Đảm bảo font Montserrat được ép vào các thành phần quan trọng */
+        .size-main-wrapper * {
+          font-family: var(--font-montserrat), sans-serif !important;
+        }
 
         /* Mobile */
         @media (max-width: 767px) {
@@ -57,7 +62,8 @@ export default function SizeGuidePage() {
         }
       `}</style>
 
-      <main className="size-main-wrapper w-full min-h-screen bg-[#FDFDFF] pb-32 font-['Be_Vietnam_Pro'] text-[#1e1535]">
+      {/* ĐÃ CẬP NHẬT: Thay đổi font-family sang Montserrat */}
+      <main className="size-main-wrapper w-full min-h-screen bg-[#FDFDFF] pb-32 text-[#1e1535]" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
         <div className="max-w-[1300px] mx-auto px-6">
           
           {/* HEADER SECTION */}
@@ -67,7 +73,7 @@ export default function SizeGuidePage() {
                <span className="w-10 h-[1px] bg-[#7a33f2]"></span>
             </div>
             <h1 className="size-title-h1 font-black uppercase tracking-tighter leading-none mb-6">Tìm Kích Cỡ Của Bạn</h1>
-            <p className="text-[#5d4f7a] opacity-50 max-w-[600px] text-[18px] leading-relaxed">
+            <p className="text-[#5d4f7a] opacity-60 max-w-[600px] text-[18px] leading-relaxed font-medium">
               Bảng thông số được thiết kế riêng biệt để đảm bảo sự chuẩn xác tuyệt đối cho trang phục của bạn.
             </p>
           </div>
@@ -82,7 +88,8 @@ export default function SizeGuidePage() {
                 color: activeTab === "clothing" ? 'white' : '#1e1535',
                 padding: '20px 50px',
                 borderRadius: '16px',
-                boxShadow: activeTab === "clothing" ? '0 15px 35px rgba(122, 51, 242, 0.3)' : '0 4px 20px rgba(0,0,0,0.05)'
+                boxShadow: activeTab === "clothing" ? '0 15px 35px rgba(122, 51, 242, 0.3)' : '0 4px 20px rgba(0,0,0,0.05)',
+                fontFamily: 'var(--font-montserrat), sans-serif'
               }}
               className="tab-btn font-bold flex items-center justify-center gap-4 border-none cursor-pointer transition-all active:scale-95 text-[16px] uppercase tracking-widest"
             >
@@ -96,7 +103,8 @@ export default function SizeGuidePage() {
                 color: activeTab === "shoes" ? 'white' : '#1e1535',
                 padding: '20px 50px',
                 borderRadius: '16px',
-                boxShadow: activeTab === "shoes" ? '0 15px 35px rgba(122, 51, 242, 0.3)' : '0 4px 20px rgba(0,0,0,0.05)'
+                boxShadow: activeTab === "shoes" ? '0 15px 35px rgba(122, 51, 242, 0.3)' : '0 4px 20px rgba(0,0,0,0.05)',
+                fontFamily: 'var(--font-montserrat), sans-serif'
               }}
               className="tab-btn font-bold flex items-center justify-center gap-4 border-none cursor-pointer transition-all active:scale-95 text-[16px] uppercase tracking-widest border border-[#f0f0f0]"
             >
@@ -189,7 +197,7 @@ export default function SizeGuidePage() {
                       ].map((item, i) => (
                         <div key={i} className="flex gap-6 items-start">
                           <span className="w-12 h-12 rounded-2xl bg-[#F5F3FF] text-[#7a33f2] flex items-center justify-center font-black text-[18px] flex-shrink-0 shadow-sm">{item.step}</span>
-                          <p className="text-[18px] lg:text-[20px] font-medium text-[#5d4f7a] leading-snug">{item.text}</p>
+                          <p className="text-[18px] lg:text-[20px] font-semibold text-[#5d4f7a] leading-snug">{item.text}</p>
                         </div>
                       ))}
                     </div>
@@ -202,7 +210,7 @@ export default function SizeGuidePage() {
                       <h3 className="text-[11px] font-black text-gray-400 uppercase tracking-[4px] mb-10 text-center">Bảng quy đổi Size EU</h3>
                       <div className="table-responsive-container">
                         <table className="w-full">
-                           <tbody>
+                            <tbody>
                             {[
                               { cm: "22.0 - 22.5", size: "35" }, { cm: "22.6 - 23.0", size: "36" },
                               { cm: "23.1 - 23.5", size: "37" }, { cm: "23.6 - 24.0", size: "38" },
@@ -213,7 +221,7 @@ export default function SizeGuidePage() {
                                  <td className="py-6 text-right font-black text-[24px] lg:text-[28px] text-[#1e1535]">{s.size}</td>
                               </tr>
                             ))}
-                           </tbody>
+                            </tbody>
                         </table>
                       </div>
                     </div>

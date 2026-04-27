@@ -93,7 +93,8 @@ export default function PolicyPage() {
         }
       `}</style>
 
-      <main className="policy-main-wrapper w-full min-h-screen bg-[#FDFDFF] pb-32 font-['Be_Vietnam_Pro'] text-[#1e1535]">
+      {/* ĐÃ CẬP NHẬT: Thay đổi font-family sang Montserrat */}
+      <main className="policy-main-wrapper w-full min-h-screen bg-[#FDFDFF] pb-32 text-[#1e1535]" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
         <div className="max-w-[1000px] mx-auto px-6">
           
           {/* Header Trang */}

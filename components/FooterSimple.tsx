@@ -11,11 +11,12 @@ export const FooterSimple = () => {
       flexDirection: 'column',
       alignItems: 'center',
       backgroundColor: '#F5F3FF',
-      fontFamily: "'Be Vietnam Pro', sans-serif",
+      /* ĐÃ CẬP NHẬT: Sử dụng Montserrat đồng bộ */
+      fontFamily: "var(--font-montserrat), sans-serif",
       marginTop: '120px'
     }}>
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG ĐỤNG VÀO CODE CỦA NGÂN */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE */}
       <style jsx>{`
         .footer-simple-content {
           width: 100%;
@@ -69,7 +70,7 @@ export const FooterSimple = () => {
         }
       `}</style>
       
-      {/* 1. NỘI DUNG CHÍNH - GIỮ NGUYÊN STYLE NGÂN */}
+      {/* 1. NỘI DUNG CHÍNH */}
       <div className="footer-simple-content">
         
         {/* Cột 1: Logo & Slogan */}
@@ -85,7 +86,7 @@ export const FooterSimple = () => {
               }}
             />
           </Link>
-          <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: '1.8', margin: 0, maxWidth: '300px' }}>
+          <p style={{ color: '#4B5563', fontSize: '15px', lineHeight: '1.8', margin: 0, maxWidth: '300px', fontWeight: 500 }}>
             Velixora tự hào mang đến dịch vụ cho thuê lễ phục cao cấp, giúp bạn tỏa sáng trong mọi khoảnh khắc quan trọng nhất.
           </p>
           
@@ -106,31 +107,31 @@ export const FooterSimple = () => {
 
         {/* Cột 2: Hỗ Trợ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>HỖ TRỢ</h3>
+          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 800, margin: 0 }}>HỖ TRỢ</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <Link href="/lien-he" style={{ color: '#4B5563', fontSize: '15px', textDecoration: 'none' }}>Liên Hệ</Link>
-            <Link href="/ve-chung-toi" style={{ color: '#4B5563', fontSize: '15px', textDecoration: 'none' }}>Về Chúng Tôi</Link>
-            <Link href="/tai-khoan" style={{ color: '#4B5563', fontSize: '15px', textDecoration: 'none' }}>Tài Khoản</Link>
-            <Link href="/huong-dan-size" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Hướng dẫn chọn size</Link>
+            <Link href="/lien-he" style={{ color: '#4B5563', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Liên Hệ</Link>
+            <Link href="/ve-chung-toi" style={{ color: '#4B5563', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Về Chúng Tôi</Link>
+            <Link href="/tai-khoan" style={{ color: '#4B5563', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Tài Khoản</Link>
+            <Link href="/huong-dan-size" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }}>Hướng dẫn chọn size</Link>
           </div>
         </div>
 
 
         {/* Cột 3: Chính Sách */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>CHÍNH SÁCH</h3>
+          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 800, margin: 0 }}>CHÍNH SÁCH</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }} className="hover:text-[#7a33f2] transition-colors">Điều Khoản & Điều Kiện</Link>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }} className="hover:text-[#7a33f2] transition-colors">Chính Sách Bảo Mật</Link>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }} className="hover:text-[#7a33f2] transition-colors">Chính Sách Cho Thuê</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }} className="hover:text-[#7a33f2] transition-colors">Điều Khoản & Điều Kiện</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }} className="hover:text-[#7a33f2] transition-colors">Chính Sách Bảo Mật</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none', fontWeight: 500 }} className="hover:text-[#7a33f2] transition-colors">Chính Sách Cho Thuê</Link>
           </div>
         </div>
 
 
         {/* Cột 4: Liên Hệ */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>LIÊN HỆ</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', color: '#4B5563', fontSize: '15px', lineHeight: '1.6' }}>
+          <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 800, margin: 0 }}>LIÊN HỆ</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', color: '#4B5563', fontSize: '15px', lineHeight: '1.6', fontWeight: 500 }}>
             <span>Địa chỉ: Số 1 Võ Văn Ngân, Thủ Đức, TP. Hồ Chí Minh</span>
             <span>Hotline: +84 909 909 909</span>
             <span>Email: contact@velixora.com</span>
@@ -141,7 +142,7 @@ export const FooterSimple = () => {
 
       {/* 2. BOTTOM BAR */}
       <div style={{ width: '100%', backgroundColor: '#1e1535', padding: '20px 0' }}>
-        <div className="footer-simple-bottom" style={{ color: 'white', fontSize: '14px' }}>
+        <div className="footer-simple-bottom" style={{ color: 'white', fontSize: '14px', fontWeight: 500 }}>
           <p style={{ margin: 0 }}>© 2026 Velixora. All Rights Reserved</p>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <img src="/nhom04_royalrental/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />

@@ -86,6 +86,8 @@ export default function CartPage() {
         .cart-main-container {
           padding-left: 80px;
           padding-right: 80px;
+          /* Đảm bảo font Montserrat được áp dụng xuyên suốt */
+          font-family: var(--font-montserrat), sans-serif;
         }
         .cart-layout-flex {
           display: flex;
@@ -118,7 +120,6 @@ export default function CartPage() {
           .cart-item-image { width: 100% !important; height: 380px !important; border-radius: 24px 24px 0 0 !important; }
           .cart-item-info { padding: 20px !important; text-align: center !important; }
           
-          /* FIXED: CHỖ THÊM BỚT SẢN PHẨM NGẮN LẠI VÀ NẰM NGANG */
           .qty-container-mobile { 
             display: flex !important;
             flex-direction: row !important; 
@@ -154,7 +155,7 @@ export default function CartPage() {
       `}</style>
 
 
-      <div style={{ width: '100%', height: '56px', backgroundColor: '#F9F8FF', marginTop: '107px' }} className="cart-breadcrumb flex items-center px-[80px]">
+      <div style={{ width: '100%', height: '56px', backgroundColor: '#F9F8FF', marginTop: '107px', fontFamily: 'var(--font-montserrat), sans-serif' }} className="cart-breadcrumb flex items-center px-[80px]">
         <nav className="text-[14px] text-gray-500 flex items-center gap-2 ">
           <Link href="/" className="no-underline text-gray-500 hover:text-[#7a33f2]">TRANG CHỦ</Link>
           <span className="text-gray-300">|</span>
@@ -165,13 +166,13 @@ export default function CartPage() {
 
       <main
         className="w-full flex flex-col bg-[#FBFBFF] pb-32 min-h-screen"
-        style={{ fontFamily: "'Times New Roman', Times, serif" }}
+        style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
       >
         <div className="cart-main-container w-full max-w-[1440px] flex flex-col pt-12 mx-auto">
           
           <div className="mb-10 text-left w-full">
             <h1 className="cart-h1 text-[48px] font-black text-[#1e1535] uppercase mb-1 tracking-tight">Giỏ Hàng</h1>
-            <p className="text-gray-500 font-medium text-[18px] text-center md:text-left">Có {cartItems.length} sản phẩm trong giỏ hàng của bạn</p>
+            <p className="text-gray-500 font-medium text-[18px] text-left">Có {cartItems.length} sản phẩm trong giỏ hàng của bạn</p>
           </div>
 
 
@@ -192,7 +193,7 @@ export default function CartPage() {
                       <button style={{
                         background: '#7a33f2', color: 'white', padding: '20px 60px', borderRadius: '16px',
                         border: 'none', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer',
-                        boxShadow: '0 10px 20px rgba(122, 51, 242, 0.3)', fontFamily: 'inherit'
+                        boxShadow: '0 10px 20px rgba(122, 51, 242, 0.3)', fontFamily: 'var(--font-montserrat), sans-serif'
                       }} className="hover:bg-[#6625cc] transition-all uppercase tracking-widest active:scale-95">
                         Khám phá ngay
                       </button>
@@ -205,7 +206,7 @@ export default function CartPage() {
               <div className="flex flex-col w-full md:w-auto" style={{ gap: '16px' }}>
                 {cartItems.map((item, index) => (
                   <div
-                    key={`${item.id}-${item.color}-${item.size}`}
+                    key={`${item.id}-${item.color}-${item.size}-${index}`}
                     style={{ minHeight: '199px', border: '1px solid #E9E4FF', backgroundColor: 'white' }}
                     className="cart-item-card flex flex-row rounded-[24px] shadow-sm relative box-border hover:shadow-md transition-all p-4"
                   >
@@ -228,7 +229,7 @@ export default function CartPage() {
                     />
                     <div className="cart-item-info flex-1 pl-[16px] flex flex-col gap-[10px]">
                       <div>
-                        <h3 className="text-[22px] font-bold text-[#1e1535] leading-none m-0 font-['Be_Vietnam_Pro']">{item.title}</h3>
+                        <h3 className="text-[22px] font-bold text-[#1e1535] leading-none m-0">{item.title}</h3>
                         <p className="text-[16px] text-gray-500 mt-2 mb-0">Màu sắc: {item.color} | Size: {item.size}</p>
                       </div>
                       
@@ -240,9 +241,9 @@ export default function CartPage() {
                         </span>
 
                         <div className="qty-container-mobile flex items-center gap-4 bg-[#F9F8FF] w-fit px-2 py-1 rounded-lg border border-[#E9E4FF]">
-                          <button onClick={() => handleQuantity(item.id, item.color, item.size, -1)} style={{ fontFamily: 'inherit' }} className="w-8 h-8 flex items-center justify-center bg-white border-none rounded-lg cursor-pointer text-[#7a33f2] font-bold shadow-sm">−</button>
+                          <button onClick={() => handleQuantity(item.id, item.color, item.size, -1)} style={{ fontFamily: 'var(--font-montserrat), sans-serif' }} className="w-8 h-8 flex items-center justify-center bg-white border-none rounded-lg cursor-pointer text-[#7a33f2] font-bold shadow-sm">−</button>
                           <span className="font-bold text-[#1e1535] text-[16px] min-w-[20px] text-center">{item.qty}</span>
-                          <button onClick={() => handleQuantity(item.id, item.color, item.size, 1)} style={{ fontFamily: 'inherit' }} className="w-8 h-8 flex items-center justify-center bg-white border-none rounded-lg cursor-pointer text-[#7a33f2] font-bold shadow-sm">+</button>
+                          <button onClick={() => handleQuantity(item.id, item.color, item.size, 1)} style={{ fontFamily: 'var(--font-montserrat), sans-serif' }} className="w-8 h-8 flex items-center justify-center bg-white border-none rounded-lg cursor-pointer text-[#7a33f2] font-bold shadow-sm">+</button>
                         </div>
                       </div>
                     </div>
@@ -257,14 +258,16 @@ export default function CartPage() {
                   </div>
                 ))}
 
-
-                <button
-                  onClick={() => updateCart([])}
-                  style={{ width: '140px', height: '42px', fontFamily: 'inherit' }}
-                  className="self-center md:self-end mt-4 bg-white border border-[#7a33f2] text-[#7a33f2] rounded-[8px] text-[13px] font-bold hover:bg-[#7a33f2] hover:text-white transition-all cursor-pointer uppercase"
-                >
-                  Xóa Giỏ Hàng
-                </button>
+                {/* SỬA TẠI ĐÂY: Dời nút qua góc bên phải của danh sách sản phẩm */}
+                <div style={{ width: '100%', maxWidth: '807px', display: 'flex', justifyContent: 'flex-end' }}>
+                  <button
+                    onClick={() => updateCart([])}
+                    style={{ width: '140px', height: '42px', fontFamily: 'var(--font-montserrat), sans-serif' }}
+                    className="mt-4 bg-white border border-[#7a33f2] text-[#7a33f2] rounded-[8px] text-[13px] font-bold hover:bg-[#7a33f2] hover:text-white transition-all cursor-pointer uppercase"
+                  >
+                    Xóa Giỏ Hàng
+                  </button>
+                </div>
               </div>
 
 
@@ -276,7 +279,7 @@ export default function CartPage() {
                 }}
                 className="cart-summary-box sticky top-[180px]"
               >
-                <h2 className="text-[28px] font-bold text-[#1e1535] m-0 mb-6 tracking-tight uppercase font-['Be_Vietnam_Pro']">Tổng Đơn Hàng</h2>
+                <h2 className="text-[28px] font-bold text-[#1e1535] m-0 mb-6 tracking-tight uppercase">Tổng Đơn Hàng</h2>
                 <div className="flex flex-col gap-4">
                   <div className="flex justify-between text-[18px] text-gray-500 font-medium"><span>Tạm tính</span><span className="text-[#1e1535] font-bold">{subtotal.toLocaleString()} VNĐ</span></div>
                   <div className="flex justify-between text-[18px] text-[#22C55E] font-medium"><span>Giảm giá (10%)</span><span className="font-bold">-{discount.toLocaleString()} VNĐ</span></div>
@@ -288,8 +291,8 @@ export default function CartPage() {
                 <div className="flex flex-col gap-3 mb-[24px]">
                   <p className="text-[17px] font-bold text-[#1e1535] m-0">Mã giảm giá</p>
                   <div className="promo-input-group flex gap-[8px] items-center">
-                    <input type="text" placeholder="WELCOME10" style={{ width: '199px', height: '42px', fontFamily: 'inherit' }} className="bg-[#F9F9FB] border-none rounded-[8px] px-4 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2] box-border" />
-                    <button style={{ width: '140px', height: '42px', fontFamily: 'inherit' }} className="bg-white border border-[#7a33f2] text-[#7a33f2] rounded-[8px] text-[14px] font-bold hover:bg-[#7a33f2] hover:text-white cursor-pointer uppercase transition-all">Áp dụng</button>
+                    <input type="text" placeholder="WELCOME10" style={{ width: '199px', height: '42px', fontFamily: 'var(--font-montserrat), sans-serif' }} className="bg-[#F9F9FB] border-none rounded-[8px] px-4 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2] box-border" />
+                    <button style={{ width: '140px', height: '42px', fontFamily: 'var(--font-montserrat), sans-serif' }} className="bg-white border border-[#7a33f2] text-[#7a33f2] rounded-[8px] text-[14px] font-bold hover:bg-[#7a33f2] hover:text-white cursor-pointer uppercase transition-all">Áp dụng</button>
                   </div>
                 </div>
 
@@ -299,7 +302,7 @@ export default function CartPage() {
                     style={{
                       width: '100%', height: '60px', backgroundColor: '#7a33f2', color: 'white',
                       borderRadius: '16px', fontWeight: 'bold', fontSize: '18px', border: 'none',
-                      boxShadow: '0 10px 20px rgba(122, 51, 242, 0.2)', fontFamily: 'inherit'
+                      boxShadow: '0 10px 20px rgba(122, 51, 242, 0.2)', fontFamily: 'var(--font-montserrat), sans-serif'
                     }}
                     className="uppercase tracking-widest hover:bg-[#6625cc] active:scale-95 transition-all cursor-pointer"
                   >

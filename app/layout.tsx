@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // Dùng font Inter cho hiện đại
+import { Montserrat } from "next/font/google"; // Chỉ giữ lại Montserrat
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// Cấu hình Montserrat cho toàn trang
+const montserrat = Montserrat({
+  subsets: ["latin", "vietnamese"], // Ngân nhớ thêm vietnamese để không bị lỗi dấu nhé
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat"
+});
 
 export const metadata: Metadata = {
   title: "Velixora - Cho thuê lễ phục cao cấp",
@@ -15,8 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className="h-full">
-      <body className={`${inter.className} min-h-full flex flex-col antialiased`}>
+    <html lang="vi" className={`h-full ${montserrat.variable}`}>
+      <body 
+        className={`${montserrat.className} min-h-full flex flex-col antialiased`}
+      >
         {children}
       </body>
     </html>

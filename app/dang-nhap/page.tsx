@@ -41,10 +41,16 @@ export default function LoginPage() {
 
 
   return (
-    <main className="w-full min-h-screen flex bg-white font-['Be_Vietnam_Pro']">
+    /* ĐÃ CẬP NHẬT: Thay đổi font-family sang Montserrat */
+    <main className="w-full min-h-screen flex bg-white" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - CHỈ THÊM ĐỂ HỖ TRỢ MOBILE */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE */}
       <style jsx global>{`
+        /* Ép toàn bộ các thành phần con dùng Montserrat để đồng bộ 100% */
+        .auth-form-container * {
+          font-family: var(--font-montserrat), sans-serif !important;
+        }
+
         /* Mobile */
         @media (max-width: 767px) {
           .auth-side-image { display: none !important; }
@@ -61,7 +67,7 @@ export default function LoginPage() {
         }
       `}</style>
       
-      {/* CỘT TRÁI - GIỮ NGUYÊN STYLE CỦA NGÂN */}
+      {/* CỘT TRÁI */}
       <div className="auth-form-container w-1/2 flex flex-col justify-center items-center py-12">
         <div className="auth-form-inner w-full max-w-[520px] mx-auto flex flex-col gap-[16px]">
 
@@ -84,7 +90,7 @@ export default function LoginPage() {
           </h1>
 
 
-          <p className="text-[#6B7280] text-[15px] m-0">
+          <p className="text-[#6B7280] text-[15px] m-0" style={{ fontWeight: 500 }}>
             Đăng nhập vào tài khoản của bạn để tiếp tục
           </p>
 
@@ -97,6 +103,7 @@ export default function LoginPage() {
               required
               placeholder="Email/ Username"
               className="h-[56px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 outline-none focus:ring-1 focus:ring-[#7a33f2]/20 transition-all"
+              style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             />
 
 
@@ -106,6 +113,7 @@ export default function LoginPage() {
                 placeholder="Mật khẩu"
                 required
                 className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 outline-none focus:ring-1 focus:ring-[#7a33f2]/20 transition-all"
+                style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
               />
               <button
                 type="button"
@@ -120,11 +128,11 @@ export default function LoginPage() {
             <div className="flex justify-between text-sm text-gray-500">
               <label className="flex gap-2 items-center cursor-pointer">
                 <input type="checkbox" className="accent-[#7a33f2]" />
-                Ghi nhớ đăng nhập
+                <span style={{ fontWeight: 500 }}>Ghi nhớ đăng nhập</span>
               </label>
 
 
-              <Link href="/chinh-sach" className="hover:text-[#7a33f2] transition-colors">
+              <Link href="/not-found.tsx" className="hover:text-[#7a33f2] transition-colors" style={{ fontWeight: 600 }}>
                 Quên mật khẩu?
               </Link>
             </div>
@@ -133,6 +141,7 @@ export default function LoginPage() {
             <button
               type="submit"
               className="h-[56px] bg-[#7a33f2] text-white rounded-[12px] font-bold hover:bg-[#6625cc] transition-all cursor-pointer border-none shadow-lg shadow-purple-100 uppercase tracking-widest active:scale-[0.98]"
+              style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
             >
               Đăng nhập
             </button>
@@ -162,7 +171,7 @@ export default function LoginPage() {
           </div>
 
 
-          <p className="text-center mt-4 text-[14px] text-[#6B7280]">
+          <p className="text-center mt-4 text-[14px] text-[#6B7280]" style={{ fontWeight: 500 }}>
             Chưa có tài khoản?
             <Link href="/dang-ky" className="ml-2 text-[#7a33f2] font-black uppercase hover:underline">
               Đăng ký ngay
@@ -172,7 +181,7 @@ export default function LoginPage() {
       </div>
 
 
-      {/* CỘT PHẢI (ẢNH) - GIỮ NGUYÊN STYLE NGÂN */}
+      {/* CỘT PHẢI (ẢNH) */}
       <div className="auth-side-image w-1/2 relative bg-[#F9F8FF] overflow-hidden">
         <Image
           src="/nhom04_royalrental/images/image-4.png"

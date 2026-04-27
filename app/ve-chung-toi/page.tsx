@@ -3,10 +3,10 @@ import React from 'react';
 import { FooterSimple } from "@/components/FooterSimple";
 import { Header } from "@/components/Header";
 
-// --- Component Thẻ Thành Viên: Giữ nguyên logic của Ngân ---
+// --- Component Thẻ Thành Viên: Đã cập nhật font Montserrat ---
 const TeamMemberCard = ({ name, mssv, role, image }: { name: string, mssv: string, role: string, image: string }) => (
   <div
-    style={{ width: '604px', height: '300px' }}
+    style={{ width: '604px', height: '300px', fontFamily: "var(--font-montserrat), sans-serif" }}
     className="team-card bg-white rounded-[24px] flex overflow-hidden shadow-[0_20px_50px_rgba(122,51,242,0.05)] border border-[#F5F3FF] hover:shadow-[0_20px_50px_rgba(122,51,242,0.1)] transition-all duration-500"
   >
     <div className="team-img-box w-[200px] h-full bg-[#F9FAFB] flex-shrink-0 relative overflow-hidden">
@@ -20,8 +20,8 @@ const TeamMemberCard = ({ name, mssv, role, image }: { name: string, mssv: strin
     <div className="team-info flex flex-col justify-center ml-[48px] pr-8 gap-3 text-left">
       <div className="flex flex-col gap-1">
         <h3 className="team-name text-[24px] font-bold text-[#1e1535] leading-tight whitespace-nowrap">{name}</h3>
-        <p className="text-[15px] text-gray-500 font-medium mt-2">MSSV: {mssv}</p>
-        <p className="text-[15px] text-gray-400">{role}</p>
+        <p className="text-[15px] text-gray-500 font-semibold mt-2">MSSV: {mssv}</p>
+        <p className="text-[15px] text-gray-400 font-medium">{role}</p>
       </div>
       
       <div className="mt-3 text-gray-400 hover:text-[#7a33f2] cursor-pointer transition-colors w-fit">
@@ -39,8 +39,13 @@ export default function AboutPage() {
     <>
       <Header />
       
-      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - FIXED THEO MỆNH LỆNH */}
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE */}
       <style jsx global>{`
+        /* Ép font Montserrat cho toàn bộ nội dung trong trang About */
+        .about-main-container * {
+          font-family: var(--font-montserrat), sans-serif !important;
+        }
+
         .about-section { padding-top: 220px; }
         .hero-title { font-size: 96px; }
         .team-grid { grid-template-columns: repeat(2, 1fr); gap: 48px 60px; }
@@ -68,14 +73,15 @@ export default function AboutPage() {
         }
       `}</style>
 
-      <main className="w-full bg-white font-['Be_Vietnam_Pro'] overflow-x-hidden">
+      {/* ĐÃ CẬP NHẬT: Font-family sang Montserrat */}
+      <main className="about-main-container w-full bg-white overflow-x-hidden" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>
         
         <section className="about-section max-w-[1440px] mx-auto px-[80px] pb-40 text-center">
           
           <div className="mb-20">
             <span className="text-[#7a33f2] font-bold tracking-[0.2em] uppercase text-[15px]">Về chúng tôi</span>
             <h1 className="hero-title font-extrabold text-[#1e1535] leading-none mt-4 mb-8 tracking-tighter uppercase">VELIXORA</h1>
-            <p className="max-w-[750px] mx-auto text-[20px] text-gray-500 leading-relaxed">
+            <p className="max-w-[750px] mx-auto text-[20px] text-gray-500 leading-relaxed font-medium">
               Velixora là nền tảng cho thuê trang phục, giúp bạn dễ dàng lựa chọn và sở hữu diện mạo hoàn hảo cho mọi sự kiện.
             </p>
           </div>

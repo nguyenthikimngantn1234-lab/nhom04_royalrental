@@ -77,6 +77,11 @@ export default function CheckoutPage() {
       <Header />
       
       <style jsx global>{`
+        /* Ép font Montserrat cho toàn bộ trang thanh toán */
+        .checkout-main-wrapper * {
+          font-family: var(--font-montserrat), sans-serif !important;
+        }
+
         .checkout-container { padding: 0 80px; }
         .checkout-layout { display: flex; flex-direction: row; gap: 40px; }
         .checkout-left-col { flex: 1; }
@@ -86,7 +91,6 @@ export default function CheckoutPage() {
           .checkout-container { padding: 0 15px !important; }
           .checkout-h1 { font-size: 32px !important; margin-bottom: 30px !important; text-align: center; }
           
-          /* ĐẨY CHI TIẾT ĐƠN HÀNG LÊN ĐẦU TRÊN MOBILE */
           .checkout-layout { flex-direction: column !important; gap: 30px !important; }
           .checkout-left-col { order: 2 !important; } 
           .checkout-right-col { 
@@ -114,7 +118,8 @@ export default function CheckoutPage() {
       `}</style>
 
 
-      <main className="w-full min-h-screen bg-[#FDFDFF] pt-[150px] pb-24 text-[#1e1535]" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+      {/* ĐÃ CẬP NHẬT: Font-family sang Montserrat */}
+      <main className="checkout-main-wrapper w-full min-h-screen bg-[#FDFDFF] pt-[150px] pb-24 text-[#1e1535]" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
         
         <div className="checkout-container mx-auto max-w-[1440px]">
           
@@ -125,7 +130,7 @@ export default function CheckoutPage() {
 
           <div className="checkout-layout">
             
-            {/* CỘT PHẢI: CHI TIẾT ĐƠN HÀNG (LÊN ĐẦU TRÊN MOBILE) */}
+            {/* CỘT PHẢI: CHI TIẾT ĐƠN HÀNG */}
             <div className="checkout-right-col" style={{ flexShrink: 0, backgroundColor: "white", borderRadius: "40px", padding: "40px", boxShadow: "0 8px 30px rgba(0,0,0,0.04)", border: "1px solid #E9E4FF", position: "sticky", top: "150px" }}>
               <h3 className="text-[24px] font-black uppercase mb-8 text-[#1e1535] m-0">CHI TIẾT ĐƠN HÀNG</h3>
               
@@ -142,7 +147,7 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1 space-y-2 pt-1">
                       <p className="font-bold text-[17px] text-[#1e1535] leading-tight m-0">{item.title}</p>
-                      <p className="text-[14px] text-gray-500 m-0">Size: {item.size} - {item.qty} bộ</p>
+                      <p className="text-[14px] text-gray-500 m-0 font-medium">Size: {item.size} - {item.qty} bộ</p>
                       <p className="font-black text-[20px] text-[#7a33f2] m-0">{((typeof item.price === 'string' ? Number(item.price.replace(/[^0-9]/g, "")) : item.price || 0) * (item.qty || 1)).toLocaleString()}đ</p>
                     </div>
                   </div>
@@ -173,31 +178,31 @@ export default function CheckoutPage() {
                 <div className="space-y-10">
                   <div className="checkout-grid-2 grid grid-cols-2 gap-10">
                     <div className="space-y-3">
-                      <label className="block text-[18px] font-bold">Họ và tên *</label>
-                      <input type="text" defaultValue={userData.fullName} className="w-full h-[64px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] transition-all" style={{ fontFamily: "inherit" }} />
+                      <label className="block text-[18px] font-bold">Họ và tên <span style={{ color: "#FF4D4D" }}>*</span></label>
+                      <input type="text" defaultValue={userData.fullName} className="w-full h-[64px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] transition-all font-medium" style={{ fontFamily: "inherit" }} />
                     </div>
                     <div className="space-y-3">
-                      <label className="block text-[18px] font-bold">Số điện thoại *</label>
-                      <input type="tel" defaultValue={userData.phone} className="w-full h-[64px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] transition-all" style={{ fontFamily: "inherit" }} />
+                      <label className="block text-[18px] font-bold">Số điện thoại <span style={{ color: "#FF4D4D" }}>*</span></label>
+                      <input type="tel" defaultValue={userData.phone} className="w-full h-[64px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] transition-all font-medium" style={{ fontFamily: "inherit" }} />
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <label className="block text-[18px] font-bold text-[#1e1535]">Địa chỉ *</label>
+                    <label className="block text-[18px] font-bold text-[#1e1535]">Địa chỉ <span style={{ color: "#FF4D4D" }}>*</span></label>
                     <div className="checkout-address-flex flex gap-6">
-                      <select onChange={handleProvinceChange} className="h-[64px] flex-1 bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] cursor-pointer" style={{ fontFamily: "inherit" }}>
+                      <select onChange={handleProvinceChange} className="h-[64px] flex-1 bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] cursor-pointer font-medium" style={{ fontFamily: "inherit" }}>
                         <option value="">Chọn Tỉnh / Thành phố</option>
                         {provinces.map((p: any) => <option key={p.code} value={p.code}>{p.name}</option>)}
                       </select>
-                      <select disabled={!selectedProvince} className="h-[64px] flex-1 bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] cursor-pointer" style={{ fontFamily: "inherit" }}>
+                      <select disabled={!selectedProvince} className="h-[64px] flex-1 bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] cursor-pointer font-medium" style={{ fontFamily: "inherit" }}>
                         <option value="">Quận / Huyện</option>
                         {districts.map((d: any) => <option key={d.code} value={d.code}>{d.name}</option>)}
                       </select>
                     </div>
-                    <input type="text" placeholder="Số nhà / Tên đường" className="w-full h-[64px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2]" style={{ fontFamily: "inherit" }} />
+                    <input type="text" placeholder="Số nhà / Tên đường" className="w-full h-[64px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 text-[18px] outline-none focus:border-[#7a33f2] font-medium" style={{ fontFamily: "inherit" }} />
                   </div>
                   <div className="space-y-3">
                     <label className="block text-[18px] font-bold text-[#1e1535]">Ghi chú</label>
-                    <textarea placeholder="Ghi chú thêm cho đơn hàng..." className="w-full h-[160px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 py-5 text-[18px] resize-none outline-none focus:border-[#7a33f2]" style={{ fontFamily: "inherit" }} />
+                    <textarea placeholder="Ghi chú thêm cho đơn hàng..." className="w-full h-[160px] bg-[#F9F8FF] border border-[#EEEEFF] rounded-2xl px-6 py-5 text-[18px] resize-none outline-none focus:border-[#7a33f2] font-medium" style={{ fontFamily: "inherit" }} />
                   </div>
                 </div>
               </div>
@@ -207,7 +212,6 @@ export default function CheckoutPage() {
                 <h3 className="text-[26px] font-black uppercase mb-10 border-b border-[#F0EEFF] pb-6 text-[#1e1535] m-0">PHƯƠNG THỨC THANH TOÁN</h3>
                 
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                  {/* COD */}
                   <div onClick={() => setPaymentMethod("cod")} className="checkout-payment-item" style={{ display: "flex", alignItems: "center", gap: "24px", padding: "20px 32px", borderRadius: "24px", cursor: "pointer", backgroundColor: paymentMethod === "cod" ? "#F9F8FF" : "transparent" }}>
                     <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #7a33f2", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                       {paymentMethod === "cod" && <div style={{ width: "16px", height: "16px", backgroundColor: "#7a33f2", borderRadius: "50%" }} />}
@@ -216,7 +220,6 @@ export default function CheckoutPage() {
                   </div>
 
 
-                  {/* BANK */}
                   <div style={{ display: "flex", flexDirection: "column", borderRadius: "24px", backgroundColor: paymentMethod === "bank" ? "#F9F8FF" : "transparent" }}>
                     <div onClick={() => setPaymentMethod("bank")} className="checkout-payment-item" style={{ display: "flex", alignItems: "center", gap: "24px", padding: "20px 32px", cursor: "pointer" }}>
                       <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #7a33f2", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -239,7 +242,6 @@ export default function CheckoutPage() {
                   </div>
 
 
-                  {/* MOMO - ĐÃ QUAY TRỞ LẠI ĐÂY RỒI NGÂN ƠI! */}
                   <div style={{ display: "flex", flexDirection: "column", borderRadius: "24px", backgroundColor: paymentMethod === "momo" ? "#F9F8FF" : "transparent" }}>
                     <div onClick={() => setPaymentMethod("momo")} className="checkout-payment-item" style={{ display: "flex", alignItems: "center", gap: "24px", padding: "20px 32px", cursor: "pointer" }}>
                       <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #7a33f2", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -254,7 +256,7 @@ export default function CheckoutPage() {
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                           <span className="text-[#7a33f2] font-black text-[24px] leading-none">SĐT: 0909 909 909</span>
-                          <span className="text-[#1e1535] font-bold text-[20px]">VELIXORA-NHÓM 4</span>
+                          <span className="text-[#1e1535] font-bold text-[#1e1535]">VELIXORA-NHÓM 4</span>
                           <span className="text-gray-500 text-[15px] font-bold uppercase">Nội dung: <span className="text-[#7a33f2]">VELIXORA + SĐT</span></span>
                         </div>
                       </div>
@@ -263,7 +265,7 @@ export default function CheckoutPage() {
                 </div>
 
 
-                <button onClick={handleOrderComplete} style={{ marginTop: "48px", width: "100%", height: "76px", backgroundColor: "#7a33f2", color: "white", borderRadius: "24px", fontSize: "22px", fontWeight: "bold", textTransform: "uppercase", border: "none", cursor: "pointer", boxShadow: "0 10px 25px rgba(122,51,242,0.3)", fontFamily: "'Times New Roman', Times, serif" }} className="active:scale-[0.98] transition-all">
+                <button onClick={handleOrderComplete} style={{ marginTop: "48px", width: "100%", height: "76px", backgroundColor: "#7a33f2", color: "white", borderRadius: "24px", fontSize: "22px", fontWeight: "bold", textTransform: "uppercase", border: "none", cursor: "pointer", boxShadow: "0 10px 25px rgba(122,51,242,0.3)", fontFamily: "var(--font-montserrat), sans-serif" }} className="active:scale-[0.98] transition-all">
                   Hoàn tất thanh toán
                 </button>
               </div>
@@ -280,15 +282,15 @@ export default function CheckoutPage() {
         {showSuccessModal && (
           <div style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowSuccessModal(false)} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(30, 21, 53, 0.6)", backdropFilter: "blur(4px)" }} />
-            <motion.div initial={{ scale: 0.8, opacity: 0, y: 50 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.8, opacity: 0, y: 50 }} className="success-modal-box" style={{ position: "relative", zIndex: 10000, width: "500px", backgroundColor: "#F9F8FF", borderRadius: "40px", padding: "48px", textAlign: "center", boxShadow: "0 50px 100px rgba(0,0,0,0.3)", border: "1px solid white", fontFamily: "'Times New Roman', Times, serif"}}>
+            <motion.div initial={{ scale: 0.8, opacity: 0, y: 50 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.8, opacity: 0, y: 50 }} className="success-modal-box" style={{ position: "relative", zIndex: 10000, width: "500px", backgroundColor: "#F9F8FF", borderRadius: "40px", padding: "48px", textAlign: "center", boxShadow: "0 50px 100px rgba(0,0,0,0.3)", border: "1px solid white", fontFamily: "var(--font-montserrat), sans-serif"}}>
               <div className="flex flex-col items-center gap-8">
                 <div className="w-24 h-24 bg-white text-[#4ade80] rounded-full flex items-center justify-center shadow-lg"><Check size={64} strokeWidth={1.5} /></div>
                 <div className="space-y-4">
                   <h2 className="text-[32px] font-bold text-[#4a4a4a] m-0">Đặt hàng thành công!</h2>
-                  <p className="text-gray-500 text-[18px] m-0">Cảm ơn Bạn đã tin tưởng lựa chọn Velixora. Đơn hàng đang được xử lý.</p>
+                  <p className="text-gray-500 text-[18px] m-0 font-medium">Cảm ơn Bạn đã tin tưởng lựa chọn Velixora. Đơn hàng đang được xử lý.</p>
                 </div>
                 <div className="flex flex-row gap-4 w-full justify-center">
-                  <Link href="/" className="flex-1 no-underline"><button className="w-full h-[64px] bg-[#7a33f2] text-white rounded-[16px] font-bold text-[18px] hover:bg-[#6625cc] transition-all uppercase border-none cursor-pointer">TRANG CHỦ</button></Link>
+                  <Link href="/" className="flex-1 no-underline"><button className="w-full h-[64px] bg-[#7a33f2] text-white rounded-[16px] font-bold text-[18px] hover:bg-[#6625cc] transition-all uppercase border-none cursor-pointer" style={{ fontFamily: "var(--font-montserrat), sans-serif" }}>TRANG CHỦ</button></Link>
                 </div>
               </div>
             </motion.div>

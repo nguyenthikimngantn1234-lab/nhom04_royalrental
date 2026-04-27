@@ -42,6 +42,16 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
     setRandomReviews(reviews);
   }, [product.id]); 
 
+  // LOGIC KIỂM TRA NGÀY HỢP LỆ KHI THAY ĐỔI NGÀY THUÊ
+  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newStart = e.target.value;
+    setStartDate(newStart);
+    // Nếu ngày thuê mới sau ngày trả hiện tại, tự động cập nhật ngày trả bằng ngày thuê
+    if (new Date(newStart) > new Date(endDate)) {
+      setEndDate(newStart);
+    }
+  };
+
   const handleAddToCart = (redirect = false) => {
     if (!product) return;
     const start = new Date(startDate);
@@ -62,11 +72,11 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
       router.push("/gio-hang");
     } else {
       Swal.fire({
-        title: `<span style="font-family: 'Times New Roman', serif; font-size: 28px;">Đã thêm vào giỏ!</span>`,
-        html: `<span style="font-family: 'Times New Roman', serif; font-size: 18px;">${product.title} đã sẵn sàng trong túi đồ của bạn.</span>`,
+        title: `<span style="font-family: var(--font-montserrat), sans-serif; font-size: 28px; font-weight: 800;">Đã thêm vào giỏ!</span>`,
+        html: `<span style="font-family: var(--font-montserrat), sans-serif; font-size: 18px;">${product.title} đã sẵn sàng trong túi đồ của bạn.</span>`,
         icon: "success", confirmButtonColor: "#7a33f2",
-        confirmButtonText: `<span style="font-family: 'Times New Roman', serif;">Tiếp tục xem</span>`,
-        showCancelButton: true, cancelButtonText: `<span style="font-family: 'Times New Roman', serif;">Đi đến giỏ hàng</span>`,
+        confirmButtonText: `<span style="font-family: var(--font-montserrat), sans-serif; font-weight: bold;">Tiếp tục xem</span>`,
+        showCancelButton: true, cancelButtonText: `<span style="font-family: var(--font-montserrat), sans-serif; font-weight: bold;">Đi đến giỏ hàng</span>`,
         cancelButtonColor: "#1e1535",
       }).then((result) => { if (result.dismiss === Swal.DismissReason.cancel) router.push("/gio-hang"); });
     }
@@ -83,7 +93,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
     <>
       <Header />
       
-      {/* 1. ĐIỀU KHIỂN RESPONSIVE - KHÔNG ĐỘNG VÀO LOGIC CỦA NGÂN */}
       <style jsx global>{`
         .pd-container { padding-left: 80px; padding-right: 80px; padding-top: 150px; }
         .pd-flex-layout { display: flex; gap: 58px; }
@@ -91,7 +100,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
         .pd-tabs-wrapper { display: flex; justify-content: space-between; gap: 32px; }
         .pd-related-grid { display: flex; flex-direction: row; gap: 20px; width: 100%; }
 
-        /* Mobile */
         @media (max-width: 767px) {
           .pd-container { padding-left: 20px !important; padding-right: 20px !important; padding-top: 100px !important; }
           .pd-flex-layout { flex-direction: column !important; gap: 30px !important; }
@@ -104,7 +112,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
           .pd-related-item { width: 100% !important; }
         }
 
-        /* Tablet */
         @media (min-width: 768px) and (max-width: 1023px) {
           .pd-container { padding-left: 40px !important; padding-right: 40px !important; }
           .pd-flex-layout { gap: 30px !important; }
@@ -114,16 +121,13 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
         }
       `}</style>
 
-      <main className="pd-container max-w-[1440px] mx-auto pb-24 font-['Be_Vietnam_Pro'] bg-white text-[#1e1535]">
+      <main className="pd-container max-w-[1440px] mx-auto pb-24 bg-white text-[#1e1535]" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
         
-        {/* Breadcrumb */}
         <nav className="text-[24px] text-gray-400 mb-[12px] flex items-center gap-2">
           <Link href="/" className="hover:text-[#7a33f2] no-underline text-gray-400">TRANG CHỦ</Link> / <span>{product.category}</span> / <span className="text-[#7a33f2] font-semibold uppercase">{product.title}</span>
         </nav>
 
-        {/* Thông tin sản phẩm chính */}
         <div className="pd-flex-layout">
-          {/* PHẦN HIỂN THỊ ẢNH - ĐÃ SỬA LỖI ĐƯỜNG DẪN */}
           <div className="pd-image-col rounded-[32px] overflow-hidden bg-white shadow-sm border border-gray-100">
             <img 
               src={product.image} 
@@ -140,7 +144,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
             </div>
             <div className="text-[36px] font-bold text-[#7a33f2]">{product.price} <span className="text-[18px] font-normal text-gray-400">/ngày</span></div>
 
-            {/* Màu sắc */}
             <div className="flex flex-col gap-4">
               <h3 className="text-[18px] font-bold uppercase tracking-wide">Màu sắc: <span className="font-medium text-[#7a33f2] ml-2 normal-case">{selectedColor}</span></h3>
               <div className="flex flex-wrap gap-[10px]">
@@ -151,7 +154,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
             </div>
 
-            {/* Size */}
             <div className="flex flex-col gap-4">
               <h3 className="text-[18px] font-bold uppercase tracking-wide">Kích thước (Size):</h3>
               <div className="flex flex-wrap gap-[10px]">
@@ -161,29 +163,28 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
             </div>
 
-            {/* Lịch thuê */}
             <div style={{ display: "flex", flexDirection: "column", gap: "24px", marginTop: "12px" }}>
               <h3 className="text-[18px] font-bold uppercase tracking-wide text-[#1e1535] m-0">CHỌN LỊCH THUÊ</h3>
               <div className="pd-date-row" style={{ display: "flex", flexDirection: "row", gap: "16px", width: "100%" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px", flex: 1 }}>
                   <label className="text-[18px] text-[#1e1535] font-semibold m-0">Ngày thuê</label>
-                  <input type="date" className="w-full h-[55px] bg-white border border-[#1e1535] rounded-[8px] px-4 text-[16px] font-bold outline-none focus:border-[#7a33f2] cursor-pointer" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                  <input type="date" className="w-full h-[55px] bg-white border border-[#1e1535] rounded-[8px] px-4 text-[16px] font-bold outline-none focus:border-[#7a33f2] cursor-pointer" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }} value={startDate} onChange={handleStartDateChange} />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px", flex: 1 }}>
                   <label className="text-[18px] text-[#1e1535] font-semibold m-0">Ngày trả</label>
-                  <input type="date" className="w-full h-[55px] bg-white border border-[#1e1535] rounded-[8px] px-4 text-[16px] font-bold outline-none focus:border-[#7a33f2] cursor-pointer" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                  {/* SỬA TẠI ĐÂY: Thêm min={startDate} để khóa ngày trả trước ngày thuê */}
+                  <input type="date" min={startDate} className="w-full h-[55px] bg-white border border-[#1e1535] rounded-[8px] px-4 text-[16px] font-bold outline-none focus:border-[#7a33f2] cursor-pointer" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }} value={endDate} onChange={(e) => setEndDate(e.target.value)} />
                 </div>
               </div>
               <div className="pd-action-row" style={{ display: "flex", flexDirection: "row", gap: "16px", width: "100%", marginTop: "10px" }}>
-                <button onClick={() => handleAddToCart(false)} className="flex-1 bg-white border-2 border-[#7a33f2] text-[#7a33f2] h-[55px] rounded-[10px] font-bold hover:bg-[#f9f8ff] transition-all uppercase text-[16px] cursor-pointer">THÊM VÀO GIỎ HÀNG</button>
-                <button onClick={() => handleAddToCart(true)} className="flex-1 bg-[#7a33f2] border-2 border-[#7a33f2] text-white h-[55px] rounded-[10px] font-bold hover:bg-[#6625cc] transition-all uppercase text-[16px] cursor-pointer shadow-lg">THUÊ NGAY</button>
+                <button onClick={() => handleAddToCart(false)} className="flex-1 bg-white border-2 border-[#7a33f2] text-[#7a33f2] h-[55px] rounded-[10px] font-bold hover:bg-[#f9f8ff] transition-all uppercase text-[16px] cursor-pointer" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>THÊM VÀO GIỎ HÀNG</button>
+                <button onClick={() => handleAddToCart(true)} className="flex-1 bg-[#7a33f2] border-2 border-[#7a33f2] text-white h-[55px] rounded-[10px] font-bold hover:bg-[#6625cc] transition-all uppercase text-[16px] cursor-pointer shadow-lg" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>THUÊ NGAY</button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Các mục mô tả chi tiết */}
-        <div className="mt-[80px]" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
+        <div className="mt-[80px]">
           <div className="pd-tabs-wrapper max-w-[1100px] mx-auto mb-20">
             {[
               { id: "mota", label: "MÔ TẢ CHI TIẾT" },
@@ -196,6 +197,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
                 className={`flex-1 h-[60px] rounded-[12px] font-bold text-[20px] tracking-widest transition-all cursor-pointer border-none shadow-sm ${
                   activeTab === tab.id ? "bg-[#f3f0ff] text-[#7a33f2]" : "bg-[#f9f9fb] text-gray-400 hover:bg-[#f0eff5]"
                 }`}
+                style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
               >
                 {tab.label}
               </button>
@@ -206,14 +208,14 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
             {activeTab === "mota" && (
               <div className="max-w-[1100px] mx-auto">
                 <h3 className="text-[28px] font-bold mb-10 text-[#1e1535] uppercase text-center">Thông tin mô tả sản phẩm</h3>
-                <div className="text-[24px] leading-relaxed text-gray-800 text-center">
+                <div className="text-[24px] leading-relaxed text-gray-800 text-center font-medium">
                   {product.description}
                 </div>
               </div>
             )}
             
             {activeTab === "chinhsach" && (
-              <div className="text-[21px] text-gray-700 leading-loose max-w-[950px] mx-auto">
+              <div className="text-[21px] text-gray-700 leading-loose max-w-[950px] mx-auto font-medium">
                 <div className="mb-10"><h4 className="text-[24px] font-bold text-[#1e1535] mb-4 uppercase">Lưu ý về bảo quản</h4><p className="m-0">Velixora sẽ trực tiếp xử lý giặt khô chuyên dụng. Quý khách vui lòng không tự ý giặt/tẩy tại nhà.</p></div>
                 <div className="mb-10"><h4 className="text-[24px] font-bold text-[#1e1535] mb-4 uppercase">Chính sách đặt cọc</h4><p className="m-0">Vui lòng thanh toán 50% giá trị đồ thuê hoặc để lại CCCD bản gốc khi nhận trang phục.</p></div>
                 <div><h4 className="text-[24px] font-bold text-[#1e1535] mb-4 uppercase">Quy định hủy lịch</h4><p className="m-0">Hoàn lại 100% tiền cọc nếu báo hủy trước 07 ngày so với ngày nhận đồ dự kiến.</p></div>
@@ -224,7 +226,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               <div className="flex flex-col gap-12 max-w-[1000px] mx-auto pt-12">
                 {randomReviews.map((rev) => (
                   <div key={rev.id} className="pb-8 border-b border-gray-100 flex flex-col gap-5">
-                    <div className="flex items-center gap-20">
+                    <div className="flex items-center gap-4">
                       <img src={rev.avatar} className="w-[40px] h-[40px] rounded-full object-cover" alt="Avatar" />
                       <div className="flex flex-col gap-1">
                         <div className="font-bold text-[22px] text-[#1e1535]">{rev.userName}</div>
@@ -236,7 +238,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
                       </div>
                       <span className="text-gray-400 text-[17px] ml-auto font-medium">{rev.date}</span>
                     </div>
-                    <p className="text-[22px] text-gray-700 m-0 pl-[80px]">{rev.comment}</p>
+                    <p className="text-[22px] text-gray-700 m-0 pl-14 font-medium">{rev.comment}</p>
                   </div>
                 ))}
               </div>
@@ -244,7 +246,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
           </div>
         </div>
 
-        {/* Sản phẩm tương tự */}
         <div className="mt-[100px]">
           <h2 className="text-[34px] font-black uppercase tracking-tighter mb-12">SẢN PHẨM TƯƠNG TỰ</h2>
           <div className="pd-related-grid">

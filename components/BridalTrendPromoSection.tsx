@@ -5,7 +5,7 @@ import Link from 'next/link';
 export const BridalTrendPromoSection = () => {
   return (
     <>
-      {/* 1. KHỐI ĐIỀU KHIỂN - KHÔNG ĐỤNG VÀO CODE GỐC CỦA NGÂN */}
+      {/* 1. KHỐI ĐIỀU KHIỂN - ĐÃ ĐỒNG NHẤT FONT MONTSERRAT */}
       <style jsx>{`
         .promo-section {
           display: flex;
@@ -15,7 +15,8 @@ export const BridalTrendPromoSection = () => {
           width: 100%;
           max-width: 1440px;
           margin: 0 auto;
-          font-family: 'Be Vietnam Pro', sans-serif;
+          /* ĐÃ CẬP NHẬT: Sử dụng Montserrat đồng bộ */
+          font-family: var(--font-montserrat), sans-serif;
         }
 
         /* Mobile */
@@ -34,7 +35,7 @@ export const BridalTrendPromoSection = () => {
           .promo-title { font-size: 56px !important; }
         }
 
-        /* Desktop chuẩn của Ngân */
+        /* Desktop chuẩn */
         @media (min-width: 1280px) {
           .promo-section { flex-direction: row; gap: 80px; padding: 80px; }
           .promo-image-box { width: 680px; height: 680px; }
@@ -48,7 +49,7 @@ export const BridalTrendPromoSection = () => {
 
       <section className="promo-section">
         
-        {/* 2. KHUNG ẢNH BÊN TRÁI - GIỮ NGUYÊN STYLE NGÂN */}
+        {/* 2. KHUNG ẢNH BÊN TRÁI */}
         <div className="promo-image-box flex-shrink-0 rounded-[16px] overflow-hidden shadow-sm transition-transform duration-700 hover:scale-[1.01]">
           <img
             src="/nhom04_royalrental/images/anhsao.png"
@@ -66,17 +67,17 @@ export const BridalTrendPromoSection = () => {
               <span className="text-[#7a33f2] font-semibold tracking-[0.4em] text-[14px] uppercase leading-none">
                 BST
               </span>
-              <h2 className="promo-title font-bold text-[#1e1535] leading-[1] tracking-tight">
+              <h2 className="promo-title font-extrabold text-[#1e1535] leading-[1] tracking-tight">
                 Vũ Điệu <span className="text-[#8b5cf6]">Ánh Sao</span>
               </h2>
             </div>
 
             {/* Đoạn văn mô tả */}
-            <p className="text-[#5d4f7a] text-[16px] lg:text-[18px] leading-[1.5] opacity-80 max-w-[480px] mb-8">
+            <p className="text-[#5d4f7a] text-[16px] lg:text-[18px] leading-[1.5] opacity-80 max-w-[480px] mb-8 font-medium">
               Thiết kế tinh xảo dành cho những khoảnh khắc đặc biệt mà bạn muốn tỏa sáng rực rỡ.
             </p>
 
-            {/* NÚT THUÊ NGAY - GIỮ NGUYÊN INLINE STYLE CỦA NGÂN */}
+            {/* NÚT THUÊ NGAY - ĐÃ CẬP NHẬT FONT MONTSERRAT */}
             <Link href="/danh-muc?cat=Váy Cưới" className="no-underline">
               <button
                 style={{
@@ -87,9 +88,10 @@ export const BridalTrendPromoSection = () => {
                   border: 'none',
                   fontWeight: 'bold',
                   fontSize: '16px',
-                  fontFamily: "'Times New Roman', Times, serif",
+                  /* ĐÃ CẬP NHẬT: Đảm bảo nút bấm dùng đúng font của nhóm */
+                  fontFamily: "var(--font-montserrat), sans-serif",
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
+                  letterSpacing: '1px',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
                   transition: 'all 0.3s',
