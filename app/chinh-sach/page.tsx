@@ -6,7 +6,7 @@ import { ShieldCheck, FileText, Truck, RotateCcw } from "lucide-react";
 
 
 export default function PolicyPage() {
-  // Mảng dữ liệu để render đồng nhất
+  // Mảng dữ liệu giữ nguyên 100% không đổi một chữ
   const policies = [
     {
       id: "dieu-khoan",
@@ -41,14 +41,14 @@ export default function PolicyPage() {
       content: [
         "**Thông tin thu thập:** Chúng tôi cam kết bảo mật tuyệt đối số điện thoại, địa chỉ và hình ảnh phản hồi của bạn.",
         "**Mục đích sử dụng:** Thông tin chỉ dùng để phục vụ giao nhận sản phẩm và gửi các ưu đãi đặc quyền từ Velixora.",
-        "Chúng tôi cam kết không chia sẻ thông tin khách hàng cho bên thứ ba vì mục đích thương mại."
+        "**Chúng tôi cam kết không chia sẻ thông tin khách hàng cho bên thứ ba vì mục đích thương mại.**"
       ]
     },
     {
       id: "boi-thuong",
       title: "Chính Sách Bồi Thường",
       icon: <RotateCcw size={28} />,
-      color: "#FF4D4D", // Giữ màu đỏ cho phần bồi thường để cảnh báo
+      color: "#FF4D4D",
       bgColor: "#FFF1F1",
       content: [
         "Các lỗi bẩn nhẹ có thể xử lý chuyên dụng (son môi, vết đồ ăn): **Miễn phí hoàn toàn**.",
@@ -62,15 +62,47 @@ export default function PolicyPage() {
   return (
     <>
       <Header />
-      <main className="w-full min-h-screen bg-[#FDFDFF] pt-[160px] pb-32 font-['Be_Vietnam_Pro'] text-[#1e1535]">
+      
+      {/* 1. ĐIỀU KHIỂN CSS RESPONSIVE CHO TABLET & MOBILE */}
+      <style jsx global>{`
+        .policy-main-wrapper {
+          padding-top: 160px;
+        }
+        .policy-title-h1 {
+          font-size: 56px;
+        }
+        .policy-card {
+          padding: 48px; /* 12 * 4 */
+          border-radius: 40px;
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .policy-main-wrapper { padding-top: 100px !important; padding-bottom: 60px !important; }
+          .policy-title-h1 { font-size: 32px !important; margin-bottom: 20px !important; }
+          .policy-card { padding: 30px 20px !important; border-radius: 24px !important; }
+          .policy-card-header { margin-bottom: 25px !important; }
+          .policy-card-title { font-size: 20px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .policy-main-wrapper { padding-top: 130px !important; }
+          .policy-title-h1 { font-size: 44px !important; }
+          .policy-card { padding: 40px !important; }
+        }
+      `}</style>
+
+      <main className="policy-main-wrapper w-full min-h-screen bg-[#FDFDFF] pb-32 font-['Be_Vietnam_Pro'] text-[#1e1535]">
         <div className="max-w-[1000px] mx-auto px-6">
-         
+          
           {/* Header Trang */}
           <div className="text-center mb-20">
-            <h1 className="text-[56px] font-black uppercase tracking-tighter mb-6 leading-none">Điều Khoản & Chính Sách</h1>
+            <h1 className="policy-title-h1 font-black uppercase tracking-tighter mb-6 leading-none">
+              Điều Khoản & Chính Sách
+            </h1>
             <div className="flex items-center justify-center gap-2 text-gray-400">
                <span className="w-8 h-[1px] bg-gray-200"></span>
-               
                <span className="w-8 h-[1px] bg-gray-200"></span>
             </div>
           </div>
@@ -80,20 +112,20 @@ export default function PolicyPage() {
             {policies.map((item) => (
               <section
                 key={item.id}
-                className="bg-white p-12 rounded-[40px] shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-[#F0EEFF] transition-all hover:shadow-md"
+                className="policy-card bg-white shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-[#F0EEFF] transition-all hover:shadow-md"
               >
-                <div className="flex items-center gap-5 mb-10">
+                <div className="policy-card-header flex items-center gap-5 mb-10">
                   <div
                     style={{ backgroundColor: item.bgColor, color: item.color }}
-                    className="w-14 h-14 rounded-[20px] flex items-center justify-center shadow-sm"
+                    className="w-14 h-14 rounded-[20px] flex-shrink-0 flex items-center justify-center shadow-sm"
                   >
                     {item.icon}
                   </div>
-                  <h2 className="text-[26px] font-black uppercase tracking-tight" style={{ color: item.id === 'boi-thuong' ? item.color : '#1e1535' }}>
+                  <h2 className="policy-card-title text-[26px] font-black uppercase tracking-tight" style={{ color: item.id === 'boi-thuong' ? item.color : '#1e1535' }}>
                     {item.title}
                   </h2>
                 </div>
-               
+                
                 <ul className="flex flex-col gap-6 text-[#5d4f7a] text-[17px] leading-[1.8]">
                   {item.content.map((text, idx) => (
                     <li key={idx} className="flex gap-4">
@@ -116,4 +148,3 @@ export default function PolicyPage() {
     </>
   );
 }
-

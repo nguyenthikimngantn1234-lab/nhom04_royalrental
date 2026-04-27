@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 
-
 const products = [
   {
     id: 1,
@@ -70,11 +69,43 @@ const products = [
   }
 ];
 
-
 export const BestSellerGallerySection = () => {
   return (
-    <section id="best-seller" className="py-20 bg-white flex flex-col items-center">
+    <section id="best-seller" className="py-20 bg-white flex flex-col items-center px-4 md:px-0">
+      
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG ĐỤNG VÀO CODE CỦA NGÂN */}
+      <style jsx>{`
+        .gallery-container {
+          width: 100%;
+          max-width: 1272px; /* GIỮ CHUẨN CỦA NGÂN */
+          margin: 0 auto;
+        }
+        .gallery-grid {
+          display: grid;
+          gap: 24px;
+        }
 
+        /* Mobile */
+        @media (max-width: 767px) {
+          .gallery-grid { grid-template-columns: repeat(1, 1fr); }
+          .product-card { width: 100% !important; }
+          .product-image-box { width: 100% !important; height: 450px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1271px) {
+          .gallery-grid { grid-template-columns: repeat(2, 1fr); padding: 0 40px; }
+          .product-card { width: 100% !important; }
+          .product-image-box { width: 100% !important; height: 420px !important; }
+        }
+
+        /* Desktop chuẩn của Ngân */
+        @media (min-width: 1272px) {
+          .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+          .product-card { width: 300px; }
+          .product-image-box { width: 300px; height: 400px; }
+        }
+      `}</style>
 
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-[#1e1535] uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
@@ -85,39 +116,37 @@ export const BestSellerGallerySection = () => {
         </p>
       </div>
 
-
-      <div className="w-[1272px]">
-        <div className="grid grid-cols-4 gap-[24px]">
-
+      {/* KHU VỰC HIỂN THỊ CHÍNH */}
+      <div className="gallery-container">
+        <div className="gallery-grid">
 
           {products.map((p, i) => (
-            <div key={i} className="w-[300px] group">
-
+            <div key={i} className="product-card group mx-auto">
 
               <Link href={`/san-pham/${p.id}`} className="no-underline">
-                <div className="relative w-[300px] h-[400px] rounded-[18px] overflow-hidden bg-gray-100 cursor-pointer shadow-sm">
-                 
-                  {/* KHU VỰC NHÃN DÁN (TAGS) */}
+                <div className="product-image-box relative rounded-[18px] overflow-hidden bg-gray-100 cursor-pointer shadow-sm">
+                  
+                  {/* TAGS GIỮ NGUYÊN STYLE */}
                   <div className="absolute top-[10px] left-[10px] z-10 flex gap-[6px]">
                     {p.tag === 'NEW' && (
                       <span style={{ backgroundColor: "#7a33f2", color: "white", fontSize: "11px", fontWeight: "bold", padding: "4px 8px", borderRadius: "6px", lineHeight: "1" }}>
                         {p.tag}
                       </span>
                     )}
-                   
+                    
                     {p.tag === 'HOT' && (
                       <span style={{ backgroundColor: "#FF4D4F", color: "white", fontSize: "11px", fontWeight: "bold", padding: "4px 8px", borderRadius: "6px", lineHeight: "1" }}>
                         {p.tag}
                       </span>
                     )}
-                   
+                    
                     {p.discount && (
                       <span style={{ backgroundColor: "#FFFDF0", color: "#D97706", border: "1px solid #F5A623", fontSize: "11px", fontWeight: "bold", padding: "3px 6px", borderRadius: "6px", display: "flex", alignItems: "center", gap: "3px", lineHeight: "1" }}>
                         🔥 {p.discount}
                       </span>
                     )}
                   </div>
-                 
+                  
                   <img
                     src={p.img}
                     alt={p.name}
@@ -126,8 +155,7 @@ export const BestSellerGallerySection = () => {
                 </div>
               </Link>
 
-
-              {/* KHU VỰC TÊN VÀ GIÁ - ĐÃ ÉP FONT TIMES NEW ROMAN */}
+              {/* THÔNG TIN GIỮ NGUYÊN FONT TIMES NEW ROMAN CỦA NGÂN */}
               <div className="mt-4 px-1" style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                 <Link href={`/san-pham/${p.id}`} className="no-underline hover:text-[#7a33f2] transition-colors">
                   <h3 className="text-[17px] font-bold text-[#1e1535] leading-snug">
@@ -135,12 +163,10 @@ export const BestSellerGallerySection = () => {
                   </h3>
                 </Link>
 
-
                 <div className="mt-1.5 flex flex-col gap-1">
                   <div className="text-[18px] font-black text-[#1e1535]">
                     {p.price} <span className="text-[#1e1535] font-normal text-[14px]">/ngày</span>
                   </div>
-
 
                   {p.oldPrice && (
                     <div className="text-gray-400 opacity-60 text-[14px] line-through">
@@ -150,17 +176,11 @@ export const BestSellerGallerySection = () => {
                 </div>
               </div>
 
-
             </div>
           ))}
 
-
         </div>
       </div>
-
-
     </section>
   );
 };
-
- 

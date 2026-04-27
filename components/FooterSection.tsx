@@ -2,58 +2,77 @@
 import React from 'react';
 import Link from 'next/link';
 
-
 export const FooterSection = () => {
   return (
     <footer style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-     
-      {/* 1. KHỐI NEWSLETTER TÍM NHẠT */}
-      <div style={{ width: '100%', maxWidth: '1440px', padding: '80px 80px', boxSizing: 'border-box' }}>
-        <div style={{ backgroundColor: '#f3edff', borderRadius: '40px', padding: '80px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <h2 style={{ color: '#1e1535', fontSize: '48px', fontWeight: 'bold', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+      
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE (KHÔNG ĐỤNG VÀO CODE CỦA EM) */}
+      <style jsx>{`
+        .footer-newsletter-box {
+          width: 100%;
+          max-width: 1440px;
+          padding: 80px 80px;
+          box-sizing: border-box;
+        }
+        .footer-main-content {
+          width: 100%;
+          max-width: 1440px;
+          padding: 0 80px 80px 80px;
+          display: grid;
+          grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+          gap: 60px;
+          align-items: start;
+          box-sizing: border-box;
+        }
+        .footer-bottom-container {
+          width: 100%;
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 0 80px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-sizing: border-box;
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .footer-newsletter-box { padding: 40px 20px; }
+          .newsletter-inner { padding: 40px 20px !important; border-radius: 24px !important; }
+          .newsletter-title { font-size: 28px !important; }
+          .newsletter-input-group { flex-direction: column; width: 100% !important; }
+          .footer-main-content { grid-template-columns: 1fr; gap: 40px; padding: 0 20px 40px 20px; text-align: center; }
+          .footer-main-content > div { align-items: center !important; }
+          .footer-bottom-container { flex-direction: column; gap: 20px; padding: 0 20px; text-align: center; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .footer-newsletter-box { padding: 60px 40px; }
+          .footer-main-content { grid-template-columns: 1fr 1fr; gap: 50px; padding: 0 40px 60px 40px; }
+          .footer-bottom-container { padding: 0 40px; }
+        }
+      `}</style>
+      
+      {/* 1. KHỐI NEWSLETTER TÍM NHẠT - GIỮ NGUYÊN STYLE NGÂN */}
+      <div className="footer-newsletter-box">
+        <div className="newsletter-inner" style={{ backgroundColor: '#f3edff', borderRadius: '40px', padding: '80px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          <h2 className="newsletter-title" style={{ color: '#1e1535', fontSize: '48px', fontWeight: 'bold', margin: '0 0 20px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Những xu hướng lễ phục mới
           </h2>
           <p style={{ color: '#5d4f7a', fontSize: '20px', maxWidth: '700px', margin: '0 0 45px 0', lineHeight: '1.6', opacity: 0.8 }}>
-            Nhận thông tin về bộ sưu tập độc quyền, ưu đãi đặc biệt <br /> và mẹo phối đồ tinh tế ngay trong hộp thư của bạn.
+            Nhận thông tin về bộ sưu tập độc quyền, ưu đãi đặc biệt <br className="hidden lg:block" /> và mẹo phối đồ tinh tế ngay trong hộp thư của bạn.
           </p>
-         
-          <div style={{
-            display: 'flex',
-            width: '100%',
-            maxWidth: '650px',
-            alignItems: 'center',
-            gap: '12px',
-            margin: '0 auto'
-          }}>
+          
+          <div className="newsletter-input-group" style={{ display: 'flex', width: '100%', maxWidth: '650px', alignItems: 'center', gap: '12px', margin: '0 auto' }}>
             <input
               type="email"
               placeholder="Nhập email của bạn"
-              style={{
-                flex: 1,
-                padding: '16px 25px',
-                borderRadius: '12px',
-                border: 'none',
-                fontSize: '16px',
-                outline: 'none',
-                backgroundColor: 'white',
-                color: '#1e1535',
-                boxShadow: '0 4px 10px rgba(0,0,0,0.03)'
-              }}
+              style={{ flex: 1, padding: '16px 25px', borderRadius: '12px', border: 'none', fontSize: '16px', outline: 'none', backgroundColor: 'white', color: '#1e1535', boxShadow: '0 4px 10px rgba(0,0,0,0.03)', width: '100%' }}
             />
-            <Link href="/dang-ky" style={{ textDecoration: 'none' }}>
-              <button style={{
-                backgroundColor: '#7a33f2',
-                color: 'white',
-                padding: '16px 35px',
-                borderRadius: '12px',
-                border: 'none',
-                fontWeight: 'bold',
-                fontSize: '16px',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.3s'
-              }}>
-                ĐĂNG KÝ NGAY
+            <Link href="/dang-ky" style={{ textDecoration: 'none', width: '100%', maxWidth: '200px' }}>
+              <button style={{ backgroundColor: '#7a33f2', color: 'white', padding: '16px 35px', borderRadius: '12px', border: 'none', fontWeight: 'bold', fontSize: '16px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.3s', width: '100%' }}>
+                ĐĂNG KÝ
               </button>
             </Link>
           </div>
@@ -61,18 +80,9 @@ export const FooterSection = () => {
       </div>
 
 
-      {/* 2. NỘI DUNG FOOTER CHÍNH */}
-      <div style={{
-        width: '100%',
-        maxWidth: '1440px',
-        padding: '0 80px 80px 80px',
-        display: 'grid',
-        gridTemplateColumns: '1.5fr 1fr 1fr 1.2fr',
-        gap: '60px',
-        alignItems: 'start',
-        boxSizing: 'border-box'
-      }}>
-       
+      {/* 2. NỘI DUNG FOOTER CHÍNH - BÊ NGUYÊN SI STYLE CỦA EM */}
+      <div className="footer-main-content">
+        
         {/* Cột 1: Logo & Mạng xã hội */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
           <Link href="/">
@@ -107,13 +117,13 @@ export const FooterSection = () => {
         </div>
 
 
-        {/* Cột 3: Chính Sách - ĐÃ CẬP NHẬT LINK DẪN ĐẾN TRANG CHÍNH SÁCH */}
+        {/* Cột 3: Chính Sách */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <h3 style={{ color: '#1e1535', fontSize: '18px', fontWeight: 'bold', margin: 0 }}>CHÍNH SÁCH</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }} className="hover:text-[#7a33f2] transition-colors">Điều Khoản & Điều Kiện</Link>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }} className="hover:text-[#7a33f2] transition-colors">Chính Sách Bảo Mật</Link>
-            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }} className="hover:text-[#7a33f2] transition-colors">Chính Sách Cho Thuê</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Điều Khoản & Điều Kiện</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Chính Sách Bảo Mật</Link>
+            <Link href="/chinh-sach" style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>Chính Sách Cho Thuê</Link>
           </div>
         </div>
 
@@ -132,19 +142,16 @@ export const FooterSection = () => {
 
       {/* 3. BOTTOM BAR TÍM ĐẬM */}
       <div style={{ width: '100%', backgroundColor: '#1e1535', padding: '20px 0' }}>
-        <div style={{ width: '100%', maxWidth: '1440px', margin: '0 auto', padding: '0 80px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'white', fontSize: '14px', boxSizing: 'border-box' }}>
+        <div className="footer-bottom-container" style={{ color: 'white', fontSize: '14px' }}>
           <p style={{ margin: 0 }}>© 2026 Velixora. All Rights Reserved</p>
-         
+          
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <img src="/nhom04_royalrental/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
-            <img src="/nhom04_royalrental/images/Logo (2).png" alt="Napas" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
-            <img src="/nhom04_royalrental/images/Logo (3).png" alt="MoMo" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }} />
+            <img src="/nhom04_royalrental/images/Logo (1).png" alt="Visa" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
+            <img src="/nhom04_royalrental/images/Logo (2).png" alt="Napas" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
+            <img src="/nhom04_royalrental/images/Logo (3).png" alt="MoMo" style={{ height: '24px', backgroundColor: 'white', padding: '2px 8px', borderRadius: '4px' }} />
           </div>
         </div>
       </div>
-
-
     </footer>
   );
 };
-

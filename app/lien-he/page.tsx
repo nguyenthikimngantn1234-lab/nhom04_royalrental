@@ -6,7 +6,7 @@ import { FooterSimple } from "@/components/FooterSimple";
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
-// --- Component phụ cho Ô nhập liệu (Bo góc 8px) ---
+// --- Component phụ giữ nguyên 100% logic của Ngân ---
 const ContactInput = ({ label, placeholder, name, type = "text", required = false }: any) => (
   <div className="flex flex-col w-full" style={{ marginBottom: '32px' }}>
     <label className="text-[22px] font-bold text-[#1e1535]" style={{ marginBottom: "12px", display: "block" }}>
@@ -23,7 +23,6 @@ const ContactInput = ({ label, placeholder, name, type = "text", required = fals
   </div>
 );
 
-// --- Component phụ cho Ô nội dung (Cao 120px) ---
 const ContactTextarea = ({ label, placeholder, name, required = false }: any) => (
   <div className="flex flex-col w-full" style={{ marginBottom: '12px' }}>
     <label className="text-[22px] font-bold text-[#1e1535]" style={{ marginBottom: "12px", display: "block" }}>
@@ -44,9 +43,8 @@ const ContactTextarea = ({ label, placeholder, name, required = false }: any) =>
   </div>
 );
 
-// --- Component phụ cho Thẻ thông tin Địa chỉ ---
 const InfoCard = ({ title, detail }: { title: string; detail: React.ReactNode }) => (
-  <div className="flex flex-col gap-4">
+  <div className="flex flex-col gap-4 contact-info-card">
     <h3 className="text-[24px] font-black text-[#1e1535] uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>{title}</h3>
     <div className="text-[20px] text-[#6B7280] leading-relaxed">
       {detail}
@@ -78,11 +76,41 @@ export default function ContactPage() {
     <>
       <Header />
       
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG SỬA LOGIC CỦA NGÂN */}
+      <style jsx global>{`
+        .contact-container-px { padding-left: 80px; padding-right: 80px; }
+        .contact-info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
+        .contact-form-flex { display: flex; justify-content: space-between; align-items: start; gap: 48px; }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .contact-container-px { padding-left: 20px !important; padding-right: 20px !important; }
+          .contact-info-grid { grid-template-columns: 1fr !important; gap: 40px !important; height: auto !important; padding: 40px 20px !important; }
+          .contact-section-height { height: auto !important; min-height: 200px !important; }
+          .contact-form-flex { flex-direction: column !important; gap: 60px !important; }
+          .contact-form-col { width: 100% !important; }
+          .contact-image-col { width: 100% !important; height: 400px !important; }
+          .contact-title-h1 { font-size: 40px !important; }
+          .contact-info-card h3 { font-size: 20px !important; }
+          .contact-info-card div { font-size: 16px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1279px) {
+          .contact-container-px { padding-left: 40px !important; padding-right: 40px !important; }
+          .contact-info-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; height: auto !important; padding: 40px !important; }
+          .contact-section-height { height: auto !important; }
+          .contact-form-flex { flex-direction: column !important; align-items: center !important; }
+          .contact-form-col { width: 100% !important; max-width: 700px !important; }
+          .contact-image-col { width: 100% !important; max-width: 700px !important; height: 500px !important; }
+        }
+      `}</style>
+
       <main className="w-full bg-white font-['Be_Vietnam_Pro'] overflow-x-hidden mt-[107px]">
         
         {/* SECTION 1: BREADCRUMB */}
         <div className="w-full bg-[#F5F3FF] h-[56px] flex items-center border-b border-[#E5E0FF]">
-          <div className="max-w-[1440px] w-full mx-auto px-[80px]">
+          <div className="max-w-[1440px] w-full mx-auto contact-container-px">
             <nav className="text-[18px] flex gap-4 items-center text-[#7a33f2] font-semibold">
               <Link href="/" className="text-[#7a33f2] hover:opacity-80 transition-all flex items-center no-underline">
                 <span style={{ fontSize: '18px' }}>TRANG CHỦ</span>
@@ -94,10 +122,10 @@ export default function ContactPage() {
         </div>
 
         {/* SECTION 2: TIÊU ĐỀ */}
-        <div className="w-full bg-white h-[205px] flex items-center">
-          <div className="max-w-[1440px] w-full mx-auto px-[80px]">
+        <div className="w-full bg-white contact-section-height h-[205px] flex items-center">
+          <div className="max-w-[1440px] w-full mx-auto contact-container-px">
             <div className="max-w-[800px]">
-              <h1 className="text-[54px] font-black text-[#1e1535] leading-none mb-5 uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>LIÊN HỆ</h1>
+              <h1 className="contact-title-h1 text-[54px] font-black text-[#1e1535] leading-none mb-5 uppercase tracking-tight" style={{ fontFamily: "'Times New Roman', Times, serif" }}>LIÊN HỆ</h1>
               <p className="text-[20px] text-[#6B7280] leading-relaxed">
                 Bạn có câu hỏi về dịch vụ cho thuê của chúng tôi? Chúng tôi rất muốn nghe từ bạn. 
                 Hãy liên hệ và cùng chúng tôi tạo nên dịp đặc biệt khó quên.
@@ -107,8 +135,8 @@ export default function ContactPage() {
         </div>
 
         {/* SECTION 3: THÔNG TIN ĐỊA CHỈ */}
-        <div className="w-full bg-[#F5F3FF] h-[205px] flex items-center border-y border-[#E5E0FF]">
-          <div className="max-w-[1440px] w-full mx-auto px-[80px] grid grid-cols-4 gap-x-12">
+        <div className="w-full bg-[#F5F3FF] contact-section-height h-[205px] flex items-center border-y border-[#E5E0FF]">
+          <div className="max-w-[1440px] w-full mx-auto contact-container-px contact-info-grid">
             <InfoCard title="Địa Chỉ" detail={<p className="font-bold text-[#1e1535]">Số 1 Võ Văn Ngân,<br/>Thủ Đức, TP. Hồ Chí Minh</p>} />
             <InfoCard title="Điện Thoại" detail={<p className="font-bold text-[#1e1535]">+84 909 909 909</p>} />
             <InfoCard title="Email" detail={<p className="font-bold text-[#1e1535]">support@velixora.com</p>} />
@@ -123,9 +151,9 @@ export default function ContactPage() {
 
         {/* SECTION 4: FORM & ẢNH */}
         <div className="w-full bg-white py-28">
-          <div className="max-w-[1440px] mx-auto px-[80px] flex justify-between items-start gap-12">
+          <div className="max-w-[1440px] mx-auto contact-container-px contact-form-flex">
             
-            <div style={{ width: '584px' }} className="flex flex-col">
+            <div style={{ width: '584px' }} className="flex flex-col contact-form-col">
               <h2 className="text-[48px] font-black text-[#1e1535] mb-12 leading-tight uppercase" 
               style={{ fontFamily: "'Times New Roman', Times, serif" }}>
                 Gửi liên hệ
@@ -163,7 +191,7 @@ export default function ContactPage() {
 
             <div 
               style={{ width: '580px', height: '740px' }} 
-              className="rounded-[24px] overflow-hidden shadow-2xl border border-[#F5F3FF] mt-[14px]"
+              className="contact-image-col rounded-[24px] overflow-hidden shadow-2xl border border-[#F5F3FF] mt-[14px]"
             >
               <img 
                 src="/nhom04_royalrental/images/lienhe.png" 

@@ -2,18 +2,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Thêm dòng này để chuyển trang mượt mà
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const router = useRouter(); // Khởi tạo router
+  const router = useRouter();
 
-  // --- PHẦN THÊM MỚI: Logic lưu dữ liệu ---
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Thu thập dữ liệu từ các ô input
     const formData = new FormData(e.currentTarget);
     const fullName = formData.get("fullName") as string;
     const email = formData.get("email") as string;
@@ -22,37 +20,49 @@ export default function RegisterPage() {
       const userData = {
         fullName: fullName,
         email: email,
-        phone: "0987 654 321", // Số mặc định
+        phone: "0987 654 321",
         city: "Hồ Chí Minh"
       };
 
-      // Lưu vào "ngăn kéo" trình duyệt
       localStorage.setItem("userProfile", JSON.stringify(userData));
-      
-      // Chuyển hướng sang trang tài khoản ngay lập tức
       router.push("/tai-khoan");
     }
   };
-  // ----------------------------------------
 
   return (
     <main className="w-full min-h-screen flex bg-white font-['Be_Vietnam_Pro']">
       
-      {/* CỘT TRÁI: FORM ĐĂNG KÝ */}
-      <div className="w-1/2 flex flex-col justify-center items-center py-12">
-        <div className="w-full px-[120px] lg:px-[160px] flex flex-col gap-[16px] box-border">
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG ĐỤNG VÀO LOGIC CỦA NGÂN */}
+      <style jsx global>{`
+        /* Mobile */
+        @media (max-width: 767px) {
+          .auth-side-image { display: none !important; }
+          .auth-form-container { width: 100% !important; padding: 40px 20px !important; }
+          .auth-form-inner { px: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+          .auth-title { font-size: 28px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .auth-side-image { display: none !important; }
+          .auth-form-container { width: 100% !important; }
+          .auth-form-inner { max-width: 500px !important; margin: 0 auto; }
+        }
+      `}</style>
+      
+      {/* CỘT TRÁI: FORM ĐĂNG KÝ - GIỮ NGUYÊN STYLE NGÂN */}
+      <div className="auth-form-container w-1/2 flex flex-col justify-center items-center py-12">
+        <div className="auth-form-inner w-full px-[120px] lg:px-[160px] flex flex-col gap-[16px] box-border">
 
           <div className="mb-[8px]">
-            <Image src="/nhom04_royalrental/images/logo.png" alt="Velixora Logo" width={120} height={75} className="object-contain" />
+            <Image src="/nhom04_royalrental/images/Logo.png" alt="Velixora Logo" width={120} height={75} className="object-contain" />
           </div>
 
-          <h1 className="text-[32px] font-black text-[#1e1535] uppercase m-0 leading-tight">
+          <h1 className="auth-title text-[32px] font-black text-[#1e1535] uppercase m-0 leading-tight">
             ĐĂNG KÝ
           </h1>
 
-          {/* FORM ĐĂNG KÝ - Đã gắn hàm handleRegister */}
           <form onSubmit={handleRegister} className="flex flex-col gap-[16px] w-full">
-            {/* Họ và tên - Thêm name="fullName" */}
             <input
               name="fullName"
               type="text"
@@ -61,7 +71,6 @@ export default function RegisterPage() {
               className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2]/20 transition-all"
             />
 
-            {/* Email/ Username - Thêm name="email" */}
             <input
               name="email"
               type="text"
@@ -70,7 +79,6 @@ export default function RegisterPage() {
               className="h-[56px] w-full bg-[#F9F8FF] border border-[#EEEEFF] rounded-[12px] px-6 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2]/20 transition-all"
             />
 
-            {/* Mật khẩu */}
             <div className="relative w-full">
               <input
                 type={showPassword ? "text" : "password"}
@@ -86,7 +94,6 @@ export default function RegisterPage() {
               </button>
             </div>
 
-            {/* Nhập lại mật khẩu */}
             <div className="relative w-full">
               <input
                 type={showConfirmPassword ? "text" : "password"}
@@ -98,7 +105,7 @@ export default function RegisterPage() {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7a33f2] bg-transparent border-none cursor-pointer"
               >
-                {showConfirmPassword ? "👁️" : "  "}
+                {showConfirmPassword ? "👁️" : " "}
               </button>
             </div>
 
@@ -106,7 +113,7 @@ export default function RegisterPage() {
               <label className="flex gap-2 items-center text-[13px] text-[#6B7280] cursor-pointer">
                 <input type="checkbox" required className="w-4 h-4 accent-[#7a33f2]" />
                 <span>
-                  Tôi đồng ý với <Link href="/terms" className="text-[#7a33f2] underline">Điều khoản</Link> và <Link href="/privacy" className="text-[#7a33f2] underline">Chính sách bảo mật</Link> <span className="text-red-500">*</span>
+                  Tôi đồng ý với <Link href="/chinh-sach" className="text-[#7a33f2] underline">Điều khoản</Link> và <Link href="/chinh-sach" className="text-[#7a33f2] underline">Chính sách bảo mật</Link> <span className="text-red-500">*</span>
                 </span>
               </label>
 
@@ -124,7 +131,6 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          {/* ... Phần Hoặc đăng ký với (Giữ nguyên) ... */}
           <div className="flex items-center gap-4 my-4">
             <div className="flex-1 h-[1px] bg-gray-100"></div>
             <span className="text-[12px] text-gray-400 font-bold uppercase">Hoặc đăng ký với</span>
@@ -152,7 +158,8 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      <div className="w-1/2 relative bg-[#F9F8FF]">
+      {/* CỘT PHẢI: ẢNH TRANG TRÍ - GIỮ NGUYÊN ẢNH CỦA NGÂN */}
+      <div className="auth-side-image w-1/2 relative bg-[#F9F8FF]">
         <Image src="/nhom04_royalrental/images/image-4.png" alt="Velixora Wedding Decor" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[#7a33f2]/10 backdrop-blur-[0.5px]"></div>
       </div>

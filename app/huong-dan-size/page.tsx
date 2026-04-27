@@ -31,26 +31,50 @@ export default function SizeGuidePage() {
   return (
     <>
       <Header />
-      <main className="w-full min-h-screen bg-[#FDFDFF] pt-[180px] pb-32 font-['Be_Vietnam_Pro'] text-[#1e1535]">
+      
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - KHÔNG SỬA LOGIC CỦA NGÂN */}
+      <style jsx global>{`
+        .size-main-wrapper { padding-top: 180px; }
+        .size-title-h1 { font-size: 64px; }
+        .tab-buttons-container { display: flex; justify-content: center; gap: 40px; margin-bottom: 80px; }
+        .table-responsive-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .size-main-wrapper { padding-top: 120px !important; padding-bottom: 60px !important; }
+          .size-title-h1 { font-size: 32px !important; margin-bottom: 15px !important; }
+          .tab-buttons-container { flex-direction: column; gap: 15px !important; align-items: center; margin-bottom: 40px !important; }
+          .tab-btn { width: 100% !important; max-width: 300px !important; padding: 15px 25px !important; font-size: 14px !important; }
+          .size-card { padding: 30px 20px !important; border-radius: 32px !important; }
+          .shoe-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .shoe-card-padding { padding: 30px 20px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .size-title-h1 { font-size: 48px !important; }
+          .size-card { padding: 40px 30px !important; }
+        }
+      `}</style>
+
+      <main className="size-main-wrapper w-full min-h-screen bg-[#FDFDFF] pb-32 font-['Be_Vietnam_Pro'] text-[#1e1535]">
         <div className="max-w-[1300px] mx-auto px-6">
-         
+          
           {/* HEADER SECTION */}
           <div className="flex flex-col items-center text-center mb-20">
             <div className="flex items-center gap-3 text-[#7a33f2] mb-6">
                <span className="w-10 h-[1px] bg-[#7a33f2]"></span>
-
-
                <span className="w-10 h-[1px] bg-[#7a33f2]"></span>
             </div>
-            <h1 className="text-[64px] font-black uppercase tracking-tighter leading-none mb-6">Tìm Kích Cỡ Của Bạn</h1>
+            <h1 className="size-title-h1 font-black uppercase tracking-tighter leading-none mb-6">Tìm Kích Cỡ Của Bạn</h1>
             <p className="text-[#5d4f7a] opacity-50 max-w-[600px] text-[18px] leading-relaxed">
               Bảng thông số được thiết kế riêng biệt để đảm bảo sự chuẩn xác tuyệt đối cho trang phục của bạn.
             </p>
           </div>
 
 
-          {/* TABS BUTTONS - Đã fix khoảng cách gap-10 */}
-          <div className="flex justify-center gap-10 mb-20">
+          {/* TABS BUTTONS */}
+          <div className="tab-buttons-container">
             <button
               onClick={() => setActiveTab("clothing")}
               style={{
@@ -60,11 +84,11 @@ export default function SizeGuidePage() {
                 borderRadius: '16px',
                 boxShadow: activeTab === "clothing" ? '0 15px 35px rgba(122, 51, 242, 0.3)' : '0 4px 20px rgba(0,0,0,0.05)'
               }}
-              className="font-bold flex items-center gap-4 border-none cursor-pointer transition-all active:scale-95 text-[16px] uppercase tracking-widest"
+              className="tab-btn font-bold flex items-center justify-center gap-4 border-none cursor-pointer transition-all active:scale-95 text-[16px] uppercase tracking-widest"
             >
               <Shirt size={20} /> Quần áo & Váy {activeTab === "clothing" && <MoveRight size={20} />}
             </button>
-           
+            
             <button
               onClick={() => setActiveTab("shoes")}
               style={{
@@ -74,7 +98,7 @@ export default function SizeGuidePage() {
                 borderRadius: '16px',
                 boxShadow: activeTab === "shoes" ? '0 15px 35px rgba(122, 51, 242, 0.3)' : '0 4px 20px rgba(0,0,0,0.05)'
               }}
-              className="font-bold flex items-center gap-4 border-none cursor-pointer transition-all active:scale-95 text-[16px] uppercase tracking-widest border border-[#f0f0f0]"
+              className="tab-btn font-bold flex items-center justify-center gap-4 border-none cursor-pointer transition-all active:scale-95 text-[16px] uppercase tracking-widest border border-[#f0f0f0]"
             >
               <Footprints size={20} /> Giày cao gót {activeTab === "shoes" && <MoveRight size={20} />}
             </button>
@@ -92,66 +116,70 @@ export default function SizeGuidePage() {
             >
               {activeTab === "clothing" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                 
-                  {/* NAM - BÊN TRÁI */}
-                  <div className="bg-white rounded-[48px] p-12 shadow-[0_40px_100px_rgba(122,51,242,0.04)] border border-[#F5F3FF]">
+                  
+                  {/* NAM */}
+                  <div className="size-card bg-white rounded-[48px] p-12 shadow-[0_40px_100px_rgba(122,51,242,0.04)] border border-[#F5F3FF]">
                     <div className="flex items-center gap-4 text-blue-500 mb-10">
                       <Mars size={32} strokeWidth={3} />
-                      <h2 className="text-[28px] font-black uppercase tracking-tight text-[#1e1535]">Size Nam Giới</h2>
+                      <h2 className="text-[28px] font-black uppercase tracking-tight text-[#1e1535]">Size Nam</h2>
                     </div>
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b-2 border-gray-50">
-                          <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Chiều cao</th>
-                          <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Cân nặng</th>
-                          <th className="py-6 px-2 text-right font-black uppercase text-[11px] tracking-[2px] text-blue-500">Size</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {maleData.map((row, idx) => (
-                          <tr key={idx} className="group border-b border-gray-50/50 hover:bg-blue-50/30 transition-all duration-300">
-                            <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.height}</td>
-                            <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.weight}</td>
-                            <td className="py-6 px-2 text-right font-black text-[22px] text-[#1e1535] group-hover:text-blue-500">{row.size}</td>
+                    <div className="table-responsive-container">
+                      <table className="w-full min-w-[300px]">
+                        <thead>
+                          <tr className="border-b-2 border-gray-50">
+                            <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Chiều cao</th>
+                            <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Cân nặng</th>
+                            <th className="py-6 px-2 text-right font-black uppercase text-[11px] tracking-[2px] text-blue-500">Size</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {maleData.map((row, idx) => (
+                            <tr key={idx} className="group border-b border-gray-50/50 hover:bg-blue-50/30 transition-all duration-300">
+                              <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.height}</td>
+                              <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.weight}</td>
+                              <td className="py-6 px-2 text-right font-black text-[22px] text-[#1e1535] group-hover:text-blue-500">{row.size}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
 
-                  {/* NỮ - BÊN PHẢI */}
-                  <div className="bg-white rounded-[48px] p-12 shadow-[0_40px_100px_rgba(122,51,242,0.04)] border border-[#F5F3FF]">
+                  {/* NỮ */}
+                  <div className="size-card bg-white rounded-[48px] p-12 shadow-[0_40px_100px_rgba(122,51,242,0.04)] border border-[#F5F3FF]">
                     <div className="flex items-center gap-4 text-pink-500 mb-10">
                       <Venus size={32} strokeWidth={3} />
-                      <h2 className="text-[28px] font-black uppercase tracking-tight text-[#1e1535]">Size Nữ Giới</h2>
+                      <h2 className="text-[28px] font-black uppercase tracking-tight text-[#1e1535]">Size Nữ</h2>
                     </div>
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b-2 border-gray-50">
-                          <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Chiều cao</th>
-                          <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Cân nặng</th>
-                          <th className="py-6 px-2 text-right font-black uppercase text-[11px] tracking-[2px] text-pink-500">Size</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {femaleData.map((row, idx) => (
-                          <tr key={idx} className="group border-b border-gray-50/50 hover:bg-pink-50/30 transition-all duration-300">
-                            <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.height}</td>
-                            <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.weight}</td>
-                            <td className="py-6 px-2 text-right font-black text-[22px] text-[#1e1535] group-hover:text-pink-500">{row.size}</td>
+                    <div className="table-responsive-container">
+                      <table className="w-full min-w-[300px]">
+                        <thead>
+                          <tr className="border-b-2 border-gray-50">
+                            <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Chiều cao</th>
+                            <th className="py-6 px-2 text-left font-black uppercase text-[11px] tracking-[2px] text-gray-400">Cân nặng</th>
+                            <th className="py-6 px-2 text-right font-black uppercase text-[11px] tracking-[2px] text-pink-500">Size</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {femaleData.map((row, idx) => (
+                            <tr key={idx} className="group border-b border-gray-50/50 hover:bg-pink-50/30 transition-all duration-300">
+                              <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.height}</td>
+                              <td className="py-6 px-2 font-bold text-[16px] text-gray-500">{row.weight}</td>
+                              <td className="py-6 px-2 text-right font-black text-[22px] text-[#1e1535] group-hover:text-pink-500">{row.size}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               ) : (
-                <div className="bg-white rounded-[60px] p-16 shadow-[0_40px_100px_rgba(122,51,242,0.04)] border border-[#F5F3FF] grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+                <div className="shoe-card-padding bg-white rounded-[60px] p-16 shadow-[0_40px_100px_rgba(122,51,242,0.04)] border border-[#F5F3FF] grid grid-cols-1 lg:grid-cols-2 gap-24 items-start shoe-grid">
                   <div className="space-y-12">
                     <div className="flex items-center gap-4 text-[#7a33f2]">
                       <Footprints size={32} />
-                      <h2 className="text-[32px] font-black uppercase tracking-tight">Kỹ thuật lấy số đo</h2>
+                      <h2 className="text-[24px] lg:text-[32px] font-black uppercase tracking-tight">Kỹ thuật lấy số đo</h2>
                     </div>
                     <div className="space-y-10">
                       {[
@@ -161,31 +189,33 @@ export default function SizeGuidePage() {
                       ].map((item, i) => (
                         <div key={i} className="flex gap-6 items-start">
                           <span className="w-12 h-12 rounded-2xl bg-[#F5F3FF] text-[#7a33f2] flex items-center justify-center font-black text-[18px] flex-shrink-0 shadow-sm">{item.step}</span>
-                          <p className="text-[20px] font-medium text-[#5d4f7a] leading-snug">{item.text}</p>
+                          <p className="text-[18px] lg:text-[20px] font-medium text-[#5d4f7a] leading-snug">{item.text}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
 
-                  {/* BẢNG GIÀY - Đã kéo sát lại bằng justify-end và max-w */}
-                  <div className="flex justify-center lg:justify-end">
-                    <div className="bg-[#FDFDFF] rounded-[48px] p-12 border border-[#f0f0f0] w-full max-w-[420px]">
-                      <h3 className="text-[12px] font-black text-gray-400 uppercase tracking-[4px] mb-10 text-center">Bảng quy đổi Size EU</h3>
-                      <table className="w-full">
-                         <tbody>
+                  {/* BẢNG GIÀY */}
+                  <div className="flex justify-center lg:justify-end w-full">
+                    <div className="bg-[#FDFDFF] rounded-[48px] p-8 lg:p-12 border border-[#f0f0f0] w-full max-w-[420px]">
+                      <h3 className="text-[11px] font-black text-gray-400 uppercase tracking-[4px] mb-10 text-center">Bảng quy đổi Size EU</h3>
+                      <div className="table-responsive-container">
+                        <table className="w-full">
+                           <tbody>
                             {[
                               { cm: "22.0 - 22.5", size: "35" }, { cm: "22.6 - 23.0", size: "36" },
                               { cm: "23.1 - 23.5", size: "37" }, { cm: "23.6 - 24.0", size: "38" },
                               { cm: "24.1 - 24.5", size: "39" }, { cm: "24.6 - 25.0", size: "40" }
                             ].map((s, i) => (
                               <tr key={i} className="group border-b border-gray-50 last:border-0 hover:bg-white transition-all">
-                                 <td className="py-6 font-bold text-[18px] text-gray-400 group-hover:text-[#7a33f2]">{s.cm} cm</td>
-                                 <td className="py-6 text-right font-black text-[28px] text-[#1e1535]">{s.size}</td>
+                                 <td className="py-6 font-bold text-[16px] lg:text-[18px] text-gray-400 group-hover:text-[#7a33f2]">{s.cm} cm</td>
+                                 <td className="py-6 text-right font-black text-[24px] lg:text-[28px] text-[#1e1535]">{s.size}</td>
                               </tr>
                             ))}
-                         </tbody>
-                      </table>
+                           </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -198,4 +228,3 @@ export default function SizeGuidePage() {
     </>
   );
 }
-

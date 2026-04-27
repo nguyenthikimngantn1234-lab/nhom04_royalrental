@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Thêm router để chuyển trang
+import { useRouter } from "next/navigation"; 
 
 
 export default function LoginPage() {
@@ -10,32 +10,25 @@ export default function LoginPage() {
   const router = useRouter();
 
 
-  // --- PHẦN THÊM MỚI: Xử lý Đăng Nhập ---
+  // --- PHẦN LOGIC CỦA NGÂN: GIỮ NGUYÊN 100% ---
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-
-    // 1. Lấy dữ liệu từ input
     const formData = new FormData(e.currentTarget);
     const emailInput = formData.get("email") as string;
 
-
-    // 2. Kiểm tra xem đã có dữ liệu đăng ký trước đó chưa
     const savedData = localStorage.getItem("userProfile");
    
     if (savedData) {
       const existingUser = JSON.parse(savedData);
-      // Nếu email khớp với email đã đăng ký, mình giữ nguyên Profile đó
       if (existingUser.email === emailInput) {
         router.push("/tai-khoan");
         return;
       }
     }
 
-
-    // 3. Nếu chưa có hoặc email mới, tạo một Profile giả lập cho phiên đăng nhập này
     const newUser = {
-      fullName: "Thành viên Velixora", // Tên mặc định khi đăng nhập
+      fullName: "Thành viên Velixora", 
       email: emailInput,
       phone: "0987 654 321",
       city: "Hồ Chí Minh"
@@ -49,25 +42,44 @@ export default function LoginPage() {
 
   return (
     <main className="w-full min-h-screen flex bg-white font-['Be_Vietnam_Pro']">
-     
-      {/* CỘT TRÁI */}
-      <div className="w-1/2 flex flex-col justify-center items-center py-12">
-        <div className="w-full max-w-[520px] mx-auto flex flex-col gap-[16px]">
+      
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - CHỈ THÊM ĐỂ HỖ TRỢ MOBILE */}
+      <style jsx global>{`
+        /* Mobile */
+        @media (max-width: 767px) {
+          .auth-side-image { display: none !important; }
+          .auth-form-container { width: 100% !important; padding: 40px 20px !important; }
+          .auth-form-inner { width: 100% !important; max-width: 100% !important; }
+          .auth-title { font-size: 26px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .auth-side-image { display: none !important; }
+          .auth-form-container { width: 100% !important; }
+          .auth-form-inner { max-width: 480px !important; margin: 0 auto; }
+        }
+      `}</style>
+      
+      {/* CỘT TRÁI - GIỮ NGUYÊN STYLE CỦA NGÂN */}
+      <div className="auth-form-container w-1/2 flex flex-col justify-center items-center py-12">
+        <div className="auth-form-inner w-full max-w-[520px] mx-auto flex flex-col gap-[16px]">
 
 
           {/* LOGO */}
           <div className="mb-[8px]">
             <Image
-              src="/nhom04_royalrental/images/logo.png"
+              src="/nhom04_royalrental/images/Logo.png"
               alt="Velixora Logo"
               width={120}
               height={75}
+              className="object-contain"
             />
           </div>
 
 
           {/* TITLE */}
-          <h1 className="text-[32px] font-black text-[#1e1535] uppercase m-0 leading-tight">
+          <h1 className="auth-title text-[32px] font-black text-[#1e1535] uppercase m-0 leading-tight">
             Chào mừng bạn trở lại
           </h1>
 
@@ -77,10 +89,10 @@ export default function LoginPage() {
           </p>
 
 
-          {/* FORM - Thêm onSubmit={handleLogin} */}
+          {/* FORM */}
           <form onSubmit={handleLogin} className="flex flex-col gap-[16px] w-full">
             <input
-              name="email" // Thêm name để lấy dữ liệu
+              name="email"
               type="text"
               required
               placeholder="Email/ Username"
@@ -100,7 +112,7 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-5 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer"
               >
-                {showPassword ? "👁️" : ""}
+                {showPassword ? "👁️" : " "}
               </button>
             </div>
 
@@ -112,7 +124,7 @@ export default function LoginPage() {
               </label>
 
 
-              <Link href="/quen-mat-khau" className="hover:text-[#7a33f2] transition-colors">
+              <Link href="/chinh-sach" className="hover:text-[#7a33f2] transition-colors">
                 Quên mật khẩu?
               </Link>
             </div>
@@ -120,7 +132,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="h-[56px] bg-[#7a33f2] text-white rounded-[12px] font-bold hover:bg-[#6625cc] transition-all cursor-pointer border-none shadow-lg shadow-purple-100 uppercase tracking-widest"
+              className="h-[56px] bg-[#7a33f2] text-white rounded-[12px] font-bold hover:bg-[#6625cc] transition-all cursor-pointer border-none shadow-lg shadow-purple-100 uppercase tracking-widest active:scale-[0.98]"
             >
               Đăng nhập
             </button>
@@ -160,8 +172,8 @@ export default function LoginPage() {
       </div>
 
 
-      {/* CỘT PHẢI (ẢNH) */}
-      <div className="w-1/2 relative bg-[#F9F8FF] overflow-hidden">
+      {/* CỘT PHẢI (ẢNH) - GIỮ NGUYÊN STYLE NGÂN */}
+      <div className="auth-side-image w-1/2 relative bg-[#F9F8FF] overflow-hidden">
         <Image
           src="/nhom04_royalrental/images/image-4.png"
           alt="Wedding"
@@ -176,4 +188,3 @@ export default function LoginPage() {
     </main>
   );
 }
-

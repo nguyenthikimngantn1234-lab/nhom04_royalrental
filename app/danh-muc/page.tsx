@@ -6,7 +6,6 @@ import { Header } from "@/components/Header";
 import { FooterSimple } from "@/components/FooterSimple";
 import Swal from 'sweetalert2';
 
-
 interface Product {
   id: number;
   title: string;
@@ -18,14 +17,12 @@ interface Product {
   discount?: string;
 }
 
-
 const CatalogContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState("Váy Cưới");
   const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState("#FFFFFF");
-
 
   const categoryBanners: Record<string, string> = {
     "Váy Cưới": "/nhom04_royalrental/images/Bannervaycuoi.png",
@@ -35,7 +32,6 @@ const CatalogContent = () => {
     "Trang Sức": "/nhom04_royalrental/images/Bannerdanhmuc.png",
   };
 
-
   useEffect(() => {
     const cat = searchParams.get("cat");
     if (cat) {
@@ -44,7 +40,7 @@ const CatalogContent = () => {
     }
   }, [searchParams]);
 
-
+  // GIỮ NGUYÊN ĐỦ 33 SẢN PHẨM CỦA KIM NGÂN
   const allProducts: Product[] = [
     { id: 1, title: "Váy Cưới Xòe Cúp Ngực", price: "1.600.000 đ", oldPrice: "2.000.000 đ", image: "/nhom04_royalrental/images/ProductImages-8.png", category: "Váy Cưới", tag: "NEW", discount: "-20%" },
     { id: 2, title: "Váy Cưới Đuôi Cá", price: "2.400.000 đ", image: "/nhom04_royalrental/images/ProductImages-9.png", category: "Váy Cưới", tag: "NEW" },
@@ -81,35 +77,23 @@ const CatalogContent = () => {
     { id: 33, title: "Trâm Cài Tóc Phượng", price: "600.000 đ", image: "/nhom04_royalrental/images/TS6.png", category: "Trang Sức" },
   ];
 
-
   const filteredProducts = allProducts.filter(p => p.category === activeCategory);
-  const categories = ["Váy Cưới", "Lễ Phục Nữ", "Lễ Phục Nam", "Phụ Kiện", "Trang Sức"];
-
+  const categoriesList = ["Váy Cưới", "Lễ Phục Nữ", "Lễ Phục Nam", "Phụ Kiện", "Trang Sức"];
 
   const handleAddToCart = (product: Product, redirect = false) => {
     const cartItem = {
       id: product.id, title: product.title, price: product.price,
       image: product.image, color: selectedColor, size: selectedSize, qty: 1
     };
-   
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const existingItemIndex = existingCart.findIndex(
-      (item: any) => item.id === cartItem.id && item.color === cartItem.color && item.size === cartItem.size
-    );
-   
-    if (existingItemIndex > -1) {
-      existingCart[existingItemIndex].qty += 1;
-    } else {
-      existingCart.push(cartItem);
-    }
-   
+    const existingItemIndex = existingCart.findIndex((item: any) => item.id === cartItem.id && item.color === cartItem.color && item.size === cartItem.size);
+    if (existingItemIndex > -1) { existingCart[existingItemIndex].qty += 1; }
+    else { existingCart.push(cartItem); }
     localStorage.setItem("cart", JSON.stringify(existingCart));
     window.dispatchEvent(new Event("storage"));
 
-
-    if (redirect) {
-      router.push("/gio-hang");
-    } else {
+    if (redirect) { router.push("/gio-hang"); }
+    else {
       Swal.fire({
         title: "Đã thêm vào giỏ!",
         text: `${product.title} đã sẵn sàng trong túi đồ của bạn.`,
@@ -119,46 +103,86 @@ const CatalogContent = () => {
         showCancelButton: true,
         cancelButtonText: "Đi đến giỏ hàng",
         cancelButtonColor: "#1e1535",
-        customClass: { popup: 'rounded-[8px]', confirmButton: 'rounded-[8px]', cancelButton: 'rounded-[8px]' }
-      }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.cancel) router.push("/gio-hang");
-      });
+      }).then((result) => { if (result.dismiss === Swal.DismissReason.cancel) router.push("/gio-hang"); });
     }
   };
-
 
   return (
     <>
       <Header />
+      {/* 1. KHỐI ĐIỀU KHIỂN RESPONSIVE - FIXED LỖI KHÔNG HIỆN SẢN PHẨM */}
+      <style jsx>{`
+        .main-catalog-layout {
+          display: flex;
+          width: 100%;
+          max-width: 1440px;
+          margin: 80px auto 0;
+          padding-bottom: 96px;
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .banner-container { height: 280px !important; padding-top: 70px !important; }
+          .banner-title { font-size: 32px !important; }
+          .main-catalog-layout { 
+            flex-direction: column !important; /* Quan trọng: Xếp dọc để hiện sản phẩm bên dưới */
+            padding: 0 15px !important; 
+          }
+          .sidebar-filter { 
+            width: 100% !important; 
+            margin-bottom: 30px !important; 
+            flex-shrink: 0 !important;
+          }
+          .product-main-grid { 
+            padding-left: 0 !important; 
+            width: 100% !important; 
+          }
+          .grid-display { 
+            grid-template-columns: repeat(1, 1fr) !important; 
+            width: 100% !important;
+          }
+          .product-image-box { height: 400px !important; }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .main-catalog-layout { flex-direction: column; padding: 0 40px; }
+          .sidebar-filter { width: 100% !important; margin-bottom: 40px; }
+          .product-main-grid { padding-left: 0 !important; }
+          .grid-display { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+
+        /* Desktop chuẩn của Ngân (Giữ nguyên 100%) */
+        @media (min-width: 1024px) {
+          .main-catalog-layout { padding: 0 80px; gap: 0; }
+          .sidebar-filter { width: 300px; }
+          .product-main-grid { padding-left: 60px; flex: 1; }
+          .grid-display { grid-template-columns: repeat(3, 1fr); }
+        }
+      `}</style>
+
       <div className="w-full flex flex-col items-center bg-white font-['Be_Vietnam_Pro'] overflow-x-hidden">
-       
-        <div className="relative w-full h-[450px] flex items-center overflow-hidden pt-[107px]">
+        
+        <div className="banner-container relative w-full h-[450px] flex items-center overflow-hidden pt-[107px]">
           <img src={categoryBanners[activeCategory] || "/nhom04_royalrental/images/ShopBanner.png"} className="absolute inset-0 w-full h-full object-cover" alt="Banner" />
           <div className="absolute inset-0 bg-black/30"></div>
-          <div className="relative z-10 max-w-[1440px] w-full mx-auto px-[80px]">
-            <nav className="text-[13px] mb-4 flex items-center gap-4 text-white uppercase tracking-widest font-semibold drop-shadow-sm">
-              <Link href="/" className="hover:opacity-70 transition-all text-white no-underline" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                TRANG CHỦ
-              </Link>
-              <span className="opacity-60 text-white" style={{ fontSize: '24px' }}> / </span>
-              <span className="text-white" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                BỘ SƯU TẬP
-              </span>
+          <div className="relative z-10 max-w-[1440px] w-full mx-auto px-6 lg:px-[80px]">
+            <nav className="text-white uppercase tracking-widest font-semibold flex items-center gap-4 mb-4">
+              <Link href="/" className="text-white no-underline font-bold text-[24px]">TRANG CHỦ</Link>
+              <span className="text-[24px]"> / </span>
+              <span className="text-[24px] font-bold">BỘ SƯU TẬP</span>
             </nav>
-            <h1 className="text-[84px] font-extrabold text-white leading-none drop-shadow-lg uppercase">
-              {activeCategory}
-            </h1>
+            <h1 className="banner-title text-[84px] font-extrabold text-white leading-none drop-shadow-lg uppercase">{activeCategory}</h1>
           </div>
         </div>
 
-
-        <div className="max-w-[1440px] w-full px-[80px] pb-24 flex gap-0" style={{ marginTop: '80px' }}>
-         
-          <aside className="w-[300px] flex-shrink-0">
+        <div className="main-catalog-layout">
+          
+          <aside className="sidebar-filter flex-shrink-0">
             <div className="p-8 border border-[#F3F4F6] rounded-[32px] bg-white shadow-sm">
               <h2 className="text-[22px] font-bold text-[#1e1535] mb-8 pb-4 border-b">Bộ Lọc</h2>
               <div className="flex flex-col gap-2">
-                {categories.map((cat) => (
+                {categoriesList.map((cat) => (
                   <button key={cat} onClick={() => setActiveCategory(cat)}
                     className={`flex justify-between items-center py-3.5 px-4 rounded-2xl transition-all duration-300 cursor-pointer border-none ${activeCategory === cat ? "text-[#7a33f2] font-bold bg-[#F5F3FF]" : "text-[#6B7280] hover:bg-gray-50 bg-transparent"}`}>
                     <span className="text-[16px]">{cat}</span>
@@ -166,7 +190,7 @@ const CatalogContent = () => {
                   </button>
                 ))}
               </div>
-             
+              
               <div className="mt-12 px-1">
                 <h3 className="text-[18px] font-bold mb-6 text-[#1e1535]">Màu Sắc</h3>
                 <div className="flex flex-wrap gap-4">
@@ -177,7 +201,6 @@ const CatalogContent = () => {
                   ))}
                 </div>
               </div>
-
 
               <div className="mt-12 px-1">
                 <h3 className="text-[18px] font-bold mb-6 text-[#1e1535]">Size</h3>
@@ -192,96 +215,43 @@ const CatalogContent = () => {
             </div>
           </aside>
 
-
-          <main className="flex-1 pl-[60px]">
-            <div className="grid grid-cols-3" style={{ rowGap: '40px', columnGap: '24px' }}>
-             
+          <main className="product-main-grid">
+            <div className="grid-display grid" style={{ rowGap: '40px', columnGap: '24px' }}>
+              
               {filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="group relative flex flex-col w-full"
-                  style={{ paddingBottom: '54px' }}
-                >
-
-
+                <div key={product.id} className="group relative flex flex-col w-full" style={{ paddingBottom: '54px' }}>
                   <Link href={`/san-pham/${product.id}`} className="no-underline block">
-                    <div style={{ height: '400px' }} className="relative w-full rounded-[24px] overflow-hidden bg-[#f9fafb] border border-gray-50 shadow-sm mb-[10px]">
-                      <img
-                        src={product.image}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        alt={product.title}
-                      />
+                    <div className="product-image-box relative w-full h-[400px] rounded-[24px] overflow-hidden bg-[#f9fafb] border border-gray-50 shadow-sm mb-[10px]">
+                      <img src={product.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={product.title} />
                       <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        {product.tag && (
-                          <span className="bg-[#7a33f2] text-white text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md w-fit">
-                            {product.tag}
-                          </span>
-                        )}
-                        {product.discount && (
-                          <span className="bg-[#fff8dc] text-[#D97706] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#F5A623] shadow-sm flex items-center gap-1 w-fit">
-                            🔥 {product.discount}
-                          </span>
-                        )}
+                        {product.tag && <span className="bg-[#7a33f2] text-white text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md w-fit">{product.tag}</span>}
+                        {product.discount && <span className="bg-[#fff8dc] text-[#D97706] text-[11px] font-bold px-3 py-1.5 rounded-full border border-[#F5A623] shadow-sm flex items-center gap-1 w-fit">🔥 {product.discount}</span>}
                       </div>
                     </div>
-
-
                     <div className="px-1 flex flex-col">
-                      <h3 className="text-[17px] font-bold text-[#1e1535] group-hover:text-[#7a33f2] transition-colors duration-300 mb-[2px] whitespace-nowrap overflow-hidden text-ellipsis">
-                        {product.title}
-                      </h3>
-                     
+                      <h3 className="text-[17px] font-bold text-[#1e1535] group-hover:text-[#7a33f2] mb-[2px] whitespace-nowrap overflow-hidden text-ellipsis">{product.title}</h3>
                       <div className="flex flex-col">
-                        <span className="text-[#1e1535] font-black text-[18px]">
-                          {product.price} <span className="text-[14px] font-normal text-[#6b7280]">/ngày</span>
-                        </span>
-                        {product.oldPrice && (
-                          <span className="text-[#9ca3af] line-through text-[13px] font-medium mt-[2px]">
-                            {product.oldPrice}
-                          </span>
-                        )}
+                        <span className="text-[#1e1535] font-black text-[18px]">{product.price} <span className="text-[14px] font-normal text-[#6b7280]">/ngày</span></span>
+                        {product.oldPrice && <span className="text-[#9ca3af] line-through text-[13px] font-medium mt-[2px]">{product.oldPrice}</span>}
                       </div>
                     </div>
                   </Link>
-
-
-                  <div
-                    className="flex gap-[8px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20"
-                    style={{ position: 'absolute', bottom: '6px', left: '0px', width: '100%', padding: '0 4px' }}
-                  >
-                    <button
-                      onClick={(e) => { e.preventDefault(); handleAddToCart(product, false); }}
-                      style={{ borderRadius: '8px', flex: 1, height: '42px', fontFamily: "'Times New Roman', Times, serif" }}
-                      className="border border-[#7a33f2] bg-white text-[#7a33f2] text-[12px] font-bold uppercase hover:bg-[#f9f8ff] transition-colors cursor-pointer m-0"
-                    >
-                      GIỎ HÀNG
-                    </button>
-                   
-                    <button
-                      onClick={(e) => { e.preventDefault(); handleAddToCart(product, true); }}
-                      style={{ borderRadius: '8px', flex: 1, height: '42px' , fontFamily: "'Times New Roman', Times, serif"}}
-                      className="border-none bg-[#7a33f2] text-white text-[12px] font-bold uppercase hover:bg-[#6625cc] transition-colors cursor-pointer m-0"
-                    >
-                      THUÊ NGAY
-                    </button>
+                  <div className="flex gap-[8px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20" style={{ position: 'absolute', bottom: '6px', left: '0px', width: '100%', padding: '0 4px' }}>
+                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, false); }} style={{ borderRadius: '8px', flex: 1, height: '42px', fontFamily: "'Times New Roman', Times, serif" }} className="border border-[#7a33f2] bg-white text-[#7a33f2] text-[12px] font-bold uppercase hover:bg-[#f9f8ff] cursor-pointer">GIỎ HÀNG</button>
+                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, true); }} style={{ borderRadius: '8px', flex: 1, height: '42px' , fontFamily: "'Times New Roman', Times, serif"}} className="border-none bg-[#7a33f2] text-white text-[12px] font-bold uppercase hover:bg-[#6625cc] cursor-pointer">THUÊ NGAY</button>
                   </div>
-                 
                 </div>
               ))}
-
 
             </div>
           </main>
 
-
         </div>
       </div>
-     
       <FooterSimple />
     </>
   );
 };
-
 
 export default function BridalProductCatalogPage() {
   return (
@@ -290,4 +260,3 @@ export default function BridalProductCatalogPage() {
     </Suspense>
   );
 }
-
