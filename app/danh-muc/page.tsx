@@ -52,8 +52,8 @@ const CatalogContent = () => {
     { id: 8, title: "Váy Cưới Cổ Tim", price: "2.000.000 đ", image: "/nhom04_royalrental/images/ProductImages-15.png", category: "Váy Cưới" },
     { id: 9, title: "Váy Cưới Trễ Vai", price: "1.800.000 đ", oldPrice: "2.200.000 đ", image: "/nhom04_royalrental/images/ProductImages-16.png", category: "Váy Cưới", discount: "-20%" },
     { id: 10, title: "Áo Dài Tơ Tằm Be", price: "250.000 đ", image: "/nhom04_royalrental/images/ProductImages-4.png", category: "Lễ Phục Nữ", tag: "NEW" },
-    { id: 11, title: "Áo Dài Tơ Tằm Tím", price: "250.000 đ", image: "/nhom04_royalrental/images/ProductImages-5.png", category: "Lễ Phục Nữ", discount: "-10%" },
-    { id: 12, title: "Áo Tú Xuân Tím", price: "850.000 đ", image: "/nhom04_royalrental/images/ProductImages-6.png", category: "Lễ Phục Nữ" },
+    { id: 11, title: "Áo Dài Tơ Tằm Tím", price: "190.000 đ", image: "/nhom04_royalrental/images/ProductImages-5.png", category: "Lễ Phục Nữ", discount: "-10%" },
+    { id: 12, title: "Áo Tú Xuân Tím", price: "200.000 đ", image: "/nhom04_royalrental/images/ProductImages-6.png", category: "Lễ Phục Nữ" },
     { id: 13, title: "Đầm Cocktail", price: "850.000 đ", image: "/nhom04_royalrental/images/Nu-3.png", category: "Lễ Phục Nữ", tag: "HOT" },
     { id: 14, title: "Đầm Đuôi Cá", price: "1.550.000 đ", image: "/nhom04_royalrental/images/Nu-5.png", category: "Lễ Phục Nữ" },
     { id: 15, title: "Đầm Xẻ Tà", price: "1.300.000 đ", image: "/nhom04_royalrental/images/Nu-6.png", category: "Lễ Phục Nữ" },
@@ -80,31 +80,92 @@ const CatalogContent = () => {
   const filteredProducts = allProducts.filter(p => p.category === activeCategory);
   const categoriesList = ["Váy Cưới", "Lễ Phục Nữ", "Lễ Phục Nam", "Phụ Kiện", "Trang Sức"];
 
-  const handleAddToCart = (product: Product, redirect = false) => {
-    const cartItem = {
-      id: product.id, title: product.title, price: product.price,
-      image: product.image, color: selectedColor, size: selectedSize, qty: 1
-    };
-    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const existingItemIndex = existingCart.findIndex((item: any) => item.id === cartItem.id && item.color === cartItem.color && item.size === cartItem.size);
-    if (existingItemIndex > -1) { existingCart[existingItemIndex].qty += 1; }
-    else { existingCart.push(cartItem); }
-    localStorage.setItem("cart", JSON.stringify(existingCart));
-    window.dispatchEvent(new Event("storage"));
+  // PHẦN SỬA CHÍNH: HÀM HIỆN POPUP CHỌN CHI TIẾT (KHÔNG CẦN THƯ VIỆN PHỤ)
+  const handleAddToCartWithOptions = (product: Product, redirect = false) => {
+    Swal.fire({
+      title: `<span style="font-family: 'Montserrat', sans-serif; font-weight: 800;">TÙY CHỌN THUÊ</span>`,
+      html: `
+        <div style="text-align: left; font-family: 'Montserrat', sans-serif;">
+          <div style="display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+            <img src="${product.image}" style="width: 70px; height: 95px; object-fit: cover; border-radius: 8px;">
+            <div>
+              <div style="font-weight: bold; color: #1e1535;">${product.title}</div>
+              <div style="color: #7a33f2; font-weight: 800; font-size: 18px; margin-top: 5px;">${product.price}</div>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">Màu sắc:</label>
+            <select id="swal-color" style="width: 100%; height: 40px; border-radius: 8px; border: 1.5px solid #eee; padding: 0 10px; outline: none;">
+              <option value="Trắng tinh khôi">Trắng tinh khôi</option>
+              <option value="Kem sữa">Kem sữa</option>
+              <option value="Hồng phấn">Hồng phấn</option>
+              <option value="Đen sang trọng">Đen sang trọng</option>
+            </select>
+          </div>
 
-    if (redirect) { router.push("/gio-hang"); }
-    else {
-      Swal.fire({
-        title: "Đã thêm vào giỏ!",
-        text: `${product.title} đã sẵn sàng trong túi đồ của bạn.`,
-        icon: "success",
-        confirmButtonColor: "#7a33f2",
-        confirmButtonText: "Tiếp tục xem",
-        showCancelButton: true,
-        cancelButtonText: "Đi đến giỏ hàng",
-        cancelButtonColor: "#1e1535",
-      }).then((result) => { if (result.dismiss === Swal.DismissReason.cancel) router.push("/gio-hang"); });
-    }
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">Kích thước (Size):</label>
+            <select id="swal-size" style="width: 100%; height: 40px; border-radius: 8px; border: 1.5px solid #eee; padding: 0 10px; outline: none;">
+              <option value="S">Size S</option>
+              <option value="M" selected>Size M</option>
+              <option value="L">Size L</option>
+              <option value="XL">Size XL</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+              <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">Ngày thuê:</label>
+              <input type="date" id="swal-start" style="width: 100%; height: 40px; border-radius: 8px; border: 1.5px solid #eee; padding: 0 10px; box-sizing: border-box;" value="${new Date().toISOString().split('T')[0]}">
+            </div>
+            <div>
+              <label style="font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px;">Ngày trả:</label>
+              <input type="date" id="swal-end" style="width: 100%; height: 40px; border-radius: 8px; border: 1.5px solid #eee; padding: 0 10px; box-sizing: border-box;" value="${new Date(Date.now() + 172800000).toISOString().split('T')[0]}">
+            </div>
+          </div>
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: redirect ? 'THUÊ NGAY' : 'THÊM VÀO GIỎ',
+      cancelButtonText: 'HỦY',
+      confirmButtonColor: '#7a33f2',
+      cancelButtonColor: '#1e1535',
+      preConfirm: () => {
+        const color = (document.getElementById('swal-color') as HTMLSelectElement).value;
+        const size = (document.getElementById('swal-size') as HTMLSelectElement).value;
+        const start = (document.getElementById('swal-start') as HTMLInputElement).value;
+        const end = (document.getElementById('swal-end') as HTMLInputElement).value;
+        
+        if (!start || !end) return Swal.showValidationMessage('Vui lòng chọn đầy đủ ngày!');
+        const dStart = new Date(start);
+        const dEnd = new Date(end);
+        if (dEnd <= dStart) return Swal.showValidationMessage('Ngày trả phải sau ngày thuê!');
+        
+        const diffDays = Math.ceil(Math.abs(dEnd.getTime() - dStart.getTime()) / (1000 * 60 * 60 * 24));
+        return { color, size, start, end, diffDays };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const { color, size, start, end, diffDays } = result.value;
+        const cartItem = {
+          id: product.id, title: product.title, price: product.price,
+          image: product.image, color: color, size: size, qty: 1,
+          startDate: start, endDate: end, days: diffDays
+        };
+
+        const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        existingCart.push(cartItem);
+        localStorage.setItem("cart", JSON.stringify(existingCart));
+        window.dispatchEvent(new Event("storage"));
+
+        if (redirect) { 
+          router.push("/gio-hang"); 
+        } else {
+          Swal.fire({ title: "Thành công!", text: `Đã thêm vào giỏ hàng (${diffDays} ngày thuê)`, icon: "success", confirmButtonColor: "#7a33f2" });
+        }
+      }
+    });
   };
 
   return (
@@ -117,7 +178,6 @@ const CatalogContent = () => {
           max-width: 1440px;
           margin: 80px auto 0;
           padding-bottom: 96px;
-          /* Đảm bảo font được kế thừa từ cha */
           font-family: var(--font-montserrat), sans-serif;
         }
 
@@ -159,7 +219,6 @@ const CatalogContent = () => {
         }
       `}</style>
 
-      {/* ĐÃ CẬP NHẬT: Thay đổi font-family sang Montserrat */}
       <div className="w-full flex flex-col items-center bg-white overflow-x-hidden" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
         
         <div className="banner-container relative w-full h-[450px] flex items-center overflow-hidden pt-[107px]">
@@ -237,9 +296,8 @@ const CatalogContent = () => {
                     </div>
                   </Link>
                   <div className="flex gap-[8px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20" style={{ position: 'absolute', bottom: '6px', left: '0px', width: '100%', padding: '0 4px' }}>
-                    {/* ĐÃ CẬP NHẬT: Xóa font có chân cho các nút bấm */}
-                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, false); }} style={{ borderRadius: '8px', flex: 1, height: '42px', fontFamily: "var(--font-montserrat), sans-serif" }} className="border border-[#7a33f2] bg-white text-[#7a33f2] text-[12px] font-bold uppercase hover:bg-[#f9f8ff] cursor-pointer">GIỎ HÀNG</button>
-                    <button onClick={(e) => { e.preventDefault(); handleAddToCart(product, true); }} style={{ borderRadius: '8px', flex: 1, height: '42px' , fontFamily: "var(--font-montserrat), sans-serif"}} className="border-none bg-[#7a33f2] text-white text-[12px] font-bold uppercase hover:bg-[#6625cc] cursor-pointer">THUÊ NGAY</button>
+                    <button onClick={(e) => { e.preventDefault(); handleAddToCartWithOptions(product, false); }} style={{ borderRadius: '8px', flex: 1, height: '42px', fontFamily: "var(--font-montserrat), sans-serif" }} className="border border-[#7a33f2] bg-white text-[#7a33f2] text-[12px] font-bold uppercase hover:bg-[#f9f8ff] cursor-pointer">GIỎ HÀNG</button>
+                    <button onClick={(e) => { e.preventDefault(); handleAddToCartWithOptions(product, true); }} style={{ borderRadius: '8px', flex: 1, height: '42px' , fontFamily: "var(--font-montserrat), sans-serif"}} className="border-none bg-[#7a33f2] text-white text-[12px] font-bold uppercase hover:bg-[#6625cc] cursor-pointer">THUÊ NGAY</button>
                   </div>
                 </div>
               ))}

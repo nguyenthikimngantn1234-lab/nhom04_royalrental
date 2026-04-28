@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={`h-full ${montserrat.variable}`}>
+    <html lang="vi" suppressHydrationWarning className={`h-full ${montserrat.variable}`}>
       <body 
         className={`${montserrat.className} min-h-full flex flex-col antialiased`}
       >
