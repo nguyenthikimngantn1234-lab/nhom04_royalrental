@@ -40,7 +40,6 @@
 ## 4. Hướng dẫn chạy Local
 
 1. **Sao chép mã nguồn:** Mở terminal và thực hiện lệnh sau để tải mã nguồn từ kho lưu trữ GitHub về máy:
-```bash
 `git clone https://github.com/nguyenthikimngantn1234-lab/nhom04_royalrental.git`
 
 2. **Cài đặt thư viện:** Mở thư mục dự án có tên là "nhom04_royalrental" và tiến hành cài đặt các thư viện cần thiết bằng lệnh:
