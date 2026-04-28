@@ -23,6 +23,9 @@ interface CartItem {
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  // Giữ nguyên các phần không liên quan, chỉ thêm state để xử lý logic tính tiền
+  const [couponInput, setCouponInput] = useState("");
+  const [isApplied, setIsApplied] = useState(false);
 
 
   useEffect(() => {
@@ -66,15 +69,18 @@ export default function CartPage() {
   };
 
 
+  // SỬA LOGIC TÍNH TIỀN: Cần nhân thêm item.days
   const subtotal = cartItems.reduce((acc: number, item: CartItem) => {
     const numericPrice = typeof item.price === 'string'
       ? Number(item.price.replace(/[^0-9]/g, ""))
       : item.price;
-    return acc + (numericPrice * item.qty);
+    // Thành tiền = Giá x Số lượng x Số ngày thuê
+    return acc + (numericPrice * item.qty * (item.days || 1));
   }, 0);
 
 
-  const discount = subtotal * 0.1;
+  // SỬA LOGIC GIẢM GIÁ: Chỉ tính khi isApplied là true
+  const discount = (isApplied && couponInput.toUpperCase() === "WELCOME10") ? subtotal * 0.1 : 0;
   const total = subtotal - discount;
 
 
@@ -83,19 +89,43 @@ export default function CartPage() {
       <Header />
       
       <style jsx global>{`
+        /* CHỐNG TRÀN TOÀN TRANG */
+        html, body {
+          max-width: 100% !important;
+          overflow-x: hidden !important;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
         .cart-main-container {
-          padding-left: 80px;
-          padding-right: 80px;
-          /* Đảm bảo font Montserrat được áp dụng xuyên suốt */
+          width: 100%;
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 0 80px;
+          box-sizing: border-box; /* Quan trọng: để padding không làm tăng width */
           font-family: var(--font-montserrat), sans-serif;
         }
+
         .cart-layout-flex {
           display: flex;
           flex-direction: row;
           gap: 48px;
+          width: 100%;
         }
+
         .cart-item-card {
-          width: 807px;
+          width: 100%;
+          max-width: 807px; /* Dùng max-width thay vì width cố định */
+          box-sizing: border-box;
+          background-color: white;
+          border: 1px solid #E9E4FF;
+        }
+
+        @media (max-width: 1279px) {
+          .cart-main-container { padding-left: 30px; padding-right: 30px; }
+          .cart-layout-flex { flex-direction: column; align-items: center; }
+          .cart-item-card, .cart-summary-box { max-width: 100% !important; width: 100% !important; }
         }
 
         @media (max-width: 767px) {
@@ -104,53 +134,20 @@ export default function CartPage() {
           
           .cart-layout-flex { 
             flex-direction: column !important; 
-            gap: 30px !important; 
-            align-items: center !important; 
+            gap: 20px !important; 
           }
           
           .cart-item-card { 
-            width: 100% !important; 
-            max-width: 360px !important; 
             flex-direction: column !important; 
-            min-height: auto !important; 
-            margin: 0 auto !important;
-            overflow: hidden !important;
+            padding: 16px !important;
           }
           
-          .cart-item-image { width: 100% !important; height: 380px !important; border-radius: 24px 24px 0 0 !important; }
-          .cart-item-info { padding: 20px !important; text-align: center !important; }
+          .cart-item-image { width: 100% !important; height: 250px !important; }
+          .cart-item-info { padding-left: 0 !important; padding-top: 15px; }
+          .cart-item-price-col { text-align: left !important; padding: 15px 0 0 0 !important; }
           
-          .qty-container-mobile { 
-            display: flex !important;
-            flex-direction: row !important; 
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 15px !important;
-            width: fit-content !important; 
-            margin: 0 auto !important;
-          }
-
-          .cart-item-info div, .cart-item-info p { align-items: center !important; display: flex; flex-direction: column; }
-          .cart-item-info .w-fit { margin: 0 auto !important; }
-          
-          .cart-item-price-col { 
-            text-align: center !important; 
-            padding: 0 20px 20px 20px !important; 
-            margin-top: 0 !important; 
-          }
-          
-          .cart-summary-box { width: 100% !important; max-width: 360px !important; margin: 0 auto !important; position: static !important; }
-          .cart-h1 { font-size: 32px !important; text-align: center; }
-          .cart-summary-box h2 { text-align: center; }
-          .promo-input-group { flex-direction: column !important; }
-          .promo-input-group input, .promo-input-group button { width: 100% !important; }
-        }
-
-        @media (min-width: 768px) and (max-width: 1279px) {
-          .cart-main-container { padding-left: 40px !important; padding-right: 40px !important; }
-          .cart-layout-flex { flex-direction: column !important; align-items: center !important; }
-          .cart-item-card { width: 100% !important; max-width: 700px !important; margin: 0 auto !important; }
-          .cart-summary-box { width: 100% !important; max-width: 700px !important; position: static !important; }
+          .cart-h1 { font-size: 32px !important; }
+          .cart-summary-box { position: static !important; }
         }
       `}</style>
 
@@ -165,50 +162,51 @@ export default function CartPage() {
 
 
       <main
-        className="w-full flex flex-col bg-[#FBFBFF] pb-32 min-h-screen"
+        className="w-full flex flex-col bg-[#FBFBFF] pb-32 min-h-screen overflow-hidden"
         style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
       >
-        <div className="cart-main-container w-full max-w-[1440px] flex flex-col pt-12 mx-auto">
+        <div className="cart-main-container pt-12">
           
           <div className="mb-10 text-left w-full">
             <h1 className="cart-h1 text-[48px] font-black text-[#1e1535] uppercase mb-1 tracking-tight">Giỏ Hàng</h1>
-            <p className="text-gray-500 font-medium text-[18px] text-left">Có {cartItems.length} sản phẩm trong giỏ hàng của bạn</p>
+            <p className="text-gray-500 font-medium text-[18px]">Có {cartItems.length} sản phẩm trong giỏ hàng của bạn</p>
           </div>
 
 
           {cartItems.length === 0 ? (
-             <div className="w-full flex justify-center py-10 px-4">
-                <div
-                  style={{
-                    width: '100%', maxWidth: '1240px', backgroundColor: '#F9F8FF', borderRadius: '48px',
-                    boxShadow: '0 10px 40px rgba(122, 51, 242, 0.05)', border: '1px solid #E9E4FF'
-                  }}
-                  className="flex flex-col items-center justify-center py-32 px-6 text-center"
-                >
-                    <div style={{ marginBottom: '32px' }}>
-                      <ShoppingCart size={120} strokeWidth={1} color="#7a33f2" />
-                    </div>
-                    <h2 className="text-[36px] font-bold text-[#1e1535] mb-4 uppercase ">Giỏ hàng đang trống</h2>
-                    <Link href="/danh-muc" style={{ textDecoration: 'none' }}>
-                      <button style={{
-                        background: '#7a33f2', color: 'white', padding: '20px 60px', borderRadius: '16px',
-                        border: 'none', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer',
-                        boxShadow: '0 10px 20px rgba(122, 51, 242, 0.3)', fontFamily: 'var(--font-montserrat), sans-serif'
-                      }} className="hover:bg-[#6625cc] transition-all uppercase tracking-widest active:scale-95">
-                        Khám phá ngay
-                      </button>
-                    </Link>
-                </div>
-             </div>
+            <div className="w-full flex justify-center py-10 px-4 box-border">
+              <div
+                style={{
+                  width: '100%', 
+                  maxWidth: '1240px', 
+                  backgroundColor: '#F9F8FF', 
+                  borderRadius: '48px',
+                  boxShadow: '0 10px 40px rgba(122, 51, 242, 0.05)', 
+                  border: '1px solid #E9E4FF',
+                  paddingTop: '100px',
+                  paddingBottom: '140px', 
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{ marginBottom: '40px' }}><ShoppingCart size={120} strokeWidth={1} color="#7a33f2" /></div>
+                <h2 style={{ fontSize: '36px', fontWeight: 'bold', color: '#1e1535', marginBottom: '48px' }} className="uppercase">Giỏ hàng đang trống</h2>
+                <Link href="/danh-muc" style={{ textDecoration: 'none' }}>
+                  <button style={{ background: '#7a33f2', color: 'white', padding: '20px 60px', borderRadius: '16px', border: 'none', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer', boxShadow: '0 10px 20px rgba(122, 51, 242, 0.3)', fontFamily: 'var(--font-montserrat), sans-serif' }} className="hover:bg-[#6625cc] transition-all uppercase tracking-widest active:scale-95">Khám phá ngay</button>
+                </Link>
+              </div>
+            </div>
           ) : (
-            <div className="cart-layout-flex items-start justify-center w-full">
-              
-              <div className="flex flex-col w-full md:w-auto" style={{ gap: '16px' }}>
+            <div className="cart-layout-flex items-start justify-center">
+              <div className="flex flex-col flex-1" style={{ gap: '16px', maxWidth: '807px', width: '100%' }}>
                 {cartItems.map((item, index) => (
                   <div
                     key={`${item.id}-${item.color}-${item.size}-${index}`}
-                    style={{ minHeight: '199px', border: '1px solid #E9E4FF', backgroundColor: 'white' }}
-                    className="cart-item-card flex flex-row rounded-[24px] shadow-sm relative box-border hover:shadow-md transition-all p-4"
+                    style={{ minHeight: '230px', border: '1px solid #E9E4FF', backgroundColor: 'white' }}
+                    className="cart-item-card flex flex-row items-center rounded-[24px] shadow-sm relative box-border hover:shadow-md transition-all p-4 pb-8"
                   >
                     <button
                       onClick={() => removeItem(item.id, item.color, item.size)}
@@ -223,13 +221,13 @@ export default function CartPage() {
                       src={item.image.startsWith('http') || item.image.startsWith('/nhom04_royalrental') 
                         ? item.image 
                         : `/nhom04_royalrental${item.image}`}
-                      style={{ width: '100px', height: '133px', borderRadius: '12px' }}
+                      style={{ width: '140px', height: '186px', borderRadius: '12px' }}
                       className="cart-item-image object-cover flex-shrink-0"
                       alt={item.title}
                     />
-                    <div className="cart-item-info flex-1 pl-[16px] flex flex-col gap-[10px]">
+                    <div className="cart-item-info flex-1 pl-[24px] flex flex-col gap-[10px] min-w-0">
                       <div>
-                        <h3 className="text-[22px] font-bold text-[#1e1535] leading-none m-0">{item.title}</h3>
+                        <h3 className="text-[22px] font-bold text-[#1e1535] leading-none m-0 truncate">{item.title}</h3>
                         <p className="text-[16px] text-gray-500 mt-2 mb-0">Màu sắc: {item.color} | Size: {item.size}</p>
                       </div>
                       
@@ -250,16 +248,16 @@ export default function CartPage() {
 
 
                     <div className="cart-item-price-col flex flex-col justify-end text-right pr-[16px] pb-[16px] gap-[10px]">
-                      <p className="text-[24px] font-black text-[#1e1535] mb-0 leading-none">
-                        {( (typeof item.price === 'string' ? Number(item.price.replace(/[^0-9]/g, "")) : item.price) * item.qty).toLocaleString()} VNĐ
+                      <p className="text-[24px] font-black text-[#1e1535] mb-0 leading-none whitespace-nowrap">
+                        {( (typeof item.price === 'string' ? Number(item.price.replace(/[^0-9]/g, "")) : item.price) * item.qty * (item.days || 1)).toLocaleString()} VNĐ
                       </p>
-                      <p className="text-[15px] text-gray-400 m-0 font-medium">{item.price} / ngày</p>
+                      <p className="text-[15px] text-gray-400 m-0 font-medium whitespace-nowrap">{item.price} / ngày</p>
                     </div>
                   </div>
                 ))}
 
-                {/* SỬA TẠI ĐÂY: Dời nút qua góc bên phải của danh sách sản phẩm */}
-                <div style={{ width: '100%', maxWidth: '807px', display: 'flex', justifyContent: 'flex-end' }}>
+
+                <div className="delete-cart-container" style={{ width: '100%', maxWidth: '807px', display: 'flex', justifyContent: 'flex-end' }}>
                   <button
                     onClick={() => updateCart([])}
                     style={{ width: '140px', height: '42px', fontFamily: 'var(--font-montserrat), sans-serif' }}
@@ -273,7 +271,7 @@ export default function CartPage() {
 
               <div
                 style={{
-                  minHeight: '444px', backgroundColor: 'white', borderRadius: '32px', padding: '40px 24px',
+                  width: '100%', maxWidth: '400px', minHeight: '444px', backgroundColor: 'white', borderRadius: '32px', padding: '40px 24px',
                   boxShadow: '0 20px 50px rgba(122, 51, 242, 0.12)', border: '1px solid rgba(122, 51, 242, 0.05)',
                   display: 'flex', flexDirection: 'column', boxSizing: 'border-box'
                 }}
@@ -291,8 +289,41 @@ export default function CartPage() {
                 <div className="flex flex-col gap-3 mb-[24px]">
                   <p className="text-[17px] font-bold text-[#1e1535] m-0">Mã giảm giá</p>
                   <div className="promo-input-group flex gap-[8px] items-center">
-                    <input type="text" placeholder="WELCOME10" style={{ width: '199px', height: '42px', fontFamily: 'var(--font-montserrat), sans-serif' }} className="bg-[#F9F9FB] border-none rounded-[8px] px-4 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2] box-border" />
-                    <button style={{ width: '140px', height: '42px', fontFamily: 'var(--font-montserrat), sans-serif' }} className="bg-white border border-[#7a33f2] text-[#7a33f2] rounded-[8px] text-[14px] font-bold hover:bg-[#7a33f2] hover:text-white cursor-pointer uppercase transition-all">Áp dụng</button>
+                    <input 
+                      type="text" 
+                      placeholder="WELCOME10" 
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value);
+                        setIsApplied(false);
+                      }}
+                      style={{ flex: 1, height: '42px', minWidth: '0', fontFamily: 'var(--font-montserrat), sans-serif' }} 
+                      className="bg-[#F9F9FB] border-none rounded-[8px] px-4 text-[15px] outline-none focus:ring-1 focus:ring-[#7a33f2] box-border" 
+                    />
+                    <button 
+                      onClick={() => {
+                        if(couponInput.toUpperCase() === "WELCOME10") {
+                          setIsApplied(true);
+                          // Đã thêm: Lưu mã vào localStorage để đồng bộ với CheckoutPage
+                          localStorage.setItem("appliedCoupon", "WELCOME10"); 
+                          alert("Áp dụng mã giảm giá thành công!");
+                        } else {
+                          alert("Mã giảm giá không hợp lệ");
+                          setIsApplied(false);
+                          localStorage.removeItem("appliedCoupon");
+                        }
+                      }}
+                      style={{ 
+                        width: '100px', 
+                        height: '42px', 
+                        fontFamily: 'var(--font-montserrat), sans-serif',
+                        backgroundColor: isApplied ? '#22C55E' : 'white',
+                        color: isApplied ? 'white' : '#7a33f2'
+                      }} 
+                      className="border border-[#7a33f2] rounded-[8px] text-[14px] font-bold hover:opacity-80 transition-all cursor-pointer uppercase"
+                    >
+                      {isApplied ? "ĐÃ DÙNG" : "ÁP DỤNG"}
+                    </button>
                   </div>
                 </div>
 
