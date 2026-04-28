@@ -40,6 +40,7 @@
 ## 4. Hướng dẫn chạy Local
 
 1. **Sao chép mã nguồn:** Mở terminal và thực hiện lệnh sau để tải mã nguồn từ kho lưu trữ GitHub về máy:
+```bash
 `git clone https://github.com/nguyenthikimngantn1234-lab/nhom04_royalrental.git`
 
 2. **Cài đặt thư viện:** Mở thư mục dự án có tên là "nhom04_royalrental" và tiến hành cài đặt các thư viện cần thiết bằng lệnh:
@@ -48,4 +49,4 @@
 3. **Khởi chạy dự án:**
 `npm run dev`
 
-*Sau khi máy chủ ảo được khởi tạo thành công, người dùng có thể truy cập và kiểm thử giao diện website tại địa chỉ: [http://localhost:3000/nhom04_royalrental](http://localhost:3000/nhom04_royalrental)*
+*Sau khi tạo thành công, người dùng có thể truy cập và kiểm tra giao diện website tại địa chỉ: [http://localhost:3000/nhom04_royalrental](http://localhost:3000/nhom04_royalrental)*
