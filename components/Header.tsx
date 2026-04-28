@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, Heart, ShoppingBag, X, Home, Menu } from "lucide-react";
 import { FooterSimple } from "@/components/FooterSimple";
 
-// --- DỮ LIỆU TÌM KIẾM ---
+
+// --- DỮ LIỆU TÌM KIẾM ĐÃ ĐƯỢC GẮN ID ĐỂ TRUY CẬP THẲNG TRANG SẢN PHẨM ---
 const searchProducts = [
   { id: 1, name: "Váy Cưới Xòe Cúp Ngực" },
   { id: 2, name: "Váy Cưới Đuôi Cá" },
@@ -23,6 +24,7 @@ const searchProducts = [
   { id: 22, name: "Cà vạt Silk Cao Cấp" },
   { id: 28, name: "Bộ Trang Sức Eternal" },
 ];
+
 
 // Hàm bôi vàng từ khóa trùng khớp
 const highlightText = (text: string, highlight: string) => {
@@ -56,6 +58,7 @@ const highlightText = (text: string, highlight: string) => {
   );
 };
 
+
 export const Header = () => {
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
@@ -63,17 +66,19 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // --- LOGIC NHẬN DIỆN MÀN HÌNH CHỐNG TRÀN ---
+
   const [isTablet, setIsTablet] = useState(false);
+
 
   useEffect(() => {
     const handleResize = () => {
-      // Tablet: 768px -> 1023px
       setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
     };
 
+
     handleResize();
     window.addEventListener("resize", handleResize);
+
 
     const updateCount = () => {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -82,11 +87,13 @@ export const Header = () => {
     updateCount();
     window.addEventListener("storage", updateCount);
 
+
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("storage", updateCount);
     };
   }, []);
+
 
   const handleProductClick = (productId: number) => {
     router.push(`/san-pham/${productId}`);
@@ -94,6 +101,7 @@ export const Header = () => {
     setIsMenuOpen(false);
     setSearchQuery("");
   };
+
 
   const handleSearch = (query: string) => {
     const finalQuery = query || searchQuery;
@@ -104,9 +112,16 @@ export const Header = () => {
     }
   };
 
+
   useEffect(() => {
-    document.body.style.overflow = isSearchOpen ? "hidden" : "unset";
+    if (isSearchOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+      setSearchQuery("");
+    }
   }, [isSearchOpen]);
+
 
   const filteredProducts = searchQuery.trim()
     ? searchProducts.filter((p) =>
@@ -114,9 +129,9 @@ export const Header = () => {
       )
     : [];
 
+
   return (
     <>
-      {/* 1. CSS ĐIỀU KHIỂN ẨN/HIỆN */}
       <style jsx>{`
         @media (max-width: 1023px) {
           .velixora-desktop {
@@ -136,7 +151,8 @@ export const Header = () => {
         }
       `}</style>
 
-      {/* 2. HEADER MOBILE & TABLET - LOGO CÂN XỨNG & TO RÕ */}
+
+      {/* HEADER MOBILE & TABLET */}
       <header
         className="velixora-mobile"
         style={{
@@ -156,7 +172,6 @@ export const Header = () => {
           overflow: "hidden",
         }}
       >
-        {/* NÚT MENU (Bên trái) */}
         <div style={{ zIndex: 10 }}>
           <button
             onClick={() => setIsMenuOpen(true)}
@@ -171,7 +186,7 @@ export const Header = () => {
           </button>
         </div>
 
-        {/* LOGO CHÍNH GIỮA (Kỹ thuật Absolute Center để to hơn) */}
+
         <div
           style={{
             position: "absolute",
@@ -188,7 +203,6 @@ export const Header = () => {
             <img
               style={{
                 height: "auto",
-                // Tăng nhẹ size logo: Tablet 42px, Mobile 34px
                 maxHeight: isTablet ? "42px" : "34px",
                 maxWidth: "130px",
                 objectFit: "contain",
@@ -200,7 +214,7 @@ export const Header = () => {
           </Link>
         </div>
 
-        {/* CỤM ICON (Bên phải) - Đẩy sang phải cùng */}
+
         <div
           style={{
             marginLeft: "auto",
@@ -222,6 +236,7 @@ export const Header = () => {
             <Search size={22} color="#7a33f2" />
           </button>
 
+
           <button
             style={{
               background: "none",
@@ -232,6 +247,7 @@ export const Header = () => {
           >
             <Heart size={22} color="#1e1535" />
           </button>
+
 
           <Link
             href="/gio-hang"
@@ -263,7 +279,9 @@ export const Header = () => {
           </Link>
         </div>
       </header>
-      {/* 3. HEADER DESKTOP */}
+
+
+      {/* HEADER DESKTOP */}
       <header
         className="velixora-desktop"
         style={{
@@ -306,6 +324,7 @@ export const Header = () => {
             </Link>
           </div>
 
+
           <nav>
             <ul
               style={{
@@ -318,83 +337,17 @@ export const Header = () => {
                 padding: 0,
               }}
             >
-              <li>
-                <Link
-                  href="/danh-muc?cat=Váy Cưới"
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    fontSize: "17px",
-                  }}
-                >
-                  Váy Cưới
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/danh-muc?cat=Lễ Phục Nữ"
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    fontSize: "17px",
-                  }}
-                >
-                  Lễ Phục Nữ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/danh-muc?cat=Lễ Phục Nam"
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    fontSize: "17px",
-                  }}
-                >
-                  Lễ Phục Nam
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/danh-muc?cat=Phụ Kiện"
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    fontSize: "17px",
-                  }}
-                >
-                  Phụ Kiện
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/lien-he"
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    fontWeight: 500,
-                    fontSize: "17px",
-                  }}
-                >
-                  Liên Hệ
-                </Link>
-              </li>
+              <li><Link href="/danh-muc?cat=Váy Cưới" style={{ color: "black", textDecoration: "none", fontWeight: 500, fontSize: "17px" }}>Váy Cưới</Link></li>
+              <li><Link href="/danh-muc?cat=Lễ Phục Nữ" style={{ color: "black", textDecoration: "none", fontWeight: 500, fontSize: "17px" }}>Lễ Phục Nữ</Link></li>
+              <li><Link href="/danh-muc?cat=Lễ Phục Nam" style={{ color: "black", textDecoration: "none", fontWeight: 500, fontSize: "17px" }}>Lễ Phục Nam</Link></li>
+              <li><Link href="/danh-muc?cat=Phụ Kiện" style={{ color: "black", textDecoration: "none", fontWeight: 500, fontSize: "17px" }}>Phụ Kiện</Link></li>
+              <li><Link href="/lien-he" style={{ color: "black", textDecoration: "none", fontWeight: 500, fontSize: "17px" }}>Liên Hệ</Link></li>
             </ul>
           </nav>
 
+
           <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                color: "#1e1535",
-              }}
-            >
+            <div style={{ display: "flex", alignItems: "center", gap: "20px", color: "#1e1535" }}>
               <button
                 onClick={() => setIsSearchOpen(true)}
                 style={{ color: "#7a33f2" }}
@@ -403,55 +356,25 @@ export const Header = () => {
                 <Search size={24} strokeWidth={2.5} />
               </button>
 
+
               <button className="hover:text-[#7a33f2] transition-all cursor-pointer bg-transparent border-none p-0">
                 <Heart size={24} />
               </button>
 
-              <Link
-                href="/gio-hang"
-                className="relative hover:text-[#7a33f2] transition-all cursor-pointer text-inherit no-underline"
-              >
+
+              <Link href="/gio-hang" className="relative hover:text-[#7a33f2] transition-all cursor-pointer text-inherit no-underline">
                 <ShoppingBag size={24} />
                 {cartCount > 0 && (
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "-8px",
-                      right: "-8px",
-                      backgroundColor: "#7a33f2",
-                      color: "white",
-                      fontSize: "10px",
-                      fontWeight: "bold",
-                      width: "18px",
-                      height: "18px",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <span style={{ position: "absolute", top: "-8px", right: "-8px", backgroundColor: "#7a33f2", color: "white", fontSize: "10px", fontWeight: "bold", width: "18px", height: "18px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     {cartCount}
                   </span>
                 )}
               </Link>
             </div>
 
+
             <Link href="/dang-nhap" style={{ textDecoration: "none" }}>
-              <button
-                style={{
-                  backgroundColor: "#7a33f2",
-                  color: "white",
-                  padding: "16px 35px",
-                  borderRadius: "12px",
-                  border: "none",
-                  fontWeight: "bold",
-                  fontSize: "16px",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  transition: "all 0.3s",
-                  boxShadow: "0 4px 15px rgba(122, 51, 242, 0.2)",
-                }}
-              >
+              <button style={{ backgroundColor: "#7a33f2", color: "white", padding: "16px 35px", borderRadius: "12px", border: "none", fontWeight: "bold", fontSize: "16px", textTransform: "uppercase", cursor: "pointer", transition: "all 0.3s", boxShadow: "0 4px 15px rgba(122, 51, 242, 0.2)" }}>
                 Đăng Nhập
               </button>
             </Link>
@@ -459,160 +382,32 @@ export const Header = () => {
         </div>
       </header>
 
-      {/* 4. SIDEBAR MENU MOBILE */}
+
+      {/* SIDEBAR MENU MOBILE */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMenuOpen(false)}
-              style={{
-                position: "fixed",
-                inset: 0,
-                backgroundColor: "rgba(0,0,0,0.5)",
-                zIndex: 2001,
-              }}
-            />
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "280px",
-                height: "100%",
-                backgroundColor: "white",
-                zIndex: 2002,
-                padding: "24px",
-                boxShadow: "2px 0 10px rgba(0,0,0,0.1)",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "30px",
-                }}
-              >
-                <span
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                    color: "#7a33f2",
-                  }}
-                >
-                  VELIXORA
-                </span>
-                <X
-                  size={28}
-                  onClick={() => setIsMenuOpen(false)}
-                  style={{ cursor: "pointer" }}
-                />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsMenuOpen(false)} style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.5)", zIndex: 2001 }} />
+            <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} style={{ position: "fixed", top: 0, left: 0, width: "280px", height: "100%", backgroundColor: "white", zIndex: 2002, padding: "24px", boxShadow: "2px 0 10px rgba(0,0,0,0.1)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px" }}>
+                <span style={{ fontWeight: "bold", fontSize: "20px", color: "#7a33f2" }}>VELIXORA</span>
+                <X size={28} onClick={() => setIsMenuOpen(false)} style={{ cursor: "pointer" }} />
               </div>
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
-                }}
-              >
-                <li>
-                  <Link
-                    href="/danh-muc?cat=Váy Cưới"
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      textDecoration: "none",
-                      color: "#1e1535",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Váy Cưới
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/danh-muc?cat=Lễ Phục Nữ"
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      textDecoration: "none",
-                      color: "#1e1535",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Lễ Phục Nữ
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/danh-muc?cat=Lễ Phục Nam"
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      textDecoration: "none",
-                      color: "#1e1535",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Lễ Phục Nam
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/danh-muc?cat=Phụ Kiện"
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      textDecoration: "none",
-                      color: "#1e1535",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Phụ Kiện
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/lien-he"
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      textDecoration: "none",
-                      color: "#1e1535",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Liên Hệ
-                  </Link>
-                </li>
-                <li style={{ marginTop: "10px" }}>
-                  <Link href="/dang-nhap">
-                    <button
-                      style={{
-                        width: "100%",
-                        backgroundColor: "#7a33f2",
-                        color: "white",
-                        padding: "15px",
-                        border: "none",
-                        borderRadius: "10px",
-                        fontWeight: "bold",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Đăng Nhập
-                    </button>
-                  </Link>
-                </li>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
+                <li><Link href="/danh-muc?cat=Váy Cưới" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: "none", color: "#1e1535", fontWeight: "bold" }}>Váy Cưới</Link></li>
+                <li><Link href="/danh-muc?cat=Lễ Phục Nữ" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: "none", color: "#1e1535", fontWeight: "bold" }}>Lễ Phục Nữ</Link></li>
+                <li><Link href="/danh-muc?cat=Lễ Phục Nam" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: "none", color: "#1e1535", fontWeight: "bold" }}>Lễ Phục Nam</Link></li>
+                <li><Link href="/danh-muc?cat=Phụ Kiện" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: "none", color: "#1e1535", fontWeight: "bold" }}>Phụ Kiện</Link></li>
+                <li><Link href="/lien-he" onClick={() => setIsMenuOpen(false)} style={{ textDecoration: "none", color: "#1e1535", fontWeight: "bold" }}>Liên Hệ</Link></li>
+                <li style={{ marginTop: "10px" }}><Link href="/dang-nhap"><button style={{ width: "100%", backgroundColor: "#7a33f2", color: "white", padding: "15px", border: "none", borderRadius: "10px", fontWeight: "bold", textTransform: "uppercase" }}>Đăng Nhập</button></Link></li>
               </ul>
             </motion.div>
           </>
         )}
       </AnimatePresence>
 
-      {/* 5. GIAO DIỆN TÌM KIẾM OVERLAY */}
+
+      {/* GIAO DIỆN TÌM KIẾM OVERLAY - ĐÃ CẬP NHẬT THEO MẪU CHUẨN */}
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div
@@ -640,6 +435,7 @@ export const Header = () => {
                 position: "relative",
               }}
             >
+              {/* Breadcrumb tìm kiếm */}
               <div
                 style={{
                   width: "100%",
@@ -658,6 +454,8 @@ export const Header = () => {
                 <span style={{ fontWeight: "500" }}>TÌM KIẾM</span>
               </div>
 
+
+              {/* Nút đóng Overlay */}
               <button
                 onClick={() => setIsSearchOpen(false)}
                 style={{
@@ -673,6 +471,8 @@ export const Header = () => {
                 <X size={40} color="#9ca3af" />
               </button>
 
+
+              {/* Nội dung chính của giao diện tìm kiếm */}
               <div
                 style={{
                   width: "100%",
@@ -702,6 +502,8 @@ export const Header = () => {
                   Tìm trang phục hoàn hảo cho dịp đặc biệt của bạn
                 </p>
 
+
+                {/* Thanh Input tìm kiếm */}
                 <div
                   style={{
                     position: "relative",
@@ -750,6 +552,8 @@ export const Header = () => {
                     />
                   </div>
 
+
+                  {/* Kết quả gợi ý nhanh (Dropdown) */}
                   {searchQuery && filteredProducts.length > 0 && (
                     <div
                       style={{
@@ -785,8 +589,76 @@ export const Header = () => {
                     </div>
                   )}
                 </div>
+
+
+                {/* Phần: Tìm kiếm nhiều nhất */}
+                <div style={{ marginTop: "60px" }}>
+                  <p style={{ fontSize: "18px", fontWeight: "bold", color: "#1e1535", marginBottom: "16px" }}>Tìm kiếm nhiều nhất:</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "12px", marginBottom: "40px" }}>
+                    {[
+                      { id: 2, name: "Váy Cưới Đuôi Cá" },
+                      { id: 11, name: "Áo Dài Tơ Tằm Tím" },
+                      { id: 16, name: "Tuxedo Đen" },
+                      { id: 22, name: "Cà vạt Silk Cao Cấp" },
+                      { id: 28, name: "Bộ Trang Sức Eternal" }
+                    ].map((tag) => (
+                      <button
+                        key={tag.id}
+                        onClick={() => handleProductClick(tag.id)}
+                        style={{
+                          padding: "10px 20px",
+                          backgroundColor: "white",
+                          border: "1px solid #1e1535",
+                          color: "#1e1535",
+                          borderRadius: "8px",
+                          fontWeight: "bold",
+                          fontSize: "15px",
+                          cursor: "pointer",
+                          transition: "all 0.2s",
+                        }}
+                        className="hover:border-[#7a33f2] hover:text-[#7a33f2] shadow-sm"
+                      >
+                        {tag.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+
+                {/* Phần: Duyệt theo danh mục */}
+                <p style={{ fontSize: "18px", fontWeight: "bold", color: "#1e1535", marginBottom: "20px" }}>Hoặc duyệt theo danh mục</p>
+                <div style={{ display: "flex", gap: "12px", width: "100%", justifyContent: "center", flexWrap: "wrap" }}>
+                  {["Lễ Phục Nam", "Lễ Phục Nữ", "Váy Cưới", "Phụ Kiện"].map((cat) => (
+                    <div
+                      key={cat}
+                      onClick={() => {
+                        router.push(`/danh-muc?cat=${encodeURIComponent(cat)}`);
+                        setIsSearchOpen(false);
+                      }}
+                      style={{
+                        minWidth: "150px",
+                        padding: "15px 10px",
+                        backgroundColor: "white",
+                        border: "1px solid #1e1535",
+                        color: "#1e1535",
+                        borderRadius: "8px",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        textAlign: "center",
+                        transition: "all 0.2s",
+                      }}
+                      className="hover:border-[#7a33f2] hover:text-[#7a33f2] hover:-translate-y-1 shadow-sm"
+                    >
+                      {cat}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+
+
+            {/* Footer ở cuối Overlay */}
             <div style={{ width: "100%", flexShrink: 0 }}>
               <FooterSimple />
             </div>
