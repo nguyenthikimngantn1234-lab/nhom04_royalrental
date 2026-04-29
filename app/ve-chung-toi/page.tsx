@@ -105,10 +105,10 @@ export default function AboutPage() {
             
             <div className="w-full flex justify-center">
               <div className="team-grid grid">
-                <TeamMemberCard name="Nguyễn Thị Kim Ngân" mssv="24126146" role="Frontend Developer" image="/nhom04_royalrental/images/tv1.png" />
-                <TeamMemberCard name="Lê Yến Ngân" mssv="24126144" role="Frontend Developer" image="/nhom04_royalrental/images/tv2.png" />
-                <TeamMemberCard name="Nguyễn Thị Thanh Giang" mssv="24126049" role="Frontend Developer" image="/nhom04_royalrental/images/tv3.png" />
-                <TeamMemberCard name="Hà Kiều Khanh" mssv="24126095" role="Frontend Developer" image="/nhom04_royalrental/images/tv4.png" />
+                <TeamMemberCard name="Nguyễn Thị Kim Ngân" mssv="24126146" role="Frontend Developer" image="tv1.png" />
+                <TeamMemberCard name="Lê Yến Ngân" mssv="24126144" role="Frontend Developer" image="tv2.png" />
+                <TeamMemberCard name="Nguyễn Thị Thanh Giang" mssv="24126049" role="Frontend Developer" image="tv3.png" />
+                <TeamMemberCard name="Hà Kiều Khanh" mssv="24126095" role="Frontend Developer" image="tv4.png" />
               </div>
             </div>
           </div>
