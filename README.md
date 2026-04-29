@@ -49,3 +49,4 @@
 `npm run dev`
 
 *Sau khi tạo thành công, người dùng có thể truy cập và kiểm tra giao diện website tại địa chỉ: [http://localhost:3000/nhom04_royalrental](http://localhost:3000/nhom04_royalrental)*
+## 5. Link video báo cáo: https://youtu.be/Bs8W4PQ1eyE?si=1l7fI9Eg7sS05Lwh
